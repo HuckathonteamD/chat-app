@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}
+  <title>home</title>
+  <style>h1{display:inline}</style>
+{% endblock %}
+{% block body %}
+  <div class="main-container channelpage">
+    <div class="bg-img"></div>
+    <div class="main-content">
+      <div class="channel-title">
+        <h1>チャンネル一覧</h1>
+        <a href="{{ url_for('logout') }}">logout</a><br>
+        <button id="add-channel-btn">チャンネル作成</button>
+      </div>
+      <div class="pagination-container">
+        <p id="prev"><</li>
+        <ul class="pagination"></ul>
+        <p id="next">></p>
+      </div>
+      <ul class="channel-box"></ul>
+    </div>
+  </div>
+{% endblock %}

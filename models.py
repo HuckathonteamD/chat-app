@@ -59,3 +59,61 @@ class dbConnect:
             return None
         finally:
             cur.close()
+
+
+    def getChannelById(cid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT * FROM channels WHERE id=%s;"
+            cur.execute(sql, (cid))
+            channel = cur.fetchone()
+            return channel
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def getChannelByName(channel_name):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT * FROM channels WHERE name=%s;"
+            cur.execute(sql, (channel_name))
+            channel = cur.fetchone()
+            return channel
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def addChannel(uid, newChannelName, newChannelDescription, date):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "INSERT INTO channels (uid, name, abstract, created_at, updated_at) VALUES (%s, %s, %s, %s, %s);"
+            cur.execute(sql, (uid, newChannelName, newChannelDescription, date, date))
+            conn.commit()
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def deleteChannel(cid):
+        try: 
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "DELETE FROM channels WHERE id=%s;"
+            cur.execute(sql, (cid))
+            conn.commit()
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()

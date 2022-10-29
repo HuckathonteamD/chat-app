@@ -124,9 +124,67 @@ def delete_channel(cid):
             return render_template('index.html', channels=channels, uid=uid)
 
 
+# uidもmessageと一緒に返す
+@app.route('/detail/<cid>')
+def detail(cid):
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    cid = cid
+    channel = dbConnect.getChannelById(cid)
+    messages = dbConnect.getMessageAll(cid)
+
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid)
 
 
+@app.route('/update_channel', methods=['POST'])
+def update_channel():
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    cid = request.form.get('cid')
+    channel_name = request.form.get('channel-title')
+    channel_description = request.form.get('channel-description')
+    current_date = datetime.now()
 
+    dbConnect.updateChannel(uid, channel_name, channel_description, current_date, cid)
+    channel = dbConnect.getChannelById(cid)
+    messages = dbConnect.getMessageAll(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid)
+
+
+@app.route('/message', methods=['POST'])
+def add_message():
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    message = request.form.get('message')
+    channel_id = request.form.get('channel_id')
+    current_date = datetime.now()
+
+    if message:
+        dbConnect.createMessage(uid, channel_id, message, current_date)
+
+    channel = dbConnect.getChannelById(channel_id)
+    messages = dbConnect.getMessageAll(channel_id)
+
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid)
+
+
+@app.route('/delete_message', methods=['POST'])
+def delete_message():
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    message_id = request.form.get('message_id')
+    cid = request.form.get('channel_id')
+    if message_id:
+        dbConnect.deleteMessage(message_id)
+
+    channel = dbConnect.getChannelById(cid)
+    messages = dbConnect.getMessageAll(cid)
+
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid)
 
 
 @app.errorhandler(404)

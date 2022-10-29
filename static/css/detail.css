@@ -1,0 +1,43 @@
+.box {
+    width: 200px;
+    margin: 0;
+    border-radius: 10px;
+}
+
+.message-updatetime-right{
+    font-size:5px;
+    margin-left: 200px;
+}
+
+.message-updatetime-left{
+    font-size:5px;
+    margin-top: 0;
+}
+
+.delete-message-btn{
+    font-size:3px;
+}
+
+.user-name{
+    padding: 0;
+    margin: 10px 0px 0px 0px; 
+}
+
+.box-left {
+    border: 1px solid;
+    background-color: papayawhip;
+}
+
+.box-right {
+    border: 1px solid;
+    background-color: greenyellow;
+    margin-left: 200px;
+}
+
+.typing-box-wrapper {
+    margin-top: 20px;
+}
+
+.typing-box textarea {
+    width: 400px;
+}

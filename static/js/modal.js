@@ -8,11 +8,8 @@ const deletePageButtonClose = document.getElementById("delete-page-close-btn");
 
 const addChannelBtn = document.getElementById("add-channel-btn");
 
-const addChannelConfirmBtn = document.getElementById("add-channel-confirmation-btn");
-const deleteChannelConfirmBtn = document.getElementById("delete-channel-confirmation-btn");
-
 // モーダルを開く
-// <button id="add-channel-btn">チャンネル追加</button>ボタンがクリックされた時
+// <button id="add-channel-btn">新規チャンネル作成</button>ボタンがクリックされた時
 addChannelBtn.addEventListener("click", () => {
   modalOpen("add");
 });

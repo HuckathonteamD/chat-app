@@ -17,7 +17,7 @@
           <h3 id="chatroom-description">{{ channel.abstract }}</h3>
         {% endif %}
         {% if uid == channel.uid %}
-          <button id='update-channel-btn' class="basic-btn smaller-btn">チェンネル詳細編集</button>
+          <button id="update-channel-btn" class="basic-btn smaller-btn">チェンネル詳細編集</button>
           {% include 'modal/update-channel.html' %}
         {% endif %}
         <a href="{{ url_for('index') }}">チャンネル一覧へ</a>
@@ -75,7 +75,7 @@
     const uid = JSON.parse('{{ uid|tojson }}');
   </script>
   <script
-    src="{{url_for('static',filename='js/scroll-message.js')}}"
+    src="{{url_for('static',filename='js/update-channel.js')}}"
     type="text/javascript"
   ></script>
 {% endblock %}

@@ -1,7 +1,7 @@
 from flask import Flask, request, redirect, render_template, session, flash
 from models import dbConnect
 from util.user import User
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, timezone
 import hashlib
 import uuid
 import re
@@ -37,7 +37,7 @@ def userSignup():
         password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
         user = User(uid, name, email, password)
         DBuser = dbConnect.getUser(email)
-        current_date = datetime.now()
+        current_date = datetime.now(timezone(timedelta(hours=9)))
 
         if DBuser != None:
             flash('既に登録されているようです')
@@ -100,7 +100,7 @@ def add_channel():
     channel = dbConnect.getChannelByName(channel_name)
     if channel == None:
         channel_description = request.form.get('channel-description')
-        current_date = datetime.now()
+        current_date = datetime.now(timezone(timedelta(hours=9)))
         dbConnect.addChannel(uid, channel_name, channel_description, current_date)
         return redirect('/')
     else:
@@ -133,8 +133,8 @@ def detail(cid):
     cid = cid
     channel = dbConnect.getChannelById(cid)
     messages = dbConnect.getMessageAll(cid)
-
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid)
+    follows = dbConnect.getFollowById(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
 
 
 @app.route('/update_channel', methods=['POST'])
@@ -145,12 +145,13 @@ def update_channel():
     cid = request.form.get('cid')
     channel_name = request.form.get('channel-title')
     channel_description = request.form.get('channel-description')
-    current_date = datetime.now()
+    current_date = datetime.now(timezone(timedelta(hours=9)))
 
     dbConnect.updateChannel(uid, channel_name, channel_description, current_date, cid)
     channel = dbConnect.getChannelById(cid)
     messages = dbConnect.getMessageAll(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid)
+    follows = dbConnect.getFollowById(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
 
 
 @app.route('/message', methods=['POST'])
@@ -160,15 +161,16 @@ def add_message():
         return redirect('/login')
     message = request.form.get('message')
     channel_id = request.form.get('channel_id')
-    current_date = datetime.now()
+    current_date = datetime.now(timezone(timedelta(hours=9)))
 
     if message:
         dbConnect.createMessage(uid, channel_id, message, current_date)
 
     channel = dbConnect.getChannelById(channel_id)
     messages = dbConnect.getMessageAll(channel_id)
+    follows = dbConnect.getFollowById(channel_id)
 
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
 
 
 @app.route('/delete_message', methods=['POST'])
@@ -183,8 +185,29 @@ def delete_message():
 
     channel = dbConnect.getChannelById(cid)
     messages = dbConnect.getMessageAll(cid)
+    follows = dbConnect.getFollowById(cid)
 
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
+
+
+@app.route('/follow/<cid>')
+def follow_channel(cid):
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    else:
+        follows = dbConnect.getFollowById(cid)
+        for follow in follows:
+            if follow["uid"] == uid:
+                flash('既にフォロー済みです')
+                return redirect ('/')
+        
+        dbConnect.followChannel(uid, cid)
+        channel = dbConnect.getChannelById(cid)
+        messages = dbConnect.getMessageAll(cid)
+        follows = dbConnect.getFollowById(cid)
+
+        return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
 
 
 @app.errorhandler(404)

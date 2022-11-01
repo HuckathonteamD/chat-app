@@ -2,9 +2,14 @@
 {% block title %}
   <title>chatroom</title>
   <style>
-    h1{display: inline;}
-    h3{display: inline; margin-left: 10px;}
+    h1{line-height: 1.2em;margin: 0px 10px 0px 10px;}
+    h3{margin: 0px 10px 0px 10px;}
     .modal-header{display: flex;justify-content: space-between;}
+    #chat-header{display: flex;align-items: flex-end;}
+    .chatroom-btn{display: flex;}
+    .follow-box{display: flex;flex-wrap: nowrap;margin: 0px 10px 0px 10px;padding-left: 0}
+    li{list-style: none;}
+    .logout{margin-left: 10px;}
   </style>
 {% endblock %}
 {% block body %}
@@ -16,19 +21,24 @@
         {% if channel.abstract is not none %}
           <h3 id="chatroom-description">{{ channel.abstract }}</h3>
         {% endif %}
-        {% if uid == channel.uid %}
-          <button id="update-channel-btn" class="basic-btn smaller-btn">チェンネル詳細編集</button>
-          {% include 'modal/update-channel.html' %}
-        {% endif %}
+        <div class="chatroom-btn">
+          {% if uid == channel.uid %}
+            <button id="update-channel-btn" class="update-channel-btn">チェンネル詳細編集</button>
+            {% include 'modal/update-channel.html' %}
+          {% endif %}
+          <!-- フォローボタンの表示 -->
+          <ul class="follow-box"></ul>
+          {% include 'modal/follow-channel.html' %}
+        </div>
         <a href="{{ url_for('index') }}">チャンネル一覧へ</a>
-        <a href="{{ url_for('logout') }}">logout</a><br>
+        <a class="logout" href="{{ url_for('logout') }}">logout</a><br>
       </div>
       <div id="message-area">
         {% if messages|length > 0 %}
           {% for message in messages %}
             {% if message.uid == uid %}
               <div class="my-messages">
-                <p class="message-updatetime-right">{{ message.updated_at }}</p>
+                <p class="message-updatetime-right">{{ message.updated_at.strftime("%Y-%m-%d %H:%M") }}</p>
                 <div class="box box-right">
                   <p>{{ message.message }}</p>
                   <form action="/delete_message" method="POST">
@@ -47,7 +57,7 @@
             {% else %}
               <div class="messages">
                 <p class="user-name">{{ message.user_name }}</p>
-                <p class="message-updatetime-left">{{ message.updated_at }}</p>
+                <p class="message-updatetime-left">{{ message.updated_at.strftime("%Y-%m-%d %H:%M") }}</p>
                 <p class="box box-left">{{ message.message }}</p>
               </div>
             {% endif %}
@@ -73,7 +83,12 @@
   <script type="text/javascript">
     const channel = JSON.parse('{{ channel|tojson }}');
     const uid = JSON.parse('{{ uid|tojson }}');
+    const follows = JSON.parse('{{ follows|tojson }}');
   </script>
+   <script
+   src="{{url_for('static',filename='js/follow-channel.js')}}"
+   type="text/javascript"
+ ></script>
   <script
     src="{{url_for('static',filename='js/update-channel.js')}}"
     type="text/javascript"

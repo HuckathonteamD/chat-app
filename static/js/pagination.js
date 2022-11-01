@@ -35,17 +35,24 @@ const pagination = () => {
       if (i < first - 1 || i > last - 1) return;
       const a = document.createElement("a");
       const li = document.createElement("li");
+      const p = document.createElement("p");
 
       // チャット画面へのリンク追加
       const url = `/detail/${item.id}`;
       a.setAttribute("href", url);
 
+      a.classList.add("channel-name")
       a.innerText = item.name;
       li.appendChild(a);
-      // もしチャンネル作成者uidとuidが同じだったら削除ボタンを追加
+      p.innerText = item.abstract;
+      p.classList.add("channel-abstract")
+      li.appendChild(p);
+
+      // もしチャンネル作成者uidとuidが同じだったら、削除ボタンを追加
       if (uid === item.uid) {
         const deleteButton = document.createElement("button");
         deleteButton.innerText = "削除";
+        deleteButton.classList.add("delete-channel-btn")
         li.appendChild(deleteButton);
         deleteButton.addEventListener("click", () => {
           modalOpen("delete");

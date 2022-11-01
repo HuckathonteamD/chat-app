@@ -16,6 +16,7 @@ class dbConnect:
             cur.close()
 
 
+    # 最終的に使用されていなければ削除
     def getUserId(email):
         try:
             conn = DB.getConnection()
@@ -168,6 +169,35 @@ class dbConnect:
             cur = conn.cursor()
             sql = "DELETE FROM messages WHERE id=%s;"
             cur.execute(sql, (message_id))
+            conn.commit()
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def getFollowById(cid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT * FROM user_follow_channel WHERE cid=%s;"
+            cur.execute(sql, (cid))
+            follows = cur.fetchall()
+            return follows
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+    
+
+    def followChannel(uid, cid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "INSERT INTO user_follow_channel(uid, cid) VALUES(%s, %s)"
+            cur.execute(sql, (uid, cid))
             conn.commit()
         except Exception as e:
             print(e + 'が発生しています')

@@ -1,0 +1,19 @@
+<div id="update-message-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>メッセージ編集</h5>
+        <span class="modalClose" id="update-message-page-close-btn">×</span>
+      </div>
+      <form class="modal-body" action="/update_message" method="POST">
+        <input
+          type="text"
+          placeholder="メッセージ"
+          class="message-form-input"
+          name="update-message"
+        />
+        <input type="hidden" name="cid" value="{{ channel.id }}">
+        <input id="update-messageid-confirm" type="hidden" name="mid" >
+        <button>変更</button>
+      </form>
+    </div>
+</div>

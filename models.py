@@ -124,7 +124,7 @@ class dbConnect:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT id, u.uid, user_name, message, m.updated_at FROM messages AS m INNER JOIN users AS u ON m.uid = u.uid WHERE cid = %s;"
+            sql = "SELECT id, u.uid, user_name, message, m.created_at, m.updated_at FROM messages AS m INNER JOIN users AS u ON m.uid = u.uid WHERE cid = %s;"
             cur.execute(sql, (cid))
             messages = cur.fetchall()
             return messages
@@ -170,6 +170,35 @@ class dbConnect:
             sql = "DELETE FROM messages WHERE id=%s;"
             cur.execute(sql, (message_id))
             conn.commit()
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def updateMessage(uid, cid, newMessage, date, mid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "UPDATE messages SET uid=%s, cid=%s, message=%s, updated_at=%s WHERE id=%s;"
+            cur.execute(sql, (uid, cid, newMessage, date, mid))
+            conn.commit()
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def getUserIdByMessageId(mid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT uid FROM messages WHERE id=%s;"
+            cur.execute(sql, (mid))
+            uid = cur.fetchone()
+            return uid
         except Exception as e:
             print(e + 'が発生しています')
             return None

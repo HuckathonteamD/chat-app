@@ -7,15 +7,22 @@
 .message-updatetime-right{
     font-size:5px;
     margin-left: 200px;
+    margin-bottom: 0;
 }
 
 .message-updatetime-left{
     font-size:5px;
     margin-top: 0;
+    margin-bottom: 0;
 }
 
-.delete-message-btn{
+#update-message-btn{
     font-size:3px;
+}
+
+#delete-message-btn{
+    font-size:3px;
+    margin-left: 5px;
 }
 
 .user-name{

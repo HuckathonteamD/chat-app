@@ -210,6 +210,18 @@ def follow_channel(cid):
         return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
 
 
+@app.route('/my_page')
+def my_page():
+    uid = session.get("uid")
+    if uid is None:
+        return redirect ('/login')
+    else:
+        user_name = dbConnect.getUserName(uid)
+        email = dbConnect.getUserEmail(uid)
+        follow_channels = dbConnect.getFollowChannelAll(uid)
+    return render_template('my_page.html', user_name=user_name, email=email, follow_channels=follow_channels)
+
+
 @app.errorhandler(404)
 def show_error404(error):
     return render_template('error/404.html')

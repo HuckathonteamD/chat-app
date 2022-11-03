@@ -204,3 +204,48 @@ class dbConnect:
             return None
         finally:
             cur.close()
+    
+
+    def getFollowChannelAll(uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT cid FROM user_follow_channel WHERE uid=%s;"
+            cur.execute(sql, (uid))
+            follow_channels = cur.fetchall()
+            return follow_channels
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def getUserName(uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT user_name FROM users WHERE uid=%s;"
+            cur.execute(sql,(uid))
+            user_name = cur.fetchone()
+            return user_name
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def getUserEmail(uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT email FROM users WHERE uid=%s;"
+            cur.execute(sql,(uid))
+            email = cur.fetchone()
+            return email
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()

@@ -218,7 +218,7 @@ def my_page():
     else:
         user_name = dbConnect.getUserName(uid)
         email = dbConnect.getUserEmail(uid)
-        follow_channels = dbConnect.getFollowChannelAll(uid)
+        follow_channels = dbConnect.getFollowChannelNameAll(uid)
     return render_template('my_page.html', user_name=user_name, email=email, follow_channels=follow_channels)
 
 

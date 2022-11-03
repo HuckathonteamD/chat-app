@@ -206,11 +206,11 @@ class dbConnect:
             cur.close()
     
 
-    def getFollowChannelAll(uid):
+    def getFollowChannelNameAll(uid):
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT cid FROM user_follow_channel WHERE uid=%s;"
+            sql = "SELECT c.name FROM user_follow_channel AS u INNER JOIN channels AS c ON u.cid=c.id WHERE c.uid=%s;"
             cur.execute(sql, (uid))
             follow_channels = cur.fetchall()
             return follow_channels

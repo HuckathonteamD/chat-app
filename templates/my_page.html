@@ -4,10 +4,13 @@
 {% endblock %}
 {% block body %}
   <h1>マイページ</h1>
+  <a href="{{ url_for('index') }}">チャンネル一覧へ</a>
+  <a href="{{ url_for('logout') }}">logout</a><br>
+
   <p>name: {{user_name.user_name}}</p>
   <p>email: {{email.email}}</p>
   <p>follow channels: </p>
 {% for follow_channel in follow_channels %}
-  <p>{{follow_channel.cid}}</p>
+  <p>{{follow_channel.name}}</p>
 {% endfor %}
 {% endblock %}

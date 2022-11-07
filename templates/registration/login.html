@@ -3,28 +3,31 @@
   <title>login</title>
 {% endblock %}
 {% block body %}
-  <div class="registration-wrapper login">
-    <div class="registration-main login-main">
-      <div class="half-circle green">
-        <form class="registration-form" method="post">
-          <h1 class="registration-title">LOG IN</h1>
-          <input type="text" placeholder="Email" name="email" />
-          <input type="password" placeholder="Password" name="password" />
-          <button class="green">LOG IN</button>
-          {% with messages = get_flashed_messages() %}
-            {% if messages %}
-              <ul class="flashes">
-                {% for message in messages %}
-                  <li>{{ message }}</li>
-                {% endfor %}
-              </ul>
-            {% endif %}
-          {% endwith %}
-          <a class="switch-register-mode" href="{{ url_for('signup') }}">
-            Not registered yet?
-          </a>
-        </form>
-      </div>
-    </div>
+<body background="../../static/img/back.jpg">
+  <div class="sikaku"></div>
+  <div class="marusikaku"></div>
+  <div class="login-logo">
+    <img src="./static/img/Loginlogo.png">
   </div>
+  <div id="login-box">
+    <h1 class="h1">Login</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form class="registration-form" method="post">
+      <input type="email" placeholder="Email" name="email" />
+      <input type="password" placeholder="Password" name="password" />
+      <button class="login-button">LOG IN</button>
+      <a class="switch-register-mode" href="{{ url_for('signup') }}">
+        Not registered yet?
+      </a>
+    </form>
+  </div>
+</body>
 {% endblock %}

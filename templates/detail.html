@@ -35,12 +35,12 @@
         <a class="logout" href="{{ url_for('logout') }}">logout</a><br>
       </div>
       <div id="message-area">
-        <!-- {% if messages|length > 0 %} -->
+        {% if messages|length > 0 %}
           <!-- メッセージ表示 -->
           <div class="message-box"></div>
-        <!-- {% else %} -->
-          <div><p>まだメッセージがありません</p></div>
-        <!-- {% endif %} -->
+        {% else %}
+          <div>まだメッセージがありません</div>
+        {% endif %}
         {% include 'modal/update-message.html' %}
         {% include 'modal/delete-message.html' %}
       </div>

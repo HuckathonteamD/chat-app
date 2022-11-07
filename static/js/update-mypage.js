@@ -5,11 +5,11 @@ const updateMyPageButtonClose = document.getElementById("update-mypage-close-btn
 
 // モーダルを開く
 function modalOpen(mode) {
-  if (mode === "update") {
-    if (uid !== channel.uid) {
+  if (mode === "update-mypage") {
+    if (uid !== uid.uid) {
       return;
     } else {
-      updateMyPagelModal.style.display = "block";
+      updateMyPageModal.style.display = "block";
     } 
 }
 
@@ -35,5 +35,5 @@ updateMyPageButtonClose.addEventListener("click", () => {
 addEventListener("click", (e) => {
   if (e.target == updateMyPageModal) {
     updateMyPageModal.style.display = "none";
+  }
 });
-}

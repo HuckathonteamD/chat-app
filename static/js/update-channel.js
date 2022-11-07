@@ -15,6 +15,7 @@ function modalOpen(mode) {
       return;
     } else {
       updateChannelModal.style.display = "block";
+    }
   } else if (mode === "follow") {
     followChannelModal.style.display = "block";
   }
@@ -52,4 +53,5 @@ addEventListener("click", (e) => {
     updateChannelModal.style.display = "none";
   } else if (e.target == followChannelModal) {
     followChannelModal.style.display = "none";
+  }
 });

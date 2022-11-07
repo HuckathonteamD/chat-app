@@ -47,6 +47,21 @@ class dbConnect:
             cur.close
 
 
+    def getUserName(user_name):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT * FROM users WHERE user_name=%s;"
+            cur.execute(sql, (user_name))
+            user = cur.fetchone()
+            return user
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close
+
+
     def getChannelAll():
         try:
             conn = DB.getConnection()
@@ -124,7 +139,7 @@ class dbConnect:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT id, u.uid, user_name, message, m.created_at, m.updated_at FROM messages AS m INNER JOIN users AS u ON m.uid = u.uid WHERE cid = %s;"
+            sql = "SELECT id, u.uid, user_name, message, m.created_at, m.updated_at FROM messages AS m INNER JOIN users AS u ON m.uid = u.uid WHERE cid = %s ORDER BY id;"
             cur.execute(sql, (cid))
             messages = cur.fetchall()
             return messages

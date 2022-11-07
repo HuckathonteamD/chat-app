@@ -61,5 +61,5 @@ if( messages ){
         div.appendChild(pMsgDateExt);
         div.appendChild(pMsgExt);
         }
-    })
+    });
 }

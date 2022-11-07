@@ -249,3 +249,17 @@ class dbConnect:
             return None
         finally:
             cur.close()
+
+
+    def updateUserInfo(newUserName, newEmail, newPassword, date, uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "UPDATE users SET name=%s, email=%s, password=%s, updated_at=%s WHERE id=%s;"
+            cur.execute(sql, (newUserName, newEmail, newPassword, date, uid))
+            conn.commit()
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()

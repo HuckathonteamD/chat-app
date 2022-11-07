@@ -1,0 +1,29 @@
+<div id="update-mypage-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>ユーザー情報編集</h5>
+        <span class="modalClose" id="update-mypage-close-btn">×</span>
+      </div>
+      <form class="modal-body" action="/update_mypage" method="POST">
+        <input
+          type="text"
+          placeholder="ユーザー名"
+          class="channel-form-input"
+          name="user-name"
+        />
+        <input
+          type="text"
+          placeholder="メールアドレス"
+          class="channel-form-input"
+          name="email"
+        />
+        <input
+          type="text"
+          placeholder="パスワード"
+          class="channel-form-input"
+          name="password"
+        <input type="hidden" name='uid' value='{{ user.id }}'>
+          <button>変更</button>
+      </form>
+    </div>
+  </div>

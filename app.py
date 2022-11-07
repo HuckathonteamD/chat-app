@@ -222,6 +222,24 @@ def my_page():
     return render_template('my_page.html', user_name=user_name, email=email, follow_channels=follow_channels)
 
 
+@app.route('/update_userInfo', methods=['POST'])
+def update_userInfo():
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    user_name = request.form.get('user-name')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    current_date = datetime.now(timezone(timedelta(hours=9)))
+
+    dbConnect.updateUserInfo(user_name, email, password, current_date, uid)
+    user_name = dbConnect.getUserName(uid)
+    email = dbConnect.getUserEmail(uid)
+    password = dbConnect.getPassword(uid)
+    return render_template('my_page.html', user_name=user_name, email=email, password=password)
+
+
+
 @app.errorhandler(404)
 def show_error404(error):
     return render_template('error/404.html')

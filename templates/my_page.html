@@ -6,6 +6,7 @@
   <h1>マイページ</h1>
   <a href="{{ url_for('index') }}">チャンネル一覧へ</a>
   <a href="{{ url_for('logout') }}">logout</a><br>
+  <button id="update-mypage-btn">ユーザー情報編集</button>
 
   <p>name: {{user_name.user_name}}</p>
   <p>email: {{email.email}}</p>

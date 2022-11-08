@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, render_template, session, flash
 from models import dbConnect
 from util.user import User
+from util.dateformat import dateFormat
 from datetime import timedelta, datetime, timezone
 import hashlib
 import uuid
@@ -37,9 +38,10 @@ def userSignup():
         password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
         user = User(uid, name, email, password)
         DBuser = dbConnect.getUser(email)
+        DBusername = dbConnect.getUserName(name)
         current_date = datetime.now(timezone(timedelta(hours=9)))
 
-        if DBuser != None:
+        if DBuser != None or DBusername != None:
             flash('既に登録されているようです')
         else:
             dbConnect.createUser(user,current_date)
@@ -132,7 +134,7 @@ def detail(cid):
         return redirect('/login')
     cid = cid
     channel = dbConnect.getChannelById(cid)
-    messages = dbConnect.getMessageAll(cid)
+    messages = dateFormat.getMessages(dbConnect.getMessageAll(cid))
     follows = dbConnect.getFollowById(cid)
     return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
 
@@ -149,7 +151,7 @@ def update_channel():
 
     dbConnect.updateChannel(uid, channel_name, channel_description, current_date, cid)
     channel = dbConnect.getChannelById(cid)
-    messages = dbConnect.getMessageAll(cid)
+    messages = dateFormat.getMessages(dbConnect.getMessageAll(cid))
     follows = dbConnect.getFollowById(cid)
     return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
 
@@ -167,7 +169,7 @@ def add_message():
         dbConnect.createMessage(uid, channel_id, message, current_date)
 
     channel = dbConnect.getChannelById(channel_id)
-    messages = dbConnect.getMessageAll(channel_id)
+    messages = dateFormat.getMessages(dbConnect.getMessageAll(channel_id))
     follows = dbConnect.getFollowById(channel_id)
 
     return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
@@ -178,15 +180,34 @@ def delete_message():
     uid = session.get("uid")
     if uid is None:
         return redirect('/login')
-    message_id = request.form.get('message_id')
+    mid = request.form.get('message_id')
     cid = request.form.get('channel_id')
-    if message_id:
-        dbConnect.deleteMessage(message_id)
+    if mid:
+        dbConnect.deleteMessage(mid)
 
     channel = dbConnect.getChannelById(cid)
-    messages = dbConnect.getMessageAll(cid)
+    messages = dateFormat.getMessages(dbConnect.getMessageAll(cid))
     follows = dbConnect.getFollowById(cid)
 
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
+
+
+@app.route('/update_message', methods=['POST'])
+def update_message():
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    cid = request.form.get('cid')
+    mid = request.form.get('mid')
+    message = request.form.get('update-message')
+    current_date = datetime.now(timezone(timedelta(hours=9)))
+
+    message_uid = dbConnect.getUserIdByMessageId(mid)
+    if message_uid["uid"] == uid:
+        dbConnect.updateMessage(uid, cid, message, current_date, mid)
+    channel = dbConnect.getChannelById(cid)
+    messages = dateFormat.getMessages(dbConnect.getMessageAll(cid))
+    follows = dbConnect.getFollowById(cid)
     return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
 
 
@@ -204,7 +225,7 @@ def follow_channel(cid):
         
         dbConnect.followChannel(uid, cid)
         channel = dbConnect.getChannelById(cid)
-        messages = dbConnect.getMessageAll(cid)
+        messages = dateFormat.getMessages(dbConnect.getMessageAll(cid))
         follows = dbConnect.getFollowById(cid)
 
         return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)

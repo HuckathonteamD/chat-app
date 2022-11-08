@@ -5,9 +5,8 @@ let followbool = 'true';
 const ul = document.querySelector(".follow-box");
 ul.innerHTML = "";
 
-console.log(follows);
 follows.forEach((item) => {
-  if(channel.id === item.cid){
+  if(channel.id === item.cid && uid === item.uid){
     const li = document.createElement("li");
     li.innerText = "フォロー中です";
     ul.appendChild(li);

@@ -6,16 +6,17 @@ const updateMyPageButtonClose = document.getElementById("update-mypage-close-btn
 // モーダルを開く
 function modalOpen(mode) {
   if (mode === "update_mypage") {
-    if (uid !== uid.uid) {
-      return;
-    } else {
+    // if (uid !== .uid) {
+    //   return;
+    // } else {
       updateMyPageModal.style.display = "block";
-    } 
+    // } 
+  }
 }
 
 
 updateMyPageBtn.addEventListener("click", () => {
-  modalOpen("update-mypage");
+  modalOpen("update_mypage");
 });
 
 
@@ -28,8 +29,8 @@ function modalClose(mode) {
 }
 
 updateMyPageButtonClose.addEventListener("click", () => {
-  modalClose("update-mypage");
-}
+  modalClose("update_mypage");
+});
 
 // モーダルコンテンツ以外がクリックされた時
 addEventListener("click", (e) => {

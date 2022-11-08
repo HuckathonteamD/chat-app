@@ -238,26 +238,29 @@ def my_page():
         return redirect ('/login')
     else:
         user_name = dbConnect.getUserName(uid)
+        if user_name is None:
+            flash('ユーザー情報は本人のみ編集可能です')
+            return redirect ('/')
         email = dbConnect.getUserEmail(uid)
         follow_channels = dbConnect.getFollowChannelNameAll(uid)
     return render_template('my_page.html', user_name=user_name, email=email, follow_channels=follow_channels)
 
 
-@app.route('/update_userInfo', methods=['POST'])
+@app.route('/update_mypage', methods=['POST'])
 def update_userInfo():
     uid = session.get("uid")
     if uid is None:
         return redirect('/login')
     user_name = request.form.get('user-name')
-    email = request.form.get('email')
-    password = request.form.get('password')
+    email = request.form.get('email')       #TODO パターン一致しているか
+    password = request.form.get('password') # TODO ハッシュ化する
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
     dbConnect.updateUserInfo(user_name, email, password, current_date, uid)
     user_name = dbConnect.getUserName(uid)
     email = dbConnect.getUserEmail(uid)
-    password = dbConnect.getPassword(uid)
-    return render_template('my_page.html', user_name=user_name, email=email, password=password)
+
+    return render_template('my_page.html', user_name=user_name, email=email)
 
 
 

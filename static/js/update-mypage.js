@@ -5,7 +5,7 @@ const updateMyPageButtonClose = document.getElementById("update-mypage-close-btn
 
 // モーダルを開く
 function modalOpen(mode) {
-  if (mode === "update-mypage") {
+  if (mode === "update_mypage") {
     if (uid !== uid.uid) {
       return;
     } else {
@@ -22,7 +22,7 @@ updateMyPageBtn.addEventListener("click", () => {
 
 // モーダルを閉じる
 function modalClose(mode) {
-  if (mode === "update-mypage") {
+  if (mode === "update_mypage") {
     updateMyPageModal.style.display = "none";
   }
 }

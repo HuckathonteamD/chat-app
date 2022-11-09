@@ -276,7 +276,8 @@ def update_userInfo():
             dbConnect.updateUserInfo(user, current_date)
             name = dbConnect.getUserName(uid)
             email = dbConnect.getUserEmail(uid)
-        return render_template('my_page.html', user_name=name, email=email)
+            follow_channels = dbConnect.getFollowChannelNameAll(uid)
+        return render_template('my_page.html', user_name=name, email=email, follow_channels=follow_channels)
 
 
 @app.errorhandler(404)

@@ -2,27 +2,32 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5>ユーザー情報編集</h5>
-        <span class="modalClose" id="update-mypage-close-btn">×</span>
+        <span class="modalClose" id="update-mypage-close-btn"></span>
       </div>
       <form class="modal-body" action="/update_mypage" method="POST">
         <input
           type="text"
-          placeholder="ユーザー名"
+          placeholder="User Name"
           class="channel-form-input"
-          name="user-name"
+          name="name"
         />
         <input
           type="email"
-          placeholder="メールアドレス"
+          placeholder="Email"
           class="channel-form-input"
           name="email"
         />
-        <!--TODO password 2回入力 signupとおなじ操作をする  -->
         <input
           type="password"
-          placeholder="パスワード"
+          placeholder="Password"
           class="channel-form-input"
-          name="password"
+          name="password1"
+        />
+        <input
+          type="password"
+          placeholder="Password Confirmation"
+          class="channel-form-input"
+          name="password2"
         />
         <!-- input type="hidden" name='uid' value=' user.id '> -->
           <button>変更</button>

@@ -8,15 +8,14 @@
   <a href="{{ url_for('logout') }}">logout</a><br>
   <button id="update-mypage-btn">ユーザー情報編集</button>
   {% include 'modal/update-mypage.html' %}
-  <p>name: {{user_name.user_name}}</p>
-  <p>email: {{email.email}}</p>
-  <p>follow channels: </p>
-{% for follow_channel in follow_channels %}
-  <p>{{follow_channel.name}}</p>
-{% endfor %}
+    <p>name: {{user_name.user_name}}</p>
+    <p>email: {{email.email}}</p>
+    <p>follow channel(s): </p>
+    {% for follow_channel in follow_channels %}
+      <li>{{follow_channel.name}}</li>
+    {% endfor %}
 {% endblock %}
 {% block script %}
-
   <script
   src="{{url_for('static',filename='js/update-mypage.js')}}"
   type="text/javascript"

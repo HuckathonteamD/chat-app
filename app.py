@@ -251,17 +251,31 @@ def update_userInfo():
     uid = session.get("uid")
     if uid is None:
         return redirect('/login')
-    user_name = request.form.get('user-name')
-    email = request.form.get('email')       #TODO パターン一致しているか
-    password = request.form.get('password') # TODO ハッシュ化する
-    current_date = datetime.now(timezone(timedelta(hours=9)))
+    else:
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password1 = request.form.get('password1')
+        password2 = request.form.get('password2')
 
-    dbConnect.updateUserInfo(user_name, email, password, current_date, uid)
-    user_name = dbConnect.getUserName(uid)
-    email = dbConnect.getUserEmail(uid)
+        pattern = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 
-    return render_template('my_page.html', user_name=user_name, email=email)
-
+        if name == '' or email =='' or password1 == '' or password2 == '':
+            flash('空のフォームがあるようです')
+        elif password1 != password2:
+            flash('二つのパスワードの値が違っています')
+        elif re.match(pattern, email) is None:
+            flash('正しいメールアドレスの形式ではありません')
+        else:
+            password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
+            user = User(uid, name, email, password)
+            # DBuser = dbConnect.getUser(email)
+            # DBusername = dbConnect.getUserName(uid)
+            current_date = datetime.now(timezone(timedelta(hours=9)))
+            
+            dbConnect.updateUserInfo(user, current_date)
+            name = dbConnect.getUserName(uid)
+            email = dbConnect.getUserEmail(uid)
+        return render_template('my_page.html', user_name=name, email=email)
 
 
 @app.errorhandler(404)

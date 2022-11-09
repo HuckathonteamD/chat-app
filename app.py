@@ -241,8 +241,9 @@ def my_page():
         if user_name is None:
             flash('ユーザー情報は本人のみ編集可能です')
             return redirect ('/')
-        email = dbConnect.getUserEmail(uid)
-        follow_channels = dbConnect.getFollowChannelNameAll(uid)
+        else:
+            email = dbConnect.getUserEmail(uid)
+            follow_channels = dbConnect.getFollowChannelNameAll(uid)
     return render_template('my_page.html', user_name=user_name, email=email, follow_channels=follow_channels)
 
 

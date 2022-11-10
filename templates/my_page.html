@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}
+  <title>my_page</title>
+{% endblock %}
+{% block body %}
+  <h1>マイページ</h1>
+  <a href="{{ url_for('index') }}">チャンネル一覧へ</a>
+  <a href="{{ url_for('logout') }}">logout</a><br>
+  <button id="update-mypage-btn">ユーザー情報編集</button>
+  {% include 'modal/update-mypage.html' %}
+    <p>name: {{user_name.user_name}}</p>
+    <p>email: {{email.email}}</p>
+    <p>follow channel(s): </p>
+    {% for follow_channel in follow_channels %}
+      <li>{{follow_channel.name}}</li>
+    {% endfor %}
+{% endblock %}
+{% block script %}
+  <script
+  src="{{url_for('static',filename='js/update-mypage.js')}}"
+  type="text/javascript"
+  ></script>
+{% endblock %}

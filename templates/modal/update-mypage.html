@@ -1,0 +1,36 @@
+<div id="update-mypage-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>ユーザー情報編集</h5>
+        <span class="modalClose" id="update-mypage-close-btn"></span>
+      </div>
+      <form class="modal-body" action="/update_mypage" method="POST">
+        <input
+          type="text"
+          placeholder="User Name"
+          class="channel-form-input"
+          name="name"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          class="channel-form-input"
+          name="email"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          class="channel-form-input"
+          name="password1"
+        />
+        <input
+          type="password"
+          placeholder="Password Confirmation"
+          class="channel-form-input"
+          name="password2"
+        />
+        <!-- input type="hidden" name='uid' value=' user.id '> -->
+          <button>変更</button>
+      </form>
+    </div>
+  </div>

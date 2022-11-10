@@ -231,6 +231,55 @@ def follow_channel(cid):
         return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
 
 
+@app.route('/my_page')
+def my_page():
+    uid = session.get("uid")
+    if uid is None:
+        return redirect ('/login')
+    else:
+        user_name = dbConnect.getUserName(uid)
+        if user_name is None:
+            flash('ユーザー情報は本人のみ編集可能です')
+            return redirect ('/')
+        else:
+            email = dbConnect.getUserEmail(uid)
+            follow_channels = dbConnect.getFollowChannelNameAll(uid)
+    return render_template('my_page.html', user_name=user_name, email=email, follow_channels=follow_channels)
+
+
+@app.route('/update_mypage', methods=['POST'])
+def update_userInfo():
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    else:
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password1 = request.form.get('password1')
+        password2 = request.form.get('password2')
+
+        pattern = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+
+        if name == '' or email =='' or password1 == '' or password2 == '':
+            flash('空のフォームがあるようです')
+        elif password1 != password2:
+            flash('二つのパスワードの値が違っています')
+        elif re.match(pattern, email) is None:
+            flash('正しいメールアドレスの形式ではありません')
+        else:
+            password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
+            user = User(uid, name, email, password)
+            # DBuser = dbConnect.getUser(email)
+            # DBusername = dbConnect.getUserName(uid)
+            current_date = datetime.now(timezone(timedelta(hours=9)))
+            
+            dbConnect.updateUserInfo(user, current_date)
+            name = dbConnect.getUserName(uid)
+            email = dbConnect.getUserEmail(uid)
+            follow_channels = dbConnect.getFollowChannelNameAll(uid)
+        return render_template('my_page.html', user_name=name, email=email, follow_channels=follow_channels)
+
+
 @app.errorhandler(404)
 def show_error404(error):
     return render_template('error/404.html')

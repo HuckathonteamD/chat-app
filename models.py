@@ -248,3 +248,62 @@ class dbConnect:
             return None
         finally:
             cur.close()
+    
+
+    def getFollowChannelNameAll(uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT c.name FROM user_follow_channel AS u INNER JOIN channels AS c ON u.cid=c.id WHERE c.uid=%s;"
+            cur.execute(sql, (uid))
+            follow_channels = cur.fetchall()
+            return follow_channels
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def getUserName(uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT user_name FROM users WHERE uid=%s;"
+            cur.execute(sql,(uid))
+            user_name = cur.fetchone()
+            return user_name
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def getUserEmail(uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT email FROM users WHERE uid=%s;"
+            cur.execute(sql,(uid))
+            email = cur.fetchone()
+            return email
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def updateUserInfo(user, date):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "UPDATE users SET user_name=%s, email=%s, password=%s, updated_at=%s WHERE uid=%s;"
+            cur.execute(sql, (user.name, user.email, user.password, date, user.uid))
+            conn.commit()
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()

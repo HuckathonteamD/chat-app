@@ -1,21 +1,43 @@
 {% extends 'base.html' %}
 {% block title %}
   <title>my_page</title>
+  <style>
+    .modal-header{display: flex;justify-content: space-between;}
+  </style>
 {% endblock %}
 {% block body %}
+
   <h1>マイページ</h1>
+
   <a href="{{ url_for('index') }}">チャンネル一覧へ</a>
   <a href="{{ url_for('logout') }}">logout</a><br>
-  <button id="update-mypage-btn">ユーザー情報編集</button>
-  {% include 'modal/update-mypage.html' %}
-    <p>name: {{user_name.user_name}}</p>
+  <button id="update-name-email-btn">ユーザー名／メールアドレス編集</button>
+  <button id="update-password-btn">パスワード編集</button>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flashes">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+    <p>name: {{name.user_name}}</p>
     <p>email: {{email.email}}</p>
     <p>follow channel(s): </p>
     {% for follow_channel in follow_channels %}
       <li>{{follow_channel.name}}</li>
+      <button class="unfollow-channel-btn">フォローをやめる</button>
     {% endfor %}
+    {% include 'modal/update-name-email.html' %}
+    {% include 'modal/update-password.html' %}
+    {% include 'modal/unfollow-channel.html' %}
 {% endblock %}
 {% block script %}
+  <script type="text/javascript">
+    const follow_channels = JSON.parse('{{ follow_channels|tojson }}');
+  </script>
   <script
   src="{{url_for('static',filename='js/update-mypage.js')}}"
   type="text/javascript"

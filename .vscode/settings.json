@@ -1,7 +1,9 @@
 {
     "cSpell.words": [
         "chatapp",
-        "mypage"
+        "mypage",
+        "followbool",
+        "unfollow"
     ],
     "liveServer.settings.port": 5501
 }

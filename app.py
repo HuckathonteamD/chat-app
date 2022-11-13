@@ -1,12 +1,13 @@
-from flask import Flask, request, redirect, render_template, session, flash
-from models import dbConnect
-from util.user import User
-from util.dateformat import dateFormat
-from datetime import timedelta, datetime, timezone
 import hashlib
-import uuid
 import re
+import uuid
+from datetime import datetime, timedelta, timezone
 
+from flask import Flask, flash, redirect, render_template, request, session
+
+from models import dbConnect
+from util.dateformat import dateFormat
+from util.user import User
 
 app = Flask(__name__)
 app.secret_key = uuid.uuid4().hex
@@ -231,53 +232,103 @@ def follow_channel(cid):
         return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
 
 
+@app.route('/unfollow_channel/<id>')
+def unfollow_channel(id):
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    else:
+        dbConnect.unfollowChannel(id)
+        name = dbConnect.getUserName(uid)
+        email = dbConnect.getUserEmail(uid)
+        follow_channels = dbConnect.getFollowChannelAll(uid)
+        return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
+
+
 @app.route('/my_page')
 def my_page():
     uid = session.get("uid")
     if uid is None:
         return redirect ('/login')
     else:
-        user_name = dbConnect.getUserName(uid)
-        if user_name is None:
+        name = dbConnect.getUserName(uid)
+        if name is None:
             flash('ユーザー情報は本人のみ編集可能です')
-            return redirect ('/')
+            session.clear()
+            return redirect ('/login')
         else:
             email = dbConnect.getUserEmail(uid)
-            follow_channels = dbConnect.getFollowChannelNameAll(uid)
-    return render_template('my_page.html', user_name=user_name, email=email, follow_channels=follow_channels)
+            follow_channels = dbConnect.getFollowChannelAll(uid)
+            return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
 
 
-@app.route('/update_mypage', methods=['POST'])
-def update_userInfo():
+@app.route('/update_name_email', methods=['POST'])
+def update_name_email():
     uid = session.get("uid")
     if uid is None:
         return redirect('/login')
     else:
         name = request.form.get('name')
         email = request.form.get('email')
-        password1 = request.form.get('password1')
-        password2 = request.form.get('password2')
+        password1 = request.form.get('password')
+        password1 = hashlib.sha256(password1.encode('utf-8')).hexdigest()
+        password2 = dbConnect.getPassword(uid)['password']
 
         pattern = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 
-        if name == '' or email =='' or password1 == '' or password2 == '':
-            flash('空のフォームがあるようです')
+        name_old = dbConnect.getUserName(uid)
+        email_old = dbConnect.getUserEmail(uid)
+        follow_channels = dbConnect.getFollowChannelNameAll(uid)
+
+        if name == '' or email =='' or password1 == '':
+            flash('変更できませんでした。空のフォームがあるようです。')
+            return render_template('my_page.html', name=name_old, email=email_old, follow_channels=follow_channels)
         elif password1 != password2:
-            flash('二つのパスワードの値が違っています')
+            flash('変更できませんでした。パスワードの値が違っています。')
+            return render_template('my_page.html', name=name_old, email=email_old, follow_channels=follow_channels)
         elif re.match(pattern, email) is None:
-            flash('正しいメールアドレスの形式ではありません')
+            flash('変更できませんでした。正しいメールアドレスの形式ではありません。')
+            return render_template('my_page.html', name=name_old, email=email_old, follow_channels=follow_channels)
         else:
-            password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
-            user = User(uid, name, email, password)
-            # DBuser = dbConnect.getUser(email)
-            # DBusername = dbConnect.getUserName(uid)
             current_date = datetime.now(timezone(timedelta(hours=9)))
-            
-            dbConnect.updateUserInfo(user, current_date)
-            name = dbConnect.getUserName(uid)
-            email = dbConnect.getUserEmail(uid)
-            follow_channels = dbConnect.getFollowChannelNameAll(uid)
-        return render_template('my_page.html', user_name=name, email=email, follow_channels=follow_channels)
+            dbConnect.updateNameEmail(name, email, current_date, uid)
+            new_name = dbConnect.getUserName(uid)
+            new_email = dbConnect.getUserEmail(uid)
+            flash('更新しました')
+            return render_template('my_page.html', name=new_name, email=new_email, follow_channels=follow_channels)
+
+
+@app.route('/update_password', methods=['POST'])
+def update_password():
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    else:
+        old_password = hashlib.sha256((request.form.get('old_password')).encode('utf-8')).hexdigest()
+        password_confirmation = dbConnect.getPassword(uid)['password']
+        password1 = request.form.get('password1')
+        password2 = request.form.get('password2')
+
+        name = dbConnect.getUserName(uid)
+        email = dbConnect.getUserEmail(uid)
+        follow_channels = dbConnect.getFollowChannelNameAll(uid)
+
+        if old_password == '' or password1 == '' or password2 == '':
+            flash('変更できませんでした。空のフォームがあるようです。')
+            return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
+
+        elif old_password != password_confirmation:
+            flash('変更できませんでした。現在のパスワードが間違っています。')
+            return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
+        elif password1 != password2:
+            flash('変更できませんでした。新しいパスワードの値が違っています。')
+            return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
+        else:
+            date = datetime.now(timezone(timedelta(hours=9)))
+            password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
+            dbConnect.updatePassword(password, date, uid)
+            flash('パスワードを変更しました')
+            return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
 
 
 @app.errorhandler(404)

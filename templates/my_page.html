@@ -13,7 +13,6 @@
   <a href="{{ url_for('logout') }}">logout</a><br>
   <button id="update-name-email-btn">ユーザー名／メールアドレス編集</button>
   <button id="update-password-btn">パスワード編集</button>
-
   {% with messages = get_flashed_messages() %}
     {% if messages %}
       <ul class="flashes">
@@ -28,16 +27,14 @@
     <p>follow channel(s): </p>
     {% for follow_channel in follow_channels %}
       <li>{{follow_channel.name}}</li>
+      <p>{{follow_channel.abstract}}</p>
       <button class="unfollow-channel-btn">フォローをやめる</button>
+      {% include 'modal/unfollow-channel.html' %}
     {% endfor %}
     {% include 'modal/update-name-email.html' %}
     {% include 'modal/update-password.html' %}
-    {% include 'modal/unfollow-channel.html' %}
 {% endblock %}
 {% block script %}
-  <script type="text/javascript">
-    const follow_channels = JSON.parse('{{ follow_channels|tojson }}');
-  </script>
   <script
   src="{{url_for('static',filename='js/update-mypage.js')}}"
   type="text/javascript"

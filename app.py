@@ -233,7 +233,7 @@ def follow_channel(cid):
 
 
 @app.route('/unfollow_channel/<id>')
-def unfollow_channel(cid):
+def unfollow_channel(id):
     uid = session.get("uid")
     if uid is None:
         return redirect('/login')
@@ -241,7 +241,7 @@ def unfollow_channel(cid):
         dbConnect.unfollowChannel(id)
         name = dbConnect.getUserName(uid)
         email = dbConnect.getUserEmail(uid)
-        follow_channels = dbConnect.getFollowChannelNameAll(uid)
+        follow_channels = dbConnect.getFollowChannelAll(uid)
         return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
 
 
@@ -258,7 +258,7 @@ def my_page():
             return redirect ('/login')
         else:
             email = dbConnect.getUserEmail(uid)
-            follow_channels = dbConnect.getFollowChannelNameAll(uid)
+            follow_channels = dbConnect.getFollowChannelAll(uid)
             return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
 
 

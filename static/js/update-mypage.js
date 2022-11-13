@@ -9,8 +9,8 @@ const updatePasswordModal = document.getElementById("update-password-modal");
 const updatePasswordButtonClose = document.getElementById("update-password-close-btn");
 //チャンネルフォロー解除
 const unfollowChannelBtn = document.getElementsByClassName("unfollow-channel-btn");
-const unfollowChannelModal = document.getElementById("unfollow-channel-modal");
-const unfollowChannelButtonClose = document.getElementById("unfollow-channel-close-btn");
+const unfollowChannelModal = document.getElementsByClassName("unfollow-channel-modal");
+const unfollowChannelButtonClose = document.getElementsByClassName("unfollow-channel-close-btn");
 
 
 // モーダルを開く
@@ -19,9 +19,7 @@ function modalOpen(mode) {
     updateNameEmailModal.style.display = "block";
   } else if (mode === "update-password") {
     updatePasswordModal.style.display = "block";
-  } else if (mode === "unfollow-channel") {
-    unfollowChannelModal.style.display = "block";
-  }
+  } 
 }
 
 if (updateNameEmailBtn){
@@ -37,14 +35,9 @@ if (updatePasswordBtn) {
 if (unfollowChannelBtn) {
   for (let step = 0; step < unfollowChannelBtn.length; step++) {
     unfollowChannelBtn[step].addEventListener("click", () => {
-      modalOpen("unfollow-channel");
+      unfollowChannelModal[step].style.display = "block";
     });
   }
-    const confirmationButtonLink = document.getElementById(
-      "unfollow-channel-confirm-link"
-    );
-    const url = `/unfollow/${follow_channels.id}`;
-    confirmationButtonLink.setAttribute("href", url);
 }
 
 
@@ -54,8 +47,6 @@ function modalClose(mode) {
     updateNameEmailModal.style.display = "none";
   } else if (mode === "update-password") {
     updatePasswordModal.style.display = "none";
-  } else if (mode === "unfollow-channel") {
-    unfollowChannelModal.style.display = "none";
   }
 }
 
@@ -67,9 +58,11 @@ if (updateNameEmailButtonClose) {
 updatePasswordButtonClose.addEventListener("click", () => {
   modalClose("update-password");
   });
-unfollowChannelButtonClose.addEventListener("click", () => {
-  modalClose("unfollow-channel");
+for (let step = 0; step < unfollowChannelButtonClose.length; step++) {
+  unfollowChannelButtonClose[step].addEventListener("click", () => {
+  unfollowChannelModal[step].style.display = "none";
 });
+}
 
 // モーダルコンテンツ以外がクリックされた時
 addEventListener("click", (e) => {
@@ -77,7 +70,13 @@ addEventListener("click", (e) => {
     updateNameEmailModal.style.display = "none";
   } else if (e.target == updatePasswordModal) {
     updatePasswordModal.style.display = "none";
-  } else if (e.target == unfollowChannelModal) {
-    unfollowChannelModal.style.display = "none";
+  }
+});
+
+addEventListener("click", (e) => {
+  for (let step = 0; step < unfollowChannelButtonClose.length; step++) {
+    if (e.target == unfollowChannelModal[step]) {
+      unfollowChannelModal[step].style.display = "none";
+    }
   }
 });

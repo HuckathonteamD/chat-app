@@ -16,6 +16,10 @@ const updateMessagePageButtonClose = document.getElementById("update-message-pag
 const deleteMessageModal = document.getElementById("delete-message-modal");
 const deleteMessagePageButtonClose = document.getElementById("delete-message-page-close-btn");
 
+// リアクション
+const reactionModal = document.getElementById("reaction-modal");
+const reactionPageButtonClose = document.getElementById("reaction-page-close-btn");
+
 // モーダルを開く
 function modalOpen(mode) {
   if (mode === "update") {
@@ -30,6 +34,8 @@ function modalOpen(mode) {
     updateMessageModal.style.display = "block";
   } else if (mode === "delete-message") {
     deleteMessageModal.style.display = "block";
+  } else if (mode === "reaction") {
+    reactionModal.style.display = "block";
   }
 }
 
@@ -57,6 +63,8 @@ function modalClose(mode) {
     updateMessageModal.style.display = "none";
   } else if (mode === "delete-message") {
     deleteMessageModal.style.display = "none";
+  } else if (mode === "reaction") {
+    reactionModal.style.display = "none";
   }
 }
 
@@ -74,6 +82,9 @@ updateMessagePageButtonClose.addEventListener("click", () => {
 deleteMessagePageButtonClose.addEventListener("click", () => {
   modalClose("delete-message");
 });
+reactionPageButtonClose.addEventListener("click", () => {
+  modalClose("reaction");
+});
 
 // モーダルコンテンツ以外がクリックされた時
 addEventListener("click", (e) => {
@@ -85,5 +96,7 @@ addEventListener("click", (e) => {
     updateMessageModal.style.display = "none";
   } else if (e.target == deleteMessageModal) {
     deleteMessageModal.style.display = "none";
+  } else if (e.target == reactionModal) {
+    reactionModal.style.display = "none";
   }
 });

@@ -250,11 +250,40 @@ class dbConnect:
             cur.close()
     
 
-    def getFollowChannelNameAll(uid):
+    def unfollowChannel(id):
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT c.name FROM user_follow_channel AS u INNER JOIN channels AS c ON u.cid=c.id WHERE u.uid=%s;"
+            sql = "DELETE FROM user_follow_channel WHERE id=%s;"
+            cur.execute(sql, (id))
+            conn.commit()
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+    
+
+    def getFollowChannelById(id):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT * FROM user_follow_channels WHERE id=%s;"
+            cur.execute(sql, (id))
+            follow_channel = cur.fetchone()
+            return follow_channel
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def getFollowChannelAll(uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT c.name, c.abstract, u.id FROM user_follow_channel AS u INNER JOIN channels AS c ON u.cid=c.id WHERE u.uid=%s;"
             cur.execute(sql, (uid))
             follow_channels = cur.fetchall()
             return follow_channels
@@ -293,14 +322,43 @@ class dbConnect:
             return None
         finally:
             cur.close()
+    
 
-
-    def updateUserInfo(user, date):
+    def getPassword(uid):
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "UPDATE users SET user_name=%s, email=%s, password=%s, updated_at=%s WHERE uid=%s;"
-            cur.execute(sql, (user.name, user.email, user.password, date, user.uid))
+            sql = "SELECT password FROM users WHERE uid=%s"
+            cur.execute(sql, (uid))
+            password = cur.fetchone()
+            return password
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close
+
+
+    def updateNameEmail(new_name, new_email, date, uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "UPDATE users SET user_name=%s, email=%s, updated_at=%s WHERE uid=%s;"
+            cur.execute(sql, (new_name, new_email, date, uid))
+            conn.commit()
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def updatePassword(password, date, uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "UPDATE users SET password=%s, updated_at=%s WHERE uid=%s;"
+            cur.execute(sql, (password, date, uid))
             conn.commit()
         except Exception as e:
             print(e + 'が発生しています')

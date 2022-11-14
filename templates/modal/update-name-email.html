@@ -1,10 +1,10 @@
-<div id="update-mypage-modal" class="modal">
+<div id="update-name-email-modal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h5>ユーザー情報編集</h5>
-        <span class="modalClose" id="update-mypage-close-btn"></span>
+        <h5>ユーザー名／メールアドレス編集</h5>
+        <span class="modalClose" id="update-name-email-close-btn">×</span>
       </div>
-      <form class="modal-body" action="/update_mypage" method="POST">
+      <form class="modal-body" action="/update_name_email" method="POST">
         <input
           type="text"
           placeholder="User Name"
@@ -17,20 +17,14 @@
           class="channel-form-input"
           name="email"
         />
+        <p>現在のパスワードを入力してください</p>
         <input
           type="password"
           placeholder="Password"
           class="channel-form-input"
-          name="password1"
+          name="password"
         />
-        <input
-          type="password"
-          placeholder="Password Confirmation"
-          class="channel-form-input"
-          name="password2"
-        />
-        <!-- input type="hidden" name='uid' value=' user.id '> -->
           <button>変更</button>
       </form>
     </div>
-  </div>
+</div>

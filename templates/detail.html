@@ -11,6 +11,7 @@
     li{list-style: none;}
     .logout{margin-left: 10px;}
     #message_id{display: none;}
+    .reaction-all{display: flex;}
   </style>
 {% endblock %}
 {% block body %}
@@ -43,6 +44,7 @@
         {% endif %}
         {% include 'modal/update-message.html' %}
         {% include 'modal/delete-message.html' %}
+        {% include 'modal/add-reaction.html' %}
       </div>
       <div class="typing-box-wrapper">
         <form class="typing-box" action="/message" method="POST">
@@ -63,11 +65,13 @@
     const uid = JSON.parse('{{ uid|tojson }}');
     const follows = JSON.parse('{{ follows|tojson }}');
     const messages = JSON.parse('{{ messages|tojson }}');
+    const reactions = JSON.parse('{{ reactions|tojson }}');
+    const messages_reaction = JSON.parse('{{ messages_reaction|tojson }}');
   </script>
    <script
    src="{{url_for('static',filename='js/follow-channel.js')}}"
    type="text/javascript"
- ></script>
+  ></script>
   <script
     src="{{url_for('static',filename='js/update-channel.js')}}"
     type="text/javascript"

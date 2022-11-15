@@ -1,0 +1,19 @@
+<div id="reaction-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>リアクション</h5>
+        <span class="modalClose" id="reaction-page-close-btn">×</span>
+      </div>
+      <div class="reaction-all">
+      {% for reaction in reactions %}
+        <form id="reaction-confirm-link" name="form{{ reaction.id }}" action="/reaction/{{ reaction.id }}" method="POST">
+            <input type="hidden" name="channel_id" value="{{ channel.id }}" />
+            <input class="reaction-messageid-confirm" type="hidden" name="message_id" />
+            <a href="javascript:form{{ reaction.id }}.submit()">
+                <img class="reaction-img" src="{{ url_for('static',filename=reaction.icon_path) }}" />
+            </a>
+        </form>
+      {% endfor %}
+      </div>
+    </div>
+</div>

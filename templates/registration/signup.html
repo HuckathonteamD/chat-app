@@ -1,37 +1,45 @@
 {% extends 'registration/base.html' %}
 {% block title %}
   <title>signup</title>
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/sign-up.css')}}" />
 {% endblock %}
 {% block body %}
-  <div class="registration-wrapper signup">
+<body background="../../static/img/signinBackgroudPic.jpg">
     <div class="registration-main signup-main">
-      SIGNUP
+      <div class="sikaku"></div>
+      <div class="marusikaku"></div>
+      <div class="login-logo">
+        <img src="./static/img/Loginlogo.png">
+      </div>
       <div class="half-circle pink">
         <form class="registration-form" method="post">
-          <h1 class="registration-title">SIGN UP</h1>
-          <input type="text" placeholder="Name" name="name" />
-          <input type="text" placeholder="Email" name="email" />
-          <input type="password" placeholder="Password" name="password1" />
-          <input
-            type="password"
-            placeholder="Password Confirmation"
-            name="password2"
-          />
-          <button class="pink">SIGN UP</button>
-          {% with messages = get_flashed_messages() %}
-            {% if messages %}
-              <ul class="flashes">
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-              </ul>
-            {% endif %}
-          {% endwith %}
-          <a class="switch-register-mode" href="{{ url_for('login') }}">
-          Already have an account?
-          </a>
+          <div id="login-box">
+            <h1 class="registration-title">SIGN UP</h1>
+            <input type="text" placeholder="Name" name="name" />
+            <input type="email" placeholder="Email" name="email" />
+            <input type="password" placeholder="Password" name="password1" />
+            <input
+              type="password"
+              placeholder="Please re-enter your password"
+              name="password2"
+            />
+            <button class="pink-button">SIGN UP</button>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class="flashes">
+                  {% for message in messages %}
+                  <li>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+            <a class="switch-register-mode" href="{{ url_for('login') }}">
+            Already have an account?
+            </a>
+          </div>
         </form>
       </div>
     </div>
   </div>
+</body>
 {% endblock %}

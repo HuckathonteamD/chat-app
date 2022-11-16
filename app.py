@@ -136,6 +136,9 @@ def detail(cid):
     messages = dbConnect.getMessageAll(cid)
     follows = dbConnect.getFollowById(cid)
     reactions = dbConnect.getReactionAll()
+    print(cid)
+    print(messages)
+    print(follows)
     messages_reaction = dbConnect.getMessageReactionAll(cid)
     return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
 
@@ -260,7 +263,7 @@ def my_page():
     else:
         name = dbConnect.getUserName(uid)
         if name is None:
-            flash('ユーザー情報は本人のみ編集可能です')
+            flash('マイページは本人のみ閲覧可能です')
             session.clear()
             return redirect ('/login')
         else:
@@ -285,7 +288,7 @@ def update_name_email():
 
         name_old = dbConnect.getUserName(uid)
         email_old = dbConnect.getUserEmail(uid)
-        follow_channels = dbConnect.getFollowChannelNameAll(uid)
+        follow_channels = dbConnect.getFollowChannelAll(uid)
 
         if name == '' or email =='' or password1 == '':
             flash('変更できませんでした。空のフォームがあるようです。')
@@ -318,7 +321,7 @@ def update_password():
 
         name = dbConnect.getUserName(uid)
         email = dbConnect.getUserEmail(uid)
-        follow_channels = dbConnect.getFollowChannelNameAll(uid)
+        follow_channels = dbConnect.getFollowChannelAll(uid)
 
         if old_password == '' or password1 == '' or password2 == '':
             flash('変更できませんでした。空のフォームがあるようです。')

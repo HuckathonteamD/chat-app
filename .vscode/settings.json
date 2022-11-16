@@ -3,7 +3,8 @@
         "chatapp",
         "mypage",
         "followbool",
-        "unfollow"
+        "unfollow",
+        "sikaku"
     ],
     "liveServer.settings.port": 5501
 }

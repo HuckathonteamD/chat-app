@@ -16,11 +16,11 @@
     margin-bottom: 0;
 }
 
-#update-message-btn{
+.update-message-btn{
     font-size:3px;
 }
 
-#delete-message-btn{
+.delete-message-btn{
     font-size:3px;
     margin-left: 5px;
 }

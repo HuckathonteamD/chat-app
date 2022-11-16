@@ -1,5 +1,6 @@
 {% extends 'registration/base.html' %}
 {% block title %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/login.css')}}" />
   <title>login</title>
 {% endblock %}
 {% block body %}
@@ -23,7 +24,7 @@
     <form class="registration-form" method="post">
       <input type="email" placeholder="Email" name="email" />
       <input type="password" placeholder="Password" name="password" />
-      <button class="login-button">LOG IN</button>
+      <button class="login-button">LOGIN</button>
       <a class="switch-register-mode" href="{{ url_for('signup') }}">
         Not registered yet?
       </a>

@@ -16,11 +16,11 @@
     margin-bottom: 0;
 }
 
-#update-message-btn{
+.update-message-btn{
     font-size:3px;
 }
 
-#delete-message-btn{
+.delete-message-btn{
     font-size:3px;
     margin-left: 5px;
 }
@@ -47,4 +47,21 @@
 
 .typing-box textarea {
     width: 400px;
+}
+
+.reaction-img{
+    width: 20px;
+    height:20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 1px 1px 1px 1px;
+}
+
+.my-reaction-img{
+    background-color: red;
+    width: 20px;
+    height:20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 2px 2px 2px 2px;
 }

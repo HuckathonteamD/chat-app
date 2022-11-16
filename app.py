@@ -1,13 +1,11 @@
-import hashlib
-import re
-import uuid
-from datetime import datetime, timedelta, timezone
-
 from flask import Flask, flash, redirect, render_template, request, session
-
 from models import dbConnect
-from util.dateformat import dateFormat
 from util.user import User
+from datetime import datetime, timedelta, timezone
+import hashlib
+import uuid
+import re
+
 
 app = Flask(__name__)
 app.secret_key = uuid.uuid4().hex
@@ -135,9 +133,14 @@ def detail(cid):
         return redirect('/login')
     cid = cid
     channel = dbConnect.getChannelById(cid)
-    messages = dateFormat.getMessages(dbConnect.getMessageAll(cid))
+    messages = dbConnect.getMessageAll(cid)
     follows = dbConnect.getFollowById(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
+    reactions = dbConnect.getReactionAll()
+    print(cid)
+    print(messages)
+    print(follows)
+    messages_reaction = dbConnect.getMessageReactionAll(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
 
 
 @app.route('/update_channel', methods=['POST'])
@@ -152,9 +155,11 @@ def update_channel():
 
     dbConnect.updateChannel(uid, channel_name, channel_description, current_date, cid)
     channel = dbConnect.getChannelById(cid)
-    messages = dateFormat.getMessages(dbConnect.getMessageAll(cid))
+    messages = dbConnect.getMessageAll(cid)
     follows = dbConnect.getFollowById(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
+    reactions = dbConnect.getReactionAll()
+    messages_reaction = dbConnect.getMessageReactionAll(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
 
 
 @app.route('/message', methods=['POST'])
@@ -163,20 +168,19 @@ def add_message():
     if uid is None:
         return redirect('/login')
     message = request.form.get('message')
-    channel_id = request.form.get('channel_id')
+    cid = request.form.get('channel_id')
     current_date = datetime.now(timezone(timedelta(hours=9)))
     print(message)
     print(channel_id)
     if message:
-        dbConnect.createMessage(uid, channel_id, message, current_date)
+        dbConnect.createMessage(uid, cid, message, current_date)
 
-    channel = dbConnect.getChannelById(channel_id)
-    messages = dateFormat.getMessages(dbConnect.getMessageAll(channel_id))
-    follows = dbConnect.getFollowById(channel_id)
-    print(messages)
-
-
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
+    channel = dbConnect.getChannelById(cid)
+    messages = dbConnect.getMessageAll(cid)
+    follows = dbConnect.getFollowById(cid)
+    reactions = dbConnect.getReactionAll()
+    messages_reaction = dbConnect.getMessageReactionAll(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
 
 
 @app.route('/delete_message', methods=['POST'])
@@ -190,10 +194,11 @@ def delete_message():
         dbConnect.deleteMessage(mid)
 
     channel = dbConnect.getChannelById(cid)
-    messages = dateFormat.getMessages(dbConnect.getMessageAll(cid))
+    messages = dbConnect.getMessageAll(cid)
     follows = dbConnect.getFollowById(cid)
-
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
+    reactions = dbConnect.getReactionAll()
+    messages_reaction = dbConnect.getMessageReactionAll(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
 
 
 @app.route('/update_message', methods=['POST'])
@@ -210,9 +215,11 @@ def update_message():
     if message_uid["uid"] == uid:
         dbConnect.updateMessage(uid, cid, message, current_date, mid)
     channel = dbConnect.getChannelById(cid)
-    messages = dateFormat.getMessages(dbConnect.getMessageAll(cid))
+    messages = dbConnect.getMessageAll(cid)
     follows = dbConnect.getFollowById(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
+    reactions = dbConnect.getReactionAll()
+    messages_reaction = dbConnect.getMessageReactionAll(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
 
 
 @app.route('/follow/<cid>')
@@ -229,10 +236,11 @@ def follow_channel(cid):
         
         dbConnect.followChannel(uid, cid)
         channel = dbConnect.getChannelById(cid)
-        messages = dateFormat.getMessages(dbConnect.getMessageAll(cid))
+        messages = dbConnect.getMessageAll(cid)
         follows = dbConnect.getFollowById(cid)
-
-        return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
+        reactions = dbConnect.getReactionAll()
+        messages_reaction = dbConnect.getMessageReactionAll(cid)
+        return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
 
 
 @app.route('/unfollow_channel/<id>')
@@ -332,6 +340,47 @@ def update_password():
             dbConnect.updatePassword(password, date, uid)
             flash('パスワードを変更しました')
             return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
+
+
+@app.route('/reaction/<mrid>', methods=['POST'])
+def add_message_reaction(mrid):
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    cid = request.form.get('channel_id')
+    mid = request.form.get('message_id')
+    current_date = datetime.now(timezone(timedelta(hours=9)))
+
+    channel = dbConnect.getChannelById(cid)
+    messages = dbConnect.getMessageAll(cid)
+    follows = dbConnect.getFollowById(cid)
+    reactions = dbConnect.getReactionAll()
+
+    if dbConnect.serchReaction(mid, uid, mrid):
+        messages_reaction = dbConnect.getMessageReactionAll(cid)
+        return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
+    else:
+        if mrid:
+            dbConnect.createMessageReaction(mid, uid, mrid, current_date)
+
+        messages_reaction = dbConnect.getMessageReactionAll(cid)
+        return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
+
+
+@app.route('/delete_reaction/<cid>/<rid>')
+def delete_message_reaction(cid,rid):
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    if rid:
+        dbConnect.deleteMessageReaction(rid)
+
+    channel = dbConnect.getChannelById(cid)
+    messages = dbConnect.getMessageAll(cid)
+    follows = dbConnect.getFollowById(cid)
+    reactions = dbConnect.getReactionAll()
+    messages_reaction = dbConnect.getMessageReactionAll(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
 
 
 @app.errorhandler(404)

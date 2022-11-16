@@ -1,17 +1,17 @@
-<div id="delete-message-modal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5>本当に削除しますか？</h5>
-        <span class="modalClose" id="delete-message-page-close-btn">×</span>
-      </div>
-      <div class="modal-body">
-        <p>削除ボタンを押すとメッセージが消えます</p>
-        <p>本当によろしいですか？</p>
-        <form id="delete-confirm-link" action="/delete_message" method="POST">
-            <input type="hidden" name="channel_id" value="{{ channel.id }}" />
-            <input id="delete-messageid-confirm" type="hidden" name="message_id" />
-            <button>削除</button>
-        </form>
-      </div>
+<div class="delete-message-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5>本当に削除しますか？</h5>
+      <span class="delete-message-page-close-btn">×</span>
     </div>
+    <div class="modal-body">
+      <p>削除ボタンを押すとメッセージが消えます</p>
+      <p>本当によろしいですか？</p>
+      <form id="delete-confirm-link" action="/delete_message" method="POST">
+          <input type="hidden" name="channel_id" value="{{ channel.id }}" />
+          <input id="delete-messageid-confirm" type="hidden" name="message_id" value="{{ message.id }}" />
+          <button>削除</button>
+      </form>
+    </div>
+  </div>
 </div>

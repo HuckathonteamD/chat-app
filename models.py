@@ -365,3 +365,76 @@ class dbConnect:
             return None
         finally:
             cur.close()
+
+
+    def getReactionAll():
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT * FROM master_reaction;"
+            cur.execute(sql)
+            reactions = cur.fetchall()
+            return reactions
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def createMessageReaction(mid, uid, mrid, date):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "INSERT INTO message_reaction(mid, uid, mrid, created_at) VALUES(%s, %s, %s, %s)"
+            cur.execute(sql, (mid, uid, mrid, date))
+            conn.commit()
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def getMessageReactionAll(cid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT r.id, r.mid, m.cid, r.uid, s.reaction_name, s.icon_path FROM message_reaction AS r INNER JOIN messages AS m ON r.mid = m.id INNER JOIN master_reaction AS s ON r.mrid = s.id WHERE m.cid = %s ORDER BY id;"
+            cur.execute(sql, (cid))
+            messages_reaction = cur.fetchall()
+            return messages_reaction
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def deleteMessageReaction(rid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "DELETE FROM message_reaction WHERE id=%s;"
+            cur.execute(sql, (rid))
+            conn.commit()
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def serchReaction(mid, uid, mrid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT * FROM message_reaction WHERE mid=%s and uid=%s and mrid=%s;"
+            cur.execute(sql, (mid, uid, mrid))
+            reaction = cur.fetchone()
+            return reaction
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()

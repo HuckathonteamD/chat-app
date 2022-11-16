@@ -9,16 +9,19 @@ const followChannelModal = document.getElementById("follow-channel-modal");
 const followPageButtonClose = document.getElementById("follow-page-close-btn");
 
 // メッセージ編集
-const updateMessageModal = document.getElementById("update-message-modal");
-const updateMessagePageButtonClose = document.getElementById("update-message-page-close-btn");
+const updateMessageBtn = document.getElementsByClassName("update-message-btn");
+const updateMessageModal = document.getElementsByClassName("update-message-modal");
+const updateMessagePageButtonClose = document.getElementsByClassName("update-message-page-close-btn");
 
 // メッセージ削除
-const deleteMessageModal = document.getElementById("delete-message-modal");
-const deleteMessagePageButtonClose = document.getElementById("delete-message-page-close-btn");
+const deleteMessageBtn = document.getElementsByClassName("delete-message-btn");
+const deleteMessageModal = document.getElementsByClassName("delete-message-modal");
+const deleteMessagePageButtonClose = document.getElementsByClassName("delete-message-page-close-btn");
 
 // リアクション
-const reactionModal = document.getElementById("reaction-modal");
-const reactionPageButtonClose = document.getElementById("reaction-page-close-btn");
+const reactionBtn = document.getElementsByClassName("reaction-btn");
+const reactionModal = document.getElementsByClassName("reaction-modal");
+const reactionPageButtonClose = document.getElementsByClassName("reaction-page-close-btn");
 
 // モーダルを開く
 function modalOpen(mode) {
@@ -30,12 +33,6 @@ function modalOpen(mode) {
     }
   } else if (mode === "follow") {
     followChannelModal.style.display = "block";
-  } else if (mode === "update-message") {
-    updateMessageModal.style.display = "block";
-  } else if (mode === "delete-message") {
-    deleteMessageModal.style.display = "block";
-  } else if (mode === "reaction") {
-    reactionModal.style.display = "block";
   }
 }
 
@@ -52,39 +49,46 @@ if (followChannelBtn) {
     followConfirmBtnLink.setAttribute("href", followUrl);
   });
 }
-
-// モーダルを閉じる
-function modalClose(mode) {
-  if (mode === "update") {
-    updateChannelModal.style.display = "none";
-  } else if (mode === "follow") {
-    followChannelModal.style.display = "none";
-  } else if (mode === "update-message") {
-    updateMessageModal.style.display = "none";
-  } else if (mode === "delete-message") {
-    deleteMessageModal.style.display = "none";
-  } else if (mode === "reaction") {
-    reactionModal.style.display = "none";
+if (updateMessageBtn){
+  for( let i=0 ; i<updateMessageBtn.length ; i++ ) {
+    updateMessageBtn[i].addEventListener("click", () => {
+      updateMessageModal[i].style.display = "block";
+    });
+    deleteMessageBtn[i].addEventListener("click", () => {
+      deleteMessageModal[i].style.display = "block";
+    });
+  }
+}
+if (reactionBtn){
+  for( let i=0 ; i<reactionBtn.length ; i++ ) {
+    reactionBtn[i].addEventListener("click", () => {
+      reactionModal[i].style.display = "block";
+    });
   }
 }
 
+// モーダルを閉じる
 if (updatePageButtonClose) {
   updatePageButtonClose.addEventListener("click", () => {
-    modalClose("update");
+    updateChannelModal.style.display = "none";
   });
 }
 followPageButtonClose.addEventListener("click", () => {
-  modalClose("follow");
+  followChannelModal.style.display = "none";
 });
-updateMessagePageButtonClose.addEventListener("click", () => {
-  modalClose("update-message");
-});
-deleteMessagePageButtonClose.addEventListener("click", () => {
-  modalClose("delete-message");
-});
-reactionPageButtonClose.addEventListener("click", () => {
-  modalClose("reaction");
-});
+for( let i=0 ; i<updateMessagePageButtonClose.length ; i++ ) {
+  updateMessagePageButtonClose[i].addEventListener("click", () => {
+    updateMessageModal[i].style.display = "none";
+  });
+  deleteMessagePageButtonClose[i].addEventListener("click", () => {
+    deleteMessageModal[i].style.display = "none";
+  });
+}
+for( let i=0 ; i<reactionPageButtonClose.length ; i++ ) {
+  reactionPageButtonClose[i].addEventListener("click", () => {
+    reactionModal[i].style.display = "none";
+  });
+}
 
 // モーダルコンテンツ以外がクリックされた時
 addEventListener("click", (e) => {
@@ -92,11 +96,23 @@ addEventListener("click", (e) => {
     updateChannelModal.style.display = "none";
   } else if (e.target == followChannelModal) {
     followChannelModal.style.display = "none";
-  } else if (e.target == updateMessageModal) {
-    updateMessageModal.style.display = "none";
-  } else if (e.target == deleteMessageModal) {
-    deleteMessageModal.style.display = "none";
-  } else if (e.target == reactionModal) {
-    reactionModal.style.display = "none";
+  }
+});
+
+addEventListener("click", (e) => {
+  for( let i=0 ; i<updateMessagePageButtonClose.length ; i++ ) {
+    if (e.target == updateMessageModal[i]) {
+      updateMessageModal[i].style.display = "none";
+    } else if (e.target == deleteMessageModal[i]) {
+      deleteMessageModal[i].style.display = "none";
+    }
+  }
+});
+
+addEventListener("click", (e) => {
+  for( let i=0 ; i<reactionPageButtonClose.length ; i++ ) {
+    if (e.target == reactionModal[i]) {
+      reactionModal[i].style.display = "none";
+    }
   }
 });

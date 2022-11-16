@@ -170,8 +170,7 @@ def add_message():
     message = request.form.get('message')
     cid = request.form.get('channel_id')
     current_date = datetime.now(timezone(timedelta(hours=9)))
-    print(message)
-    print(channel_id)
+
     if message:
         dbConnect.createMessage(uid, cid, message, current_date)
 

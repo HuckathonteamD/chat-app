@@ -63,6 +63,8 @@
     const uid = JSON.parse('{{ uid|tojson }}');
     const follows = JSON.parse('{{ follows|tojson }}');
     const messages = JSON.parse('{{ messages|tojson }}');
+    console.log(messages);
+    console.log(follows);
   </script>
    <script
    src="{{url_for('static',filename='js/follow-channel.js')}}"

@@ -268,7 +268,7 @@ class dbConnect:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT * FROM user_follow_channels WHERE id=%s;"
+            sql = "SELECT * FROM user_follow_channel WHERE id=%s;"
             cur.execute(sql, (id))
             follow_channel = cur.fetchone()
             return follow_channel
@@ -283,7 +283,7 @@ class dbConnect:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT c.name, c.abstract, u.id FROM user_follow_channel AS u INNER JOIN channels AS c ON u.cid=c.id WHERE u.uid=%s;"
+            sql = "SELECT c.name, c.abstract, u.id, u.cid FROM user_follow_channel AS u INNER JOIN channels AS c ON u.cid=c.id WHERE u.uid=%s;"
             cur.execute(sql, (uid))
             follow_channels = cur.fetchall()
             return follow_channels

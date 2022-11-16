@@ -165,13 +165,16 @@ def add_message():
     message = request.form.get('message')
     channel_id = request.form.get('channel_id')
     current_date = datetime.now(timezone(timedelta(hours=9)))
-
+    print(message)
+    print(channel_id)
     if message:
         dbConnect.createMessage(uid, channel_id, message, current_date)
 
     channel = dbConnect.getChannelById(channel_id)
     messages = dateFormat.getMessages(dbConnect.getMessageAll(channel_id))
     follows = dbConnect.getFollowById(channel_id)
+    print(messages)
+
 
     return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows)
 
@@ -253,7 +256,7 @@ def my_page():
     else:
         name = dbConnect.getUserName(uid)
         if name is None:
-            flash('ユーザー情報は本人のみ編集可能です')
+            flash('マイページは本人のみ閲覧可能です')
             session.clear()
             return redirect ('/login')
         else:
@@ -278,7 +281,7 @@ def update_name_email():
 
         name_old = dbConnect.getUserName(uid)
         email_old = dbConnect.getUserEmail(uid)
-        follow_channels = dbConnect.getFollowChannelNameAll(uid)
+        follow_channels = dbConnect.getFollowChannelAll(uid)
 
         if name == '' or email =='' or password1 == '':
             flash('変更できませんでした。空のフォームがあるようです。')
@@ -311,7 +314,7 @@ def update_password():
 
         name = dbConnect.getUserName(uid)
         email = dbConnect.getUserEmail(uid)
-        follow_channels = dbConnect.getFollowChannelNameAll(uid)
+        follow_channels = dbConnect.getFollowChannelAll(uid)
 
         if old_password == '' or password1 == '' or password2 == '':
             flash('変更できませんでした。空のフォームがあるようです。')

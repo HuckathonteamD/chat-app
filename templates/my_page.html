@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block title %}
   <title>my_page</title>
   <style>
@@ -6,34 +7,98 @@
   </style>
 {% endblock %}
 {% block body %}
+<body>
+  <header>
+      <nav>
+          <ul>
+              <li class="logo1"><img src="{{url_for('static', filename='img/Channel-chatIcon.png')}}" alt="icon"></li>
+              <li class="logo2"><img src="{{url_for('static', filename='img/Channel-Ring.png')}}" alt="ring"></li>
+              <li class="home"><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='img/Home-White.png')}}" alt="home"></a></li>
+              <li class="mypage"><a href="{{ url_for('my_page') }}"><img src="{{url_for('static', filename='img/myPage-White.png')}}" alt="mypage"></a></li>
+              <li class="logout"><a href="{{ url_for('logout') }}"><img src="{{url_for('static', filename='img/Logout-White.png')}}" alt="logout"></a></li>
+          </ul>
+      </nav>
+  </header>
+<!-- </body> -->
 
-  <h1>マイページ</h1>
+<!-- <body bgcolor="#DBDBDB"> -->
+  <div class="user-info-sikaku"></div>
+  <div class="follow-channel-sikaku"></div>
 
-  <a href="{{ url_for('index') }}">チャンネル一覧へ</a>
-  <a href="{{ url_for('logout') }}">logout</a><br>
-  <button id="update-name-email-btn">ユーザー名／メールアドレス編集</button>
-  <button id="update-password-btn">パスワード編集</button>
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul class="flashes">
-        {% for message in messages %}
-          <li>{{ message }}</li>
+    <div id="update-name-email-btn">
+      <img src="{{url_for('static', filename='img/edit-hover.png')}}" />
+      <img src="{{url_for('static', filename='img/edit.png')}}" />
+    </div>
+    <div id="update-password-btn">
+      <img src="{{url_for('static', filename='img/edit-hover.png')}}" />
+      <img src="{{url_for('static', filename='img/edit.png')}}" />
+    </div>
+  
+    <!-- flashの表示 -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+  <div>
+    <h1 class="user-info">User Information</h1>
+    <h3 class="user-info-japanese">ユーザー情報</h3>
+    <div class="user-icon">
+      <img src="{{url_for('static', filename='img/userIcon.png')}}">
+    </div>
+    <!-- ユーザー情報 -->
+    <p class="user-img"></p>
+        <P class="user-name">User Name</P>
+        <div class="user-name-box"></div>
+        <p id="db-user-name">{{name.user_name}}</p>
+
+      <p class="mail-address">Mail Address</p>
+        <div class="mail-address-box"></div>
+        <p id="db-email">{{email.email}}</p>
+        
+      <p class="password">Password</p>
+        <div class="password-box"></div>
+        <p class="password-txt">**********</p>
+
+    <!-- フォローチャンネル -->
+      <h1 class="follow-channels">follow channels</h1>
+      <h3 class="follow-channels-japanese">お気に入りチャンネル</h3>
+      <ul class="channel-scroll">
+          {% for follow_channel in follow_channels %}  
+          <div>
+            <div class="follow-channel-box">
+              <table>
+                <tr>
+                  <td>
+                    <button type="button" class="unfollow-channel-btn">
+                      <img src="{{url_for('static', filename='img/channelPic-heart.png')}}">
+                    </button>
+                  </td>
+                  <td>
+                    <a class="follow-channel-name" href="/detail/{{follow_channel.cid}}" >{{follow_channel.name}}</a>
+                  </td>
+                  <td>
+                    <p class="follow-channel-abstract">{{follow_channel.abstract}}</p>
+                  </td>
+                  {% include 'modal/unfollow-channel.html' %}
+                </tr>
+              </table> 
+          </div>
+          <!-- <br> -->
         {% endfor %}
       </ul>
-    {% endif %}
-  {% endwith %}
-    <p>name: {{name.user_name}}</p>
-    <p>email: {{email.email}}</p>
-    <p>follow channel(s): </p>
-    {% for follow_channel in follow_channels %}
-      <li>{{follow_channel.name}}</li>
-      <p>{{follow_channel.abstract}}</p>
-      <button class="unfollow-channel-btn">フォローをやめる</button>
-      {% include 'modal/unfollow-channel.html' %}
-    {% endfor %}
+  </div>
+   
     {% include 'modal/update-name-email.html' %}
     {% include 'modal/update-password.html' %}
+</body>
 {% endblock %}
+
 {% block script %}
   <script
   src="{{url_for('static',filename='js/update-mypage.js')}}"

@@ -29,14 +29,20 @@ nav ul li {
 
 .home:hover {
     background-image: url(../img/Home-Black.png);
+    height: 100px;
+    width: 165px;
 }
 
 .mypage:hover {
     background-image: url(../img/myPage-Black.png);
+    height: 100px;
+    width: 165px;
 }
 
 .logout:hover {
     background-image: url(../img/Logout-Black.png);
+    height: 100px;
+    width: 165px;
 }
 .logo1{
     position: absolute;

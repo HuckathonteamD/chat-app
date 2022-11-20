@@ -1,0 +1,140 @@
+/* ヘッダーのCSS */
+@charset "utf-8";
+/* @media screen and (max-width: 768px) {
+} */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    position: relative;
+    background-color: #dbdbdb ;
+}
+
+header{
+    position: relative;
+    background-color: black;
+    width: 100%;
+    height: 100px;
+}
+
+nav ul li {
+    position: relative;
+    display: inline-block;
+    list-style: none;
+}
+
+.home:hover {
+    background-image: url(../img/Home-Black.png);
+    height: 100px;
+    width: 165px;
+}
+
+.mypage:hover {
+    background-image: url(../img/myPage-Black.png);
+    height: 100px;
+    width: 165px;
+}
+
+.logout:hover {
+    background-image: url(../img/Logout-Black.png);
+    height: 100px;
+    width: 165px;
+}
+.logo1{
+    position: absolute;
+    top: 27px;
+    left: 10px;
+}
+
+.logo2{
+    position: absolute;
+    left: 85px;
+    top: 15px;
+}
+
+.home{
+    position: absolute;
+    left: 400px;
+}
+.mypage{
+    position: absolute;
+    left: 800px;
+}
+.logout{
+    position: absolute;
+    left: 1200px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Create channel */
+
+#add-channel-btn{
+    position: absolute;
+    width: 250px;
+    height: 50px;
+    left: 750px;
+    top: 150px;
+
+    background: #C1005D;
+    border-radius: 5px;
+    border: none;
+
+    font-family: 'BIZ UDPGothic';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 20px;
+    cursor: pointer;
+    /* identical to box height */
+
+
+    color: #FFFFFF;
+    transition: all 0.25s;
+
+}
+#add-channel-btn:hover{
+    background-color: #870041;
+}
+
+/* サブタイトル*/
+.Home{
+    position: absolute;
+    width: 118.14px;
+    height: 30.53px;
+    left: 287.27px;
+    top: 140.05px;
+    font-family: 'BIZ UDPGothic';
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.channel{
+    position: absolute;
+    /* width: 200.37px;
+    height: 19.21px;
+    left: 307.86px;
+    top: 190.75px; */
+    width: 200.37px;
+    height: 19.21px;
+    left: 286.86px;
+    top: 193.75px;
+    font-family: 'BIZ UDPGothic';
+    text-align: center;
+    font-size: 30px;
+}
+
+.home-icon{
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    left: 187px;
+    top: 133px;
+}

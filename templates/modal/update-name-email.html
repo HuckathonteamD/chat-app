@@ -2,7 +2,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5>ユーザー名／メールアドレス編集</h5>
-        <span class="modalClose" id="update-name-email-close-btn">×</span>
       </div>
       <form class="modal-body" action="/update_name_email" method="POST">
         <p>新しいユーザー名とメールアドレスを入力してください</p>
@@ -24,8 +23,9 @@
           placeholder="Password"
           class="channel-form-input"
           name="password"
-        />
-          <button>変更</button>
+        /><br>
+        <button type="button" id="update-name-email-close-btn">キャンセル</button>
+        <button>変更</button>
       </form>
     </div>
 </div>

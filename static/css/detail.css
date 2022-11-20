@@ -1,17 +1,17 @@
 .box {
-    width: 200px;
+    width: 350px;
     margin: 0;
     border-radius: 10px;
 }
 
 .message-updatetime-right{
-    font-size:5px;
+    font-size:16px;
     margin-left: 200px;
     margin-bottom: 0;
 }
 
 .message-updatetime-left{
-    font-size:5px;
+    font-size:16px;
     margin-top: 0;
     margin-bottom: 0;
 }

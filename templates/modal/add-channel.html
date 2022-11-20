@@ -2,7 +2,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5>新規チャンネルを追加</h5>
-        <span class="modalClose" id="add-page-close-btn">×</span>
       </div>
       <form class="modal-body" action="/" method="POST">
         <input
@@ -16,7 +15,8 @@
           placeholder="チャンネルの説明"
           class="channel-form-input"
           name="channel-description"
-        />
+        /><br>
+        <button type="button" id="add-page-close-btn">キャンセル</button>
         <button id="add-channel-confirmation-btn">登録</button>
       </form>
     </div>

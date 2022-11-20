@@ -21,10 +21,10 @@
       <div class="channel-title">
         <h1>チャンネル一覧</h1>
         <a href="{{ url_for('my_page') }}">マイページ</a>
-        <a href="{{ url_for('logout') }}">logout</a><br>
+        <button id="logout-btn">logout</button><br>
+        {% include 'modal/logout.html' %}
         <!-- ボタンが押されたら、JS起動 -->
         <button id="add-channel-btn">新規チャンネル作成</button>
-        
       </div>
       <div class="pagination-container">
         <p id="prev"><</p>

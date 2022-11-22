@@ -2,17 +2,17 @@
   <div class="modal-content">
     <div class="modal-header">
       <h5>メッセージ編集</h5>
-      <span class="update-message-page-close-btn">×</span>
     </div>
     <form class="modal-body" action="/update_message" method="POST">
-      <input
+      <textarea
         type="text"
         placeholder="メッセージ"
         class="message-form-input"
         name="update-message"
-      />
+      ></textarea>
       <input type="hidden" name="cid" value="{{ channel.id }}" />
-      <input id="update-messageid-confirm" type="hidden" name="mid" value="{{ message.id }}" />
+      <input id="update-messageid-confirm" type="hidden" name="mid" value="{{ message.id }}" /><br>
+      <button type="button" class="update-message-page-close-btn">キャンセル</button>
       <button>変更</button>
     </form>
   </div>

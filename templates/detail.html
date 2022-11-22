@@ -9,7 +9,7 @@
     .chatroom-btn{display: flex;}
     .follow-box{display: flex;flex-wrap: nowrap;margin: 0px 10px 0px 10px;padding-left: 0}
     li{list-style: none;}
-    .logout{margin-left: 10px;}
+    #logout-btn{margin-left: 10px;}
     #message_id{display: none;}
     .reaction-all{display: flex;}
     .reactions{display: flex;}
@@ -34,7 +34,8 @@
           {% include 'modal/follow-channel.html' %}
         </div>
         <a href="{{ url_for('index') }}">チャンネル一覧へ</a>
-        <a class="logout" href="{{ url_for('logout') }}">logout</a><br>
+        <button id="logout-btn">logout</button><br>
+        {% include 'modal/logout.html' %}
       </div>
       <!-- メッセージ表示 -->
       <div id="message-area">

@@ -31,7 +31,7 @@
             <li class="logo2"><img src="{{url_for('static', filename='img/Channel-Ring.png')}}" alt="ring"></li>
             <li class="home"><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='img/Home-White.png')}}" alt="home"></a></li>
             <li class="mypage"><a href="{{ url_for('my_page') }}"><img src="{{url_for('static', filename='img/myPage-White.png')}}" alt="mypage"></a></li>
-            <li class="logout"><a href="{{ url_for('logout') }}"><img src="{{url_for('static', filename='img/Logout-White.png')}}" alt="logout"></a></li>
+            <li class="logout" id="logout-btn"><img src="{{url_for('static', filename='img/Logout-White.png')}}" alt="logout"></li>
         </ul>
     </nav>
   </header>
@@ -50,20 +50,22 @@
       </div>
 
       <div class="channel-title">
-        <a href="{{ url_for('my_page') }}">マイページ</a>
-        <a href="{{ url_for('logout') }}">logout</a><br>
         <!-- ボタンが押されたら、JS起動 -->
         <button id="add-channel-btn">Create channel</button>
-        
       </div>
-      <div class="pagination-container">
-        <p id="prev"><</p>
-        <ul class="pagination"></ul>
-        <p id="next">></p>
+      <div class="channels-box">
+        <div>
+          <ul class="channel-box" style="list-style:none"></ul>
+        </div>
+        <div class="pagination-container">
+          <p id="prev"></p>
+          <ul class="pagination" style="list-style:none"></ul>
+          <p id="next"></p>
+        </div>
       </div>
-      <ul class="channel-box"></ul>
       {% include 'modal/add-channel.html' %}
       {% include 'modal/delete-channel.html' %}
+      {% include 'modal/logout.html' %}
     </div>
   </div>
 </body>

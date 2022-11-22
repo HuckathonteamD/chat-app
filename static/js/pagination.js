@@ -123,6 +123,61 @@ const pagination = () => {
       div.appendChild(p);
       li.appendChild(div);
 
+      var follow_judge = 0;
+
+      if (follow_channels[0] == null) {
+        const followChannelBtn = document.createElement("button");
+          followChannelBtn.innerText = "フォロー"; //<img src="{{url_for('static', filename='img/channelPic-heartLine.png')}}"></img>
+          followChannelBtn.classList.add("follow-channel-btn-i")
+          li.appendChild(followChannelBtn);
+          followChannelBtn.addEventListener("click", () => {
+            modalOpen("follow_i");
+            const confirmationButtonLink = document.getElementById(
+              "follow-confirm-link-i"
+            );
+            const url = `/follow_channel_i/${item.id}`;
+            confirmationButtonLink.setAttribute("href", url);
+          });
+      } else {
+        for (let i=0; i < follow_channels.length; i++){
+          if (item.id === follow_channels[i].cid) {
+            follow_judge += 1;
+          } else {
+            follow_judge += 0;
+          }
+        }
+        
+        if (follow_judge === 1) {
+          const unfollowChannelBtn = document.createElement("button");
+          unfollowChannelBtn.innerText = "フォロー解除"; //<img src="{{url_for('static', filename='img/channelPic-heartLine.png')}}"></img>
+          unfollowChannelBtn.classList.add("unfollow-channel-btn-i")
+          li.appendChild(unfollowChannelBtn);
+          unfollowChannelBtn.addEventListener("click", () => {
+            modalOpen("unfollow_i");
+            const confirmationButtonLink = document.getElementById(
+              "unfollow-confirm-link-i"
+            );
+            const url = `/unfollow_channel_i/${item.id}`;
+            confirmationButtonLink.setAttribute("href", url);
+          });
+        } else {
+          const followChannelBtn = document.createElement("button");
+          followChannelBtn.innerText = "フォロー"; //<img src="{{url_for('static', filename='img/channelPic-heartLine.png')}}"></img>
+          followChannelBtn.classList.add("follow-channel-btn-i")          
+          li.appendChild(followChannelBtn);
+          followChannelBtn.addEventListener("click", () => {
+            modalOpen("follow_i");
+            const confirmationButtonLink = document.getElementById(
+              "follow-confirm-link-i"
+            );
+            const url = `/follow_channel_i/${item.id}`;
+            confirmationButtonLink.setAttribute("href", url);
+          });
+        }
+      }
+
+
+
       // もしチャンネル作成者uidとuidが同じだったら、削除ボタンを追加
       if (uid === item.uid) {
         const deleteButton = document.createElement("button");

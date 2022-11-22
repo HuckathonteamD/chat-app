@@ -234,8 +234,8 @@ class dbConnect:
             return None
         finally:
             cur.close()
-    
 
+    
     def followChannel(uid, cid):
         try:
             conn = DB.getConnection()
@@ -249,6 +249,20 @@ class dbConnect:
         finally:
             cur.close()
     
+    def getFollowChannelIdByUid(uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT cid FROM user_follow_channel WHERE uid=%s;"
+            cur.execute(sql, (uid))
+            follow_channels = cur.fetchall()
+            return follow_channels
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
 
     def unfollowChannel(id):
         try:
@@ -262,21 +276,33 @@ class dbConnect:
             return None
         finally:
             cur.close()
-    
 
-    def getFollowChannelById(id):
+    def unfollowChannel_i(cid, uid):
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT * FROM user_follow_channel WHERE id=%s;"
-            cur.execute(sql, (id))
-            follow_channel = cur.fetchone()
-            return follow_channel
+            sql = "DELETE FROM user_follow_channel WHERE cid=%s & uid=%s;"
+            cur.execute(sql, (cid, uid))
+            conn.commit()
         except Exception as e:
             print(e + 'が発生しています')
             return None
         finally:
-            cur.close()
+            cur.close()    
+
+    # def getFollowChannelById(id):
+    #     try:
+    #         conn = DB.getConnection()
+    #         cur = conn.cursor()
+    #         sql = "SELECT * FROM user_follow_channel WHERE id=%s;"
+    #         cur.execute(sql, (id))
+    #         follow_channel = cur.fetchone()
+    #         return follow_channel
+    #     except Exception as e:
+    #         print(e + 'が発生しています')
+    #         return None
+    #     finally:
+    #         cur.close()
 
 
     def getFollowChannelAll(uid):

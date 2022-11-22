@@ -24,7 +24,12 @@
         <a href="{{ url_for('logout') }}">logout</a><br>
         <!-- ボタンが押されたら、JS起動 -->
         <button id="add-channel-btn">新規チャンネル作成</button>
-        
+
+        <!-- 確認用 -->
+        <p>{{ follow_channels}}</p>
+
+
+
       </div>
       <div class="pagination-container">
         <p id="prev"><</p>
@@ -34,6 +39,8 @@
       <ul class="channel-box"></ul>
       {% include 'modal/add-channel.html' %}
       {% include 'modal/delete-channel.html' %}
+      {% include 'modal/follow-channel-i.html' %}
+      {% include 'modal/unfollow-channel-i.html' %}
     </div>
   </div>
 {% endblock %}
@@ -41,7 +48,10 @@
   <script type="text/javascript">
     const channels = JSON.parse('{{ channels|tojson }}');
     const uid = JSON.parse('{{ uid|tojson }}');
-  </script>
+
+    // follow_channelsをjavaScriptに送る
+    const follow_channels = JSON.parse('{{ follow_channels|tojson }}');
+</script>
   <script
   src="{{url_for('static',filename='js/pagination.js')}}"
   type="text/javascript"

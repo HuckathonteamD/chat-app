@@ -4,9 +4,9 @@ const updateChannelModal = document.getElementById("update-channel-modal");
 const updatePageButtonClose = document.getElementById("update-page-close-btn");
 
 // チャンネルフォロー
-const followChannelBtn = document.getElementById("follow-channel-btn");
-const followChannelModal = document.getElementById("follow-channel-modal");
-const followPageButtonClose = document.getElementById("follow-page-close-btn");
+// const followChannelBtn = document.getElementById("follow-channel-btn");
+// const followChannelModal = document.getElementById("follow-channel-modal");
+// const followPageButtonClose = document.getElementById("follow-page-close-btn");
 
 // メッセージ編集
 const updateMessageBtn = document.getElementsByClassName("update-message-btn");

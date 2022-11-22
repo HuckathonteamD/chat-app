@@ -103,6 +103,8 @@ const pagination = () => {
       const div = document.createElement("div");
       const followBtn = document.createElement("button");
       const followImg = document.createElement("img");
+      const unfollowImg = document.createElement("img");
+
       // const br =document.createElement("br");
 
       // チャット画面へのリンク追加
@@ -110,10 +112,10 @@ const pagination = () => {
       a.setAttribute("href", url);
 
       li.classList.add("channel-list");
-      followBtn.classList.add("channel-follow-btn");
-      followImg.setAttribute("src",`${location.origin}/static/img/channelPic-heartLine.png`);
-      followBtn.appendChild(followImg);
-      li.appendChild(followBtn);
+      // followBtn.classList.add("channel-follow-btn");
+      // followImg.setAttribute("src",`${location.origin}/static/img/channelPic-heartLine.png`);
+      // followBtn.appendChild(followImg);
+      // li.appendChild(followBtn);
       div.classList.add("channel-item");
       a.classList.add("channel-name");
       a.innerText = item.name;
@@ -127,9 +129,11 @@ const pagination = () => {
 
       if (follow_channels[0] == null) {
         const followChannelBtn = document.createElement("button");
-          followChannelBtn.innerText = "フォロー"; //<img src="{{url_for('static', filename='img/channelPic-heartLine.png')}}"></img>
           followChannelBtn.classList.add("follow-channel-btn-i")
+          followImg.setAttribute("src",`${location.origin}/static/img/channelPic-heartLine.png`);
+          followChannelBtn.appendChild(followImg);
           li.appendChild(followChannelBtn);
+
           followChannelBtn.addEventListener("click", () => {
             modalOpen("follow_i");
             const confirmationButtonLink = document.getElementById(
@@ -149,9 +153,11 @@ const pagination = () => {
         
         if (follow_judge === 1) {
           const unfollowChannelBtn = document.createElement("button");
-          unfollowChannelBtn.innerText = "フォロー解除"; //<img src="{{url_for('static', filename='img/channelPic-heartLine.png')}}"></img>
           unfollowChannelBtn.classList.add("unfollow-channel-btn-i")
+          unfollowImg.setAttribute("src",`${location.origin}/static/img/channelPic-heart.png`);
+          unfollowChannelBtn.appendChild(unfollowImg);
           li.appendChild(unfollowChannelBtn);
+
           unfollowChannelBtn.addEventListener("click", () => {
             modalOpen("unfollow_i");
             const confirmationButtonLink = document.getElementById(
@@ -162,9 +168,11 @@ const pagination = () => {
           });
         } else {
           const followChannelBtn = document.createElement("button");
-          followChannelBtn.innerText = "フォロー"; //<img src="{{url_for('static', filename='img/channelPic-heartLine.png')}}"></img>
-          followChannelBtn.classList.add("follow-channel-btn-i")          
+          followChannelBtn.classList.add("follow-channel-btn-i")
+          followImg.setAttribute("src",`${location.origin}/static/img/channelPic-heartLine.png`);
+          followChannelBtn.appendChild(followImg);
           li.appendChild(followChannelBtn);
+
           followChannelBtn.addEventListener("click", () => {
             modalOpen("follow_i");
             const confirmationButtonLink = document.getElementById(

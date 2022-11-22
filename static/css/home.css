@@ -1,0 +1,260 @@
+/* ヘッダーのCSS */
+@charset "utf-8";
+/* @media screen and (max-width: 768px) {
+} */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    position: relative;
+    background-color: #dbdbdb ;
+}
+
+header{
+    position: relative;
+    background-color: black;
+    width: 100%;
+    height: 100px;
+}
+
+nav ul li {
+    position: relative;
+    display: inline-block;
+    list-style: none;
+}
+
+.home:hover {
+    background-image: url(../img/Home-Black.png);
+    height: 100px;
+    width: 165px;
+}
+
+.mypage:hover {
+    background-image: url(../img/myPage-Black.png);
+    height: 100px;
+    width: 165px;
+}
+
+.logout:hover {
+    background-image: url(../img/Logout-Black.png);
+    height: 100px;
+    width: 165px;
+}
+.logo1{
+    position: absolute;
+    top: 27px;
+    left: 10px;
+}
+
+.logo2{
+    position: absolute;
+    left: 85px;
+    top: 15px;
+}
+
+.home{
+    position: absolute;
+    left: 400px;
+}
+.mypage{
+    position: absolute;
+    left: 800px;
+}
+.logout{
+    position: absolute;
+    left: 1200px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Create channel */
+
+#add-channel-btn{
+    position: absolute;
+    width: 250px;
+    height: 50px;
+    left: 750px;
+    top: 150px;
+
+    background: #C1005D;
+    border-radius: 5px;
+    border: none;
+
+    font-family: 'BIZ UDPGothic';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 20px;
+    cursor: pointer;
+    /* identical to box height */
+
+
+    color: #FFFFFF;
+    transition: all 0.25s;
+    box-shadow: 7px 4px 7px 0px rgb(0 0 0 / 25%);
+
+
+}
+#add-channel-btn:hover{
+    background-color: #870041;
+}
+
+/* サブタイトル*/
+.Home{
+    position: absolute;
+    width: 118.14px;
+    height: 30.53px;
+    left: 287.27px;
+    top: 140.05px;
+    font-family: 'BIZ UDPGothic';
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.channel{
+    position: absolute;
+    /* width: 200.37px;
+    height: 19.21px;
+    left: 307.86px;
+    top: 190.75px; */
+    width: 200.37px;
+    height: 19.21px;
+    left: 286.86px;
+    top: 193.75px;
+    font-family: 'BIZ UDPGothic';
+    text-align: center;
+    font-size: 30px;
+}
+
+.home-icon{
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    left: 187px;
+    top: 133px;
+}
+/* チャンネルボックス */
+.channels-box {
+    position: absolute;
+    left: 300px;
+    top: 300px;
+    column-count: 2;
+    column-gap: 30%;
+}
+
+.channel-follow-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.channel-list {
+    position: relative;
+    width: 500px;
+    height: 100px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 30px 30px 0px;
+    background: white;
+    /* margin-top: 25px; */
+    margin-bottom: 33px;
+    display: flex;
+    cursor: pointer;
+}
+
+.channel-name {
+    /* position: absolute; */
+    font-family: 'BIZ UDPGothic';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 24px;
+    color: #000000;
+    text-decoration: none
+}
+
+.channel-abstract {
+    /* position: absolute; */
+    font-family: 'BIZ UDPGothic';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px; 
+    color: #757575;
+
+}
+
+.channel-item{
+    position: absolute;
+    display:flex;
+    flex-flow: column;
+    left: 135px;
+    top: 24px;
+}
+.delete-channel-btn{
+    position: absolute;
+    right: 25px;
+    top: 28px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* 左の三角形 */
+#prev {
+    /* position: absolute; */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-right: 23px solid #000000;
+    border-left: 0;
+    margin-right: 15px;
+  }
+
+/* 右の三角形 */
+#next {
+    /* position: absolute; */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-left: 23px solid #000000;
+    border-right: 0;
+    margin-left: 15px;
+  }
+
+/* 全体 */
+.pagination-container {
+    position: absolute;
+    font-family: 'BIZ UDPGothic';
+    display: flex;
+    width: auto;
+    height: 20.31px;
+    /* left: 525.72px; */
+    left: 47%;
+    top: 550.72px;
+    font-size: 30px;
+}
+
+.pagination-li {
+    display: inline;
+}
+
+.colored {
+    color: aquamarine;
+}
+
+#channel-inline {
+
+}
+/* .channel-name .channel-abstract .delete-channel-btn {
+} */

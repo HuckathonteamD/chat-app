@@ -119,6 +119,10 @@ input[type="password"]{
     font-weight: 700;
     font-size: 20px;
     line-height: 20px;
+    transition: all 0.3s;
+}
+.login-button:hover {
+    background-color: #870041;
 }
 
 .sign-up{
@@ -131,12 +135,17 @@ input[type="password"]{
     color: #000000;
 }
 
-.link{
+.switch-register-mode{
     text-decoration: none;
     color: #C1005D;
     font-family: 'BIZ UDPGothic';
     font-style: normal;
+    transition: all 0.2s;
 }
+.switch-register-mode:hover {
+    color: #278BFF;
+}
+
 .or{
     position: absolute;
     width: 355px;

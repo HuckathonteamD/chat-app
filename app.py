@@ -1,6 +1,7 @@
 from flask import Flask, flash, redirect, render_template, request, session
 from models import dbConnect
 from util.user import User
+from util.crypto_dec import crypto_dec
 from datetime import datetime, timedelta, timezone
 import hashlib
 import uuid
@@ -101,7 +102,10 @@ def add_channel():
         return redirect('/login')
     channel_name = request.form.get('channel-title')
     channel = dbConnect.getChannelByName(channel_name)
-    if channel == None:
+    if channel_name == "":
+        error = 'チャンネル名が空白です'
+        return render_template('error/error.html', error_message=error)
+    elif channel == None and channel_name:
         channel_description = request.form.get('channel-description')
         current_date = datetime.now(timezone(timedelta(hours=9)))
         dbConnect.addChannel(uid, channel_name, channel_description, current_date)
@@ -138,9 +142,6 @@ def detail(cid):
     messages = dbConnect.getMessageAll(cid)
     follows = dbConnect.getFollowById(cid)
     reactions = dbConnect.getReactionAll()
-    print(cid)
-    print(messages)
-    print(follows)
     messages_reaction = dbConnect.getMessageReactionAll(cid)
     return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
 
@@ -155,7 +156,8 @@ def update_channel():
     channel_description = request.form.get('channel-description')
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
-    dbConnect.updateChannel(uid, channel_name, channel_description, current_date, cid)
+    if channel_name != "":
+        dbConnect.updateChannel(uid, channel_name, channel_description, current_date, cid)
     channel = dbConnect.getChannelById(cid)
     messages = dbConnect.getMessageAll(cid)
     follows = dbConnect.getFollowById(cid)
@@ -213,7 +215,7 @@ def update_message():
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
     message_uid = dbConnect.getUserIdByMessageId(mid)
-    if message_uid["uid"] == uid:
+    if message_uid["uid"] == uid and message:
         dbConnect.updateMessage(uid, cid, message, current_date, mid)
     channel = dbConnect.getChannelById(cid)
     messages = dbConnect.getMessageAll(cid)
@@ -427,5 +429,21 @@ def show_error500(error):
     return render_template('error/500.html')
 
 
+# @app.before_request
+# def before_request():
+#     if not request.is_secure:
+#         url = request.url.replace('http://', 'https://', 1)
+#         code = 301
+#         return redirect(url, code=code)
+
+
 if __name__ == '__main__':
+
+    # import ssl
+    # ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    # ssl_context.load_cert_chain(
+    # crypto_dec.getdec["SSLFULL"], crypto_dec.getdec["SSLPRI"]
+    # )
+    # app.run(debug=False,host='0.0.0.0',port=443 ,threaded=true ,ssl_context=ssl_context)
+
     app.run(debug=True)

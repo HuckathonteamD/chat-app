@@ -16,7 +16,7 @@
               <li class="logo2"><img src="{{url_for('static', filename='img/Channel-Ring.png')}}" alt="ring"></li>
               <li class="home"><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='img/Home-White.png')}}" alt="home"></a></li>
               <li class="mypage"><a href="{{ url_for('my_page') }}"><img src="{{url_for('static', filename='img/myPage-White.png')}}" alt="mypage"></a></li>
-              <li class="logout"><a href="{{ url_for('logout') }}"><img src="{{url_for('static', filename='img/Logout-White.png')}}" alt="logout"></a></li>
+              <li class="logout" id="logout"><img src="{{url_for('static', filename='img/Logout-White.png')}}" alt="logout"></li>
           </ul>
       </nav>
   </header>
@@ -94,9 +94,9 @@
         {% endfor %}
       </ul>
   </div>
-   
-    {% include 'modal/update-name-email.html' %}
-    {% include 'modal/update-password.html' %}
+  {% include 'modal/update-name-email.html' %}
+  {% include 'modal/update-password.html' %}
+  {% include 'modal/logout.html' %}
 </body>
 {% endblock %}
 

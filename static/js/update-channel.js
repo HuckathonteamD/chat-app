@@ -23,6 +23,11 @@ const reactionBtn = document.getElementsByClassName("reaction-btn");
 const reactionModal = document.getElementsByClassName("reaction-modal");
 const reactionPageButtonClose = document.getElementsByClassName("reaction-page-close-btn");
 
+// ログアウト
+const logoutBtn = document.getElementById("logout-btn");
+const logoutModal = document.getElementById("logout-modal");
+const logoutPageButtonClose = document.getElementById("logout-page-close-btn");
+
 // モーダルを開く
 function modalOpen(mode) {
   if (mode === "update") {
@@ -33,6 +38,8 @@ function modalOpen(mode) {
     }
   } else if (mode === "follow") {
     followChannelModal.style.display = "block";
+  } else if (mode === "logout") {
+    logoutModal.style.display = "block";
   }
 }
 
@@ -66,6 +73,9 @@ if (reactionBtn){
     });
   }
 }
+logoutBtn.addEventListener("click", () => {
+  modalOpen("logout");
+});
 
 // モーダルを閉じる
 if (updatePageButtonClose) {
@@ -89,6 +99,9 @@ for( let i=0 ; i<reactionPageButtonClose.length ; i++ ) {
     reactionModal[i].style.display = "none";
   });
 }
+logoutPageButtonClose.addEventListener("click", () => {
+  logoutModal.style.display = "none";
+});
 
 // モーダルコンテンツ以外がクリックされた時
 addEventListener("click", (e) => {
@@ -96,6 +109,8 @@ addEventListener("click", (e) => {
     updateChannelModal.style.display = "none";
   } else if (e.target == followChannelModal) {
     followChannelModal.style.display = "none";
+  } else if (e.target == logoutModal) {
+    logoutModal.style.display = "none";
   }
 });
 

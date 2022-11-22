@@ -11,7 +11,10 @@ const updatePasswordButtonClose = document.getElementById("update-password-close
 const unfollowChannelBtn = document.getElementsByClassName("unfollow-channel-btn");
 const unfollowChannelModal = document.getElementsByClassName("unfollow-channel-modal");
 const unfollowChannelButtonClose = document.getElementsByClassName("unfollow-channel-close-btn");
-
+//ログアウト
+const logoutBtn = document.getElementById("logout");
+const logoutModal = document.getElementById("logout-modal");
+const logoutButtonClose = document.getElementById("logout-page-close-btn");
 
 // モーダルを開く
 function modalOpen(mode) {
@@ -19,6 +22,8 @@ function modalOpen(mode) {
     updateNameEmailModal.style.display = "block";
   } else if (mode === "update-password") {
     updatePasswordModal.style.display = "block";
+  }  else if (mode === "logout") {
+    logoutModal.style.display = "block";
   } 
 }
 
@@ -39,6 +44,9 @@ if (unfollowChannelBtn) {
     });
   }
 }
+logoutBtn.addEventListener("click", () => {
+  modalOpen("logout");
+});
 
 
 // モーダルを閉じる
@@ -47,6 +55,8 @@ function modalClose(mode) {
     updateNameEmailModal.style.display = "none";
   } else if (mode === "update-password") {
     updatePasswordModal.style.display = "none";
+  } else if (mode === "logout") {
+    logoutModal.style.display = "none";
   }
 }
 
@@ -63,6 +73,9 @@ for (let step = 0; step < unfollowChannelButtonClose.length; step++) {
   unfollowChannelModal[step].style.display = "none";
 });
 }
+logoutButtonClose.addEventListener("click", () => {
+  modalClose("logout");
+});
 
 // モーダルコンテンツ以外がクリックされた時
 addEventListener("click", (e) => {
@@ -70,6 +83,8 @@ addEventListener("click", (e) => {
     updateNameEmailModal.style.display = "none";
   } else if (e.target == updatePasswordModal) {
     updatePasswordModal.style.display = "none";
+  } else if (e.target == logoutModal) {
+    logoutModal.style.display = "none";
   }
 });
 

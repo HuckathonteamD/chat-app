@@ -2,7 +2,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5>チャンネル詳細編集</h5>
-        <span class="modalClose" id="update-page-close-btn">×</span>
       </div>
       <form class="modal-body" action="/update_channel" method="POST">
         <input
@@ -17,8 +16,9 @@
           class="channel-form-input"
           name="channel-description"
         />
-        <input type="hidden" name='cid' value='{{ channel.id }}'>
-          <button>変更</button>
+        <input type="hidden" name='cid' value='{{ channel.id }}'><br>
+        <button type="button" id="update-page-close-btn">キャンセル</button>
+        <button>変更</button>
       </form>
     </div>
   </div>

@@ -59,7 +59,7 @@
 const pagination = () => {
     // 初期設定
     let page = 1; // 今何ページ目にいるか
-    const STEP = 5; // ステップ数（1  ページに表示する項目数）
+    const STEP = 8; // ステップ数（1ページに表示する項目数）
     // 全ページ数 channelsリストの総数/ステップ数の余りの有無で場合分け
     // 余りがある場合はページを１つ余分に追加する
     const TOTAL =
@@ -75,8 +75,14 @@ const pagination = () => {
       let li = document.createElement("li");
       li.classList.add("pagination-li");
       if(pageCount == 0) li.classList.add("colored");
+      li.setAttribute("id","page"+(pageCount+1));
       li.innerText = pageCount + 1;
       paginationUl.appendChild(li);
+      if(pageCount != TOTAL-1){
+        const span = document.createElement("span");
+        span.innerText = "・";
+        paginationUl.appendChild(span);
+      }
       pageCount++;
     }
 
@@ -94,85 +100,37 @@ const pagination = () => {
       const a = document.createElement("a");
       const li = document.createElement("li");
       const p = document.createElement("p");
+      const div = document.createElement("div");
+      const followBtn = document.createElement("button");
+      const followImg = document.createElement("img");
+      // const br =document.createElement("br");
 
       // チャット画面へのリンク追加
       const url = `/detail/${item.id}`;
       a.setAttribute("href", url);
 
-      a.classList.add("channel-name")
+      li.classList.add("channel-list");
+      followBtn.classList.add("channel-follow-btn");
+      followImg.setAttribute("src",`${location.origin}/static/img/channelPic-heartLine.png`);
+      followBtn.appendChild(followImg);
+      li.appendChild(followBtn);
+      div.classList.add("channel-item");
+      a.classList.add("channel-name");
       a.innerText = item.name;
-      li.appendChild(a);
+      div.appendChild(a);
       p.innerText = item.abstract;
-      p.classList.add("channel-abstract")
-      li.appendChild(p);
-
-      // console.log(item);
-      // console.log(follow_channels); 
-      // for (let i=0; i < follow_channels.length; i++) {
-      //   console.log(item.id === follow_channels[i].cid);
-      // }
-
-      // フォローしていないチャンネルには、フォローボタンを追加
-      // フォローしているチャンネルには、フォロー解除ボタンを追加
-      var follow_judge = 0;
-
-      if (follow_channels[0] == null) {
-        const followChannelBtn = document.createElement("button");
-          followChannelBtn.innerText = "フォロー"; //<img src="{{url_for('static', filename='img/channelPic-heartLine.png')}}"></img>
-          followChannelBtn.classList.add("follow-channel-btn-i")
-          li.appendChild(followChannelBtn);
-          followChannelBtn.addEventListener("click", () => {
-            modalOpen("follow_i");
-            const confirmationButtonLink = document.getElementById(
-              "follow-confirm-link-i"
-            );
-            const url = `/follow_channel_i/${item.id}`;
-            confirmationButtonLink.setAttribute("href", url);
-          });
-      } else {
-        for (let i=0; i < follow_channels.length; i++){
-          if (item.id === follow_channels[i].cid) {
-            follow_judge += 1;
-          } else {
-            follow_judge += 0;
-          }
-        }
-        
-        if (follow_judge === 1) {
-          const unfollowChannelBtn = document.createElement("button");
-          unfollowChannelBtn.innerText = "フォロー解除"; //<img src="{{url_for('static', filename='img/channelPic-heartLine.png')}}"></img>
-          unfollowChannelBtn.classList.add("unfollow-channel-btn-i")
-          li.appendChild(unfollowChannelBtn);
-          unfollowChannelBtn.addEventListener("click", () => {
-            modalOpen("unfollow_i");
-            const confirmationButtonLink = document.getElementById(
-              "unfollow-confirm-link-i"
-            );
-            const url = `/unfollow_channel_i/${item.id}`;
-            confirmationButtonLink.setAttribute("href", url);
-          });
-        } else {
-          const followChannelBtn = document.createElement("button");
-          followChannelBtn.innerText = "フォロー"; //<img src="{{url_for('static', filename='img/channelPic-heartLine.png')}}"></img>
-          followChannelBtn.classList.add("follow-channel-btn-i")          
-          li.appendChild(followChannelBtn);
-          followChannelBtn.addEventListener("click", () => {
-            modalOpen("follow_i");
-            const confirmationButtonLink = document.getElementById(
-              "follow-confirm-link-i"
-            );
-            const url = `/follow_channel_i/${item.id}`;
-            confirmationButtonLink.setAttribute("href", url);
-          });
-        }
-      }
-
+      p.classList.add("channel-abstract");
+      div.appendChild(p);
+      li.appendChild(div);
 
       // もしチャンネル作成者uidとuidが同じだったら、削除ボタンを追加
       if (uid === item.uid) {
         const deleteButton = document.createElement("button");
-        deleteButton.innerText = "削除";
-        deleteButton.classList.add("delete-channel-btn")
+        const deleteimg = document.createElement("img");
+        // deleteButton.innerText = "削除";
+        deleteButton.classList.add("delete-channel-btn");
+        deleteimg.setAttribute("src",`${location.origin}/static/img/trashIcon.png`);
+        deleteButton.appendChild(deleteimg);
         li.appendChild(deleteButton);
         deleteButton.addEventListener("click", () => {
           modalOpen("delete");
@@ -184,6 +142,7 @@ const pagination = () => {
         });
       }
       ul.appendChild(li);
+      // ul.appendChild(br);
     });
   };
 
@@ -211,6 +170,8 @@ const pagination = () => {
     colorPaginationNum();
   });
 
+
+
   // 次ページ遷移
   document.getElementById("next").addEventListener("click", () => {
     if (page >= channels.length / STEP) return;
@@ -218,6 +179,14 @@ const pagination = () => {
     show(page, STEP);
     colorPaginationNum();
   });
+
+  for(let j=1;j<=TOTAL;j++){
+    document.getElementById(`page${j}`).addEventListener("click", () => {
+      page = j;
+      show(page, STEP);
+      colorPaginationNum();
+    });
+  }
 }
 
 window.onload = () => {

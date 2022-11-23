@@ -23,7 +23,9 @@
 <!-- </body> -->
 
 <!-- <body bgcolor="#DBDBDB"> -->
-  <div class="user-info-sikaku"></div>
+  <div class="user-info-sikaku">
+    <div class="centerLine"></div>
+  </div>
   <div class="follow-channel-sikaku"></div>
 
     <div id="update-name-email-btn">
@@ -47,11 +49,10 @@
     {% endwith %}
 
   <div>
-    <h1 class="user-info">User Information</h1>
+    <h1 class="user-info">MY Page</h1>
     <h3 class="user-info-japanese">ユーザー情報</h3>
-    <div class="user-icon">
-      <img src="{{url_for('static', filename='img/userIcon.png')}}">
-    </div>
+    <div class="mypage-icon"><img src="../static/img/myPage-icon.png"></div>
+    <!-- <div class="user-icon"><img src="{{url_for('static', filename='img/userIcon.png')}}"></div> -->
     <!-- ユーザー情報 -->
     <p class="user-img"></p>
         <P class="user-name">User Name</P>
@@ -67,8 +68,9 @@
         <p class="password-txt">**********</p>
 
     <!-- フォローチャンネル -->
-      <h1 class="follow-channels">follow channels</h1>
+      <h1 class="follow-channels">Follow Channels</h1>
       <h3 class="follow-channels-japanese">お気に入りチャンネル</h3>
+      <div class="follow-channels-icon"><img src="../static/img/myPage-heart.png"></div>
       <ul class="channel-scroll">
           {% for follow_channel in follow_channels %}  
           <div>

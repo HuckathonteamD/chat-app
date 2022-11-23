@@ -281,7 +281,7 @@ class dbConnect:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "DELETE FROM user_follow_channel WHERE cid=%s & uid=%s;"
+            sql = "DELETE FROM user_follow_channel WHERE cid=%s and uid=%s;"
             cur.execute(sql, (cid, uid))
             conn.commit()
         except Exception as e:

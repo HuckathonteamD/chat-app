@@ -284,6 +284,9 @@ def unfollow_channel_i(cid):
         return redirect('/login')
     else:
         dbConnect.unfollowChannel_i(cid, uid)
+        
+        print(cid)
+
         # name = dbConnect.getUserName(uid)
         # email = dbConnect.getUserEmail(uid)
         # follows = dbConnect.getFollowById(cid)

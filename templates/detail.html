@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/chatroom.css')}}" />
+
   <title>chatroom</title>
   <style>
     h1{line-height: 1.2em;margin: 0px 10px 0px 10px;}
@@ -16,68 +19,101 @@
   </style>
 {% endblock %}
 {% block body %}
-  <div class="main-container">
+<body>
+
+  <!--上部の黒帯　メニュー一覧 -->
+  <header>  
+    <nav>
+      <ul>
+        <li class="logo1"><img src="{{url_for('static', filename='img/Channel-chatIcon.png')}}" alt="icon"></li> <!-- ロゴ -->
+        <li class="logo2"><img src="{{url_for('static', filename='img/Channel-Ring.png')}}" alt="ring"></li> <!-- ロゴ -->
+        <li class="home"><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='img/Home-White.png')}}" alt="home"></a></li> <!-- チャンネル一覧へ遷移 -->
+        <li class="mypage"><a href="{{ url_for('my_page') }}"><img src="{{url_for('static', filename='img/myPage-White.png')}}" alt="mypage"></a></li> <!-- Mypageへ -->
+        <li class="logout"><a href="{{ url_for('logout') }}"><img src="{{url_for('static', filename='img/Logout-White.png')}}" alt="logout"></a></li> <!-- ログアウト -->
+    </ul>
+    </nav>
+  </header>
+
+  <div class="right-chatArea"> <!-- 右側　メッセージ表示エリア背景指定-->
+    <div class="background-logo"> <!-- チャットエリアの背景ロゴ -->
+      <img src="{{url_for('static', filename='img/Loginlogo.png')}}" alt="home">
+    </div>
+  </div>
+
+  <!--<div class="main-container">-->
     <div class="chat-box">
-      <div id="chat-header">
-        <!-- もしuidとチャンネル作成者が同じならタイトル、説明を編集可能にする -->
-        <h1 id="chatroom-name">{{ channel.name }}</h1>
-        {% if channel.abstract is not none %}
-          <h3 id="chatroom-description">{{ channel.abstract }}</h3>
+      <img src="{{url_for('static', filename='img/chatBlack.png')}}" alt="chatIconBlack">
+      <!-- もしuidとチャンネル作成者が同じならタイトル、説明を編集可能にする -->
+      <h1 id="chatroom-name">{{ channel.name }}</h1>
+      {% if channel.abstract is not none %}
+        <h3 id="chatroom-description">{{ channel.abstract }}</h3>
+      {% endif %}
+      <!-- チャンネル詳細編集ボタン表示 -->
+      <div class="chatroom-btn">
+        {% if uid == channel.uid %}
+          <div id="update-channel-btn">
+            <img src="{{url_for('static', filename='img/channelEditB-hover.png')}}">
+            <img src="{{url_for('static', filename='img/channelEditB.png')}}">
+          </div>
+          {% include 'modal/update-channel.html' %}
         {% endif %}
-        <div class="chatroom-btn">
-          {% if uid == channel.uid %}
-            <button id="update-channel-btn">チャンネル詳細編集</button>
-            {% include 'modal/update-channel.html' %}
-          {% endif %}
-          <!-- フォローボタンの表示 -->
-          <ul class="follow-box"></ul>
-          {% include 'modal/follow-channel.html' %}
-        </div>
-        <a href="{{ url_for('index') }}">チャンネル一覧へ</a>
-        <button id="logout-btn">logout</button><br>
-        {% include 'modal/logout.html' %}
+        <!-- フォローボタンの表示 -->
+        <!-- <ul class="follow-box"></ul>-->
+        <!-- {% include 'modal/follow-channel.html' %}-->
+        <!--{% include 'modal/logout.html' %}-->
       </div>
+    </div>
       <!-- メッセージ表示 -->
-      <div id="message-area">
+    <div class="message-area">
+      <!--<div id="message-area">-->
         {% if messages|length > 0 %}
           {% for message in messages %}
             {% if message.uid == uid %}
             <!-- 自分のメッセージ表示 -->
               <div class="my-messages">
-                {% if message.created_at == message.updated_at %}
+                {% if message.created_at == message.updated_at %} <!-- メッセージ投稿時間表示 -->
                   <p class="message-updatetime-right">{{ message.created_at.strftime("%Y-%m-%d %H:%M") }}</p>
                 {% else %}
-                  <p class="message-updatetime-right">{{ message.created_at.strftime("%Y-%m-%d %H:%M") }}(編集:{{ message.updated_at.strftime("%Y-%m-%d %H:%M") }})</p>
-                {% endif %}
+                <div class="my-message-updatetime"> <!-- メッセージ編集時間表示 -->
+                  <p class="message-updatetime-right">{{ message.created_at.strftime("%Y-%m-%d %H:%M") }}</p>
+                  <p class="message-updatetime-right-edit">(編集:{{ message.updated_at.strftime("%Y-%m-%d %H:%M") }})</p>
+                </div>
+                  {% endif %}
                 <div class="box box-right">
-                  <p>{{ message.message.replace("\r\n","<br>").replace("\n","<br>") | safe }}</p>
+                  <p>{{ message.message.replace("\r\n","<br>").replace("\n","<br>") | safe }}</p> <!-- UIにメッセージ内容表示 -->
                   <!-- リアクション表示 -->
                   <div class="reacions">
                   {% if messages_reaction %}
                     {% for message_reaction in messages_reaction %}
                       {% if message.id == message_reaction.mid %}
-                        <img class="reaction-img" src="{{ url_for('static',filename=message_reaction.icon_path) }}" />
+                        <img class="reaction-img" src="{{ url_for('static',filename=message_reaction.icon_path) }}" /> <!-- UIにリアクションアイコン表示 -->
                       {% endif %}
                     {% endfor %}
                   {% endif %}
                   </div>
-                  <button class="update-message-btn">編集</button>
-                  {% include 'modal/update-message.html' %}
-                  <button class="delete-message-btn">削除</button>
-                  {% include 'modal/delete-message.html' %}
+                  <button class="update-message-btn"> <!--メッセージ編集ボタン-->
+                    <img src="{{url_for('static', filename='img/messageEdit-hover.png')}}" alt="messageEdit">
+                    <img src="{{url_for('static', filename='img/messageEdit.png')}}" alt="messageEdit">
+                  </button>
+                  <button class="delete-message-btn"> <!-- メッセージ削除ボタン -->
+                    <img src="{{url_for('static', filename='img/trashB-hover.png')}}" alt="messageDelete">
+                    <img src="{{url_for('static', filename='img/trashB.png')}}" alt="messageDelete">
+                  </button>
                 </div>
+                {% include 'modal/delete-message.html' %}
+                {% include 'modal/update-message.html' %}
               </div>
             {% else %}
             <!-- 他の人のメッセージ表示 -->
               <div class="messages">
-                <p class="user-name">{{ message.user_name }}</p>
+                <p class="user-name">{{ message.user_name }}</p> <!-- UIにusername表示 -->
                 {% if message.created_at == message.updated_at %}
-                  <p class="message-updatetime-left">{{ message.created_at.strftime("%Y-%m-%d %H:%M") }}</p>
+                  <p class="message-updatetime-left">{{ message.created_at.strftime("%Y-%m-%d %H:%M") }}</p> <!-- メッセージ投稿時間表示 -->
                 {% else %}
                   <p class="message-updatetime-left">{{ message.created_at.strftime("%Y-%m-%d %H:%M") }}(編集:{{ message.updated_at.strftime("%Y-%m-%d %H:%M") }})</p>
                 {% endif %}
                 <div class="box box-left">
-                  <p>{{ message.message.replace("\r\n","<br>").replace("\n","<br>") | safe }}</p>
+                  <p>{{ message.message.replace("\r\n","<br>").replace("\n","<br>") | safe }}</p> <!-- UIにメッセージ内容表示 -->
                   <!-- リアクション表示 -->
                   <div class="reacions">
                   {% if messages_reaction %}
@@ -85,46 +121,55 @@
                       {% if message.id == message_reaction.mid %}
                         {% if uid == message_reaction.uid %}
                           <a href="/delete_reaction/{{channel.id}}/{{message_reaction.id}}">
-                            <img class="my-reaction-img" src="{{ url_for('static',filename=message_reaction.icon_path) }}" /></a>
-                        {% else %}
-                          <img class="reaction-img" src="{{ url_for('static',filename=message_reaction.icon_path) }}" />
+                            <div class="my-reaction-circle">
+                              <img class="my-reaction-img" src="{{ url_for('static',filename=message_reaction.icon_path) }}" /></a> <!-- UIにリアクションアイコン表示 -->
+                            </div>
+                            {% else %}
+                            <div class="reaction-circle">
+                              <img class="reaction-img" src="{{ url_for('static',filename=message_reaction.icon_path) }}" /> <!-- UIに他人のリアクションアイコン表示 -->
+                            </div>
                         {% endif %}
                       {% endif %}
                     {% endfor %}
                   {% endif %}
                   </div>
-                  <button class="reaction-btn">リアクション</button>
+                  <button class="reaction-btn"> <!-- リアクション選択モーダル表示 -->
+                    <img src="{{url_for('static', filename='img/reactionPlusB-hover.png')}}" alt="reactionPlus">
+                    <img src="{{url_for('static', filename='img/reactionPlusB.png')}}" alt="reactionPlus">
+                  </button>
                   {% include 'modal/add-reaction.html' %}
                 </div>
               </div>
             {% endif %}
           {% endfor %}
         {% else %}
-          <div>まだメッセージがありません</div>
+          <div>まだメッセージがありません</div> <!-- 投稿がない時のUI表示 -->
         {% endif %}
-      </div>
-      <div class="typing-box-wrapper">
+    </div>
+
+      <div class="textInput"> <!-- テキスト入力エリア -->
         <form class="typing-box" action="/message" method="POST">
           <textarea name="message" id="message" autofocus></textarea>
           <input type="hidden" name="channel_id" value="{{ channel.id }}" />
+          <!--<button type="submit" id="add-message-btn">-->
           <button type="submit" id="add-message-btn">
-          送信
+            <img src="{{url_for('static', filename='img/chatSendB-hover.png')}}" alt="messageSend">
+            <img src="{{url_for('static', filename='img/chatSendB.png')}}" alt="messageSend">
           </button>
         </form>
+        </div> 
       </div>
     </div>
-  </div>
+  <!--</div>-->
+</body>
+
+
 {% endblock %}
 {% block script %}
   <script type="text/javascript">
     const channel = JSON.parse('{{ channel|tojson }}');
     const uid = JSON.parse('{{ uid|tojson }}');
-    const follows = JSON.parse('{{ follows|tojson }}');
   </script>
-   <script
-   src="{{url_for('static',filename='js/follow-channel.js')}}"
-   type="text/javascript"
-  ></script>
   <script
     src="{{url_for('static',filename='js/update-channel.js')}}"
     type="text/javascript"

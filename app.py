@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, url_for, request, session
 from models import dbConnect
 from util.user import User
 from util.crypto_dec import crypto_dec
@@ -90,7 +90,8 @@ def index():
         return redirect('/login')
     else:
         channels = dbConnect.getChannelAll()
-    return render_template('index.html', channels=channels, uid=uid)
+        follow_channels = dbConnect.getFollowChannelIdByUid(uid)
+        return render_template('index.html', channels=channels, uid=uid, follow_channels=follow_channels)
 
 
 @app.route('/', methods=['POST'])
@@ -125,8 +126,7 @@ def delete_channel(cid):
             return redirect ('/')
         else:
             dbConnect.deleteChannel(cid)
-            channels = dbConnect.getChannelAll()
-            return render_template('index.html', channels=channels, uid=uid)
+            return redirect ('/')
 
 
 # uidもmessageと一緒に返す
@@ -156,12 +156,8 @@ def update_channel():
 
     if channel_name != "" and request.method == 'POST':
         dbConnect.updateChannel(uid, channel_name, channel_description, current_date, cid)
-    channel = dbConnect.getChannelById(cid)
-    messages = dbConnect.getMessageAll(cid)
-    follows = dbConnect.getFollowById(cid)
-    reactions = dbConnect.getReactionAll()
-    messages_reaction = dbConnect.getMessageReactionAll(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
+
+    return redirect(url_for('detail',cid=cid))
 
 
 @app.route('/message', methods=['POST'])
@@ -176,13 +172,7 @@ def add_message():
     if message and request.method == 'POST':
         dbConnect.createMessage(uid, cid, message, current_date)
 
-    message = ""
-    channel = dbConnect.getChannelById(cid)
-    messages = dbConnect.getMessageAll(cid)
-    follows = dbConnect.getFollowById(cid)
-    reactions = dbConnect.getReactionAll()
-    messages_reaction = dbConnect.getMessageReactionAll(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
+    return redirect(url_for('detail',cid=cid))
 
 
 @app.route('/delete_message', methods=['POST'])
@@ -195,12 +185,7 @@ def delete_message():
     if mid and request.method == 'POST':
         dbConnect.deleteMessage(mid)
 
-    channel = dbConnect.getChannelById(cid)
-    messages = dbConnect.getMessageAll(cid)
-    follows = dbConnect.getFollowById(cid)
-    reactions = dbConnect.getReactionAll()
-    messages_reaction = dbConnect.getMessageReactionAll(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
+    return redirect(url_for('detail',cid=cid))
 
 
 @app.route('/update_message', methods=['POST'])
@@ -216,15 +201,12 @@ def update_message():
     message_uid = dbConnect.getUserIdByMessageId(mid)
     if message_uid["uid"] == uid and message and request.method == 'POST':
         dbConnect.updateMessage(uid, cid, message, current_date, mid)
-    channel = dbConnect.getChannelById(cid)
-    messages = dbConnect.getMessageAll(cid)
-    follows = dbConnect.getFollowById(cid)
-    reactions = dbConnect.getReactionAll()
-    messages_reaction = dbConnect.getMessageReactionAll(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
+
+    return redirect(url_for('detail',cid=cid))
 
 
-@app.route('/follow/<int:cid>')
+# ホーム画面でチャンネルフォロー
+@app.route('/follow_channel_i/<int:cid>')
 def follow_channel(cid):
     uid = session.get("uid")
     if uid is None:
@@ -235,17 +217,13 @@ def follow_channel(cid):
             if follow["uid"] == uid:
                 flash('既にフォロー済みです')
                 return redirect ('/')
-        
         if cid:
             dbConnect.followChannel(uid, cid)
-        channel = dbConnect.getChannelById(cid)
-        messages = dbConnect.getMessageAll(cid)
-        follows = dbConnect.getFollowById(cid)
-        reactions = dbConnect.getReactionAll()
-        messages_reaction = dbConnect.getMessageReactionAll(cid)
-        return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
+
+        return redirect ('/')   
 
 
+# マイページでチャンネルフォロー解除
 @app.route('/unfollow_channel/<int:id>')
 def unfollow_channel(id):
     uid = session.get("uid")
@@ -254,10 +232,19 @@ def unfollow_channel(id):
     else:
         if id:
             dbConnect.unfollowChannel(id)
-        name = dbConnect.getUserName(uid)
-        email = dbConnect.getUserEmail(uid)
-        follow_channels = dbConnect.getFollowChannelAll(uid)
-        return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
+        return redirect('/my_page')
+
+
+# ホーム画面でチャンネルフォロー解除
+@app.route('/unfollow_channel_i/<int:cid>')
+def unfollow_channel_i(cid):
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    else:
+        if cid:
+            dbConnect.unfollowChannel_i(cid, uid)
+        return redirect ('/')
 
 
 @app.route('/my_page')

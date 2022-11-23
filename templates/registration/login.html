@@ -25,9 +25,7 @@
       <input type="email" placeholder="Email" name="email" />
       <input type="password" placeholder="Password" name="password" />
       <button class="login-button">LOGIN</button>
-      <a class="switch-register-mode" href="{{ url_for('signup') }}">
-        Not registered yet?
-      </a>
+      <div class="sign-up">Don't have an account?<a class="switch-register-mode" href="{{ url_for('signup') }}">SIGN UP!</a></div>
     </form>
   </div>
 </body>

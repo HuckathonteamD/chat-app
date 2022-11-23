@@ -75,6 +75,7 @@ box-sizing: border-box;
     font-style: normal;
     font-weight: 700;
     font-size: 32px;
+    cursor: default;
 }
 
 input[type="email"]{
@@ -133,6 +134,7 @@ input[type="password"]{
     line-height: 16px;
     text-align: center;
     color: #000000;
+    cursor: default;
 }
 
 .switch-register-mode{
@@ -170,6 +172,12 @@ input[type="password"]{
 
     color: #595959;
     margin: 70px 0px 0px 0px;
+    transition: all 0.25s;
+}
+
+.google-login:hover{
+    background-color: #d4d4d4;
+    color: white;
 }
 
 .g{

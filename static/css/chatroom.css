@@ -1,3 +1,6 @@
+/* チャットルームのベースのCSS */
+
+
 @charset "utf-8";
 @media screen and (max-width: 768px) {
 }
@@ -89,6 +92,8 @@ nav ul li {
   position: fixed;
   left: 27px;
   top: 130px;
+  width: 15%;
+  height: 15%;
 }
 
 /* 左側リストの点非表示 */
@@ -99,32 +104,52 @@ nav ul li {
 /* チャンネル名の指定 */
 #chatroom-name {
   position: absolute;
-  width: 50%;
-  height: 24px;
+  width: 75%;
+  height: 60px;
   left: 0px;
-  top: 67px;
+  top: 70px;
   font-family: 'BIZ UDPGothic';
   font-style: normal;
   font-weight: 700;
   font-size: 24px;
   line-height: 24px;
   word-break: break-all;
+  /*上下方向にはみ出した要素ををスクロールさせる*/
+  overflow-y: scroll;
+  /*スクロールバー非表示（IE・Edge）*/
+  -ms-overflow-style: none;
+  /*スクロールバー非表示（Firefox）*/
+  scrollbar-width: none;
+}
+  /*スクロールバー非表示（Chrome・Safari）*/
+#chatroom-name::-webkit-scrollbar{
+  display:none;
 }
 
 /* チャンネル説明の指定 */
 #chatroom-description {
   position: absolute;
-  width: 50%;
-  height: 24px;
+  width: 75%;
+  height: 50px;
   left: 0px;
-  top: 167px;
+  top: 140px;
   font-family: 'BIZ UDPGothic';
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 18px;
   word-break: break-all;
+  /*上下方向にはみ出した要素ををスクロールさせる*/
+  overflow-y: scroll;
+  /*スクロールバー非表示（IE・Edge）*/
+  -ms-overflow-style: none;
+  /*スクロールバー非表示（Firefox）*/
+  scrollbar-width: none;
 }
+/*スクロールバー非表示（Chrome・Safari）*/
+#chatroom-description::-webkit-scrollbar{
+  display:none;
+  }
 
 /* チャンネル編集ボタンの指定 */
 #update-channel-btn {
@@ -132,11 +157,12 @@ nav ul li {
   display: block;
   overflow: hidden;
   cursor: pointer;
+  background: transparent;
 }
 #update-channel-btn img {
   position: absolute;
-  left: 370px;
-  top: 300px;
+  top: 200px;
+  left: 62%;
   display: block;
 }
 #update-channel-btn:hover img:nth-of-type(2){
@@ -200,12 +226,12 @@ nav ul li {
   transform: translate(-30%,-50%);
 }
 
-/* テキスト入力エリア　全体の指定（グレーの四角） */
+/* テキスト入力エリア　下部バック地グレーの四角 */
 .textInput {
   position: fixed;
   display: flex;
   width: 85%;
-  height: 160px;
+  height: 120px;
   left: 15%;
   bottom: 0px;
   background: #B3B3B3;
@@ -214,7 +240,7 @@ nav ul li {
 }
 
 /* テキスト入力エリア　白いBoxの指定 */
-.textInput textarea {
+#message {
   position: absolute;
   width: 80%;
   height: 75%;
@@ -228,32 +254,40 @@ nav ul li {
   font-family: 'BIZ UDPGothic';
   font-style: normal;
   font-size: 16px;
-
 }
 
 /* 送信ボタン指定 */
-.sendIcon {
+#add-message-btn {
   position: absolute;
   width: 55px;
   height: 55px;
   top: 15%;
   left: 91%;
-  background-image: url(../img/chatSendB.png);
-}
-/* hover指定 */
-.sendIcon:hover {
-  background-image: url(../img/chatSendB-hover.png);
-  width: 55px;
-  height: 55px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
   cursor: pointer;
+  background: transparent;
+  border: none;
 }
 
-#message-area {
-  position: absolute;
-  width: 80%;
-  height: 100vh;
-  left: 15%;
-  top: 120px;
-  margin: 0px 50px 0px 50px;
+#add-message-btn img {
+position: absolute;
+display: block;
 }
-/* ★チャットエリア指定 ここまで★*/
+#add-message-btn:hover img:nth-of-type(2){
+opacity: 0;
+}
+
+/* メッセージエリアの指定（吹き出が入る範囲） */
+.message-area {
+  position: relative;
+  width: 75%;
+  height: 100%;
+  margin-bottom: 250px;
+  left: 20%;
+  top: 120px;
+}
+
+
+/* ★チャットエリア指定 ここまで★ */

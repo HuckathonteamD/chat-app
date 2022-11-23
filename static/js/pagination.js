@@ -100,7 +100,7 @@ const pagination = () => {
           unfollowChannelBtn.addEventListener("click", () => {
             modalOpen("unfollow_i");
             const confirmationButtonLink = document.getElementById(
-              "unfollow-confirm-link-i"
+              "unfollow-channel-confirm-link-i"
             );
             const url = `/unfollow_channel_i/${item.id}`;
             confirmationButtonLink.setAttribute("href", url);

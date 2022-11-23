@@ -95,13 +95,13 @@
                     <img src="{{url_for('static', filename='img/messageEdit-hover.png')}}" alt="messageEdit">
                     <img src="{{url_for('static', filename='img/messageEdit.png')}}" alt="messageEdit">
                   </button>
-                  {% include 'modal/update-message.html' %}
                   <button class="delete-message-btn"> <!-- メッセージ削除ボタン -->
                     <img src="{{url_for('static', filename='img/trashB-hover.png')}}" alt="messageDelete">
                     <img src="{{url_for('static', filename='img/trashB.png')}}" alt="messageDelete">
                   </button>
-                  {% include 'modal/delete-message.html' %}
                 </div>
+                {% include 'modal/delete-message.html' %}
+                {% include 'modal/update-message.html' %}
               </div>
             {% else %}
             <!-- 他の人のメッセージ表示 -->
@@ -169,12 +169,7 @@
   <script type="text/javascript">
     const channel = JSON.parse('{{ channel|tojson }}');
     const uid = JSON.parse('{{ uid|tojson }}');
-    const follows = JSON.parse('{{ follows|tojson }}');
   </script>
-   <script
-   src="{{url_for('static',filename='js/follow-channel.js')}}"
-   type="text/javascript"
-  ></script>
   <script
     src="{{url_for('static',filename='js/update-channel.js')}}"
     type="text/javascript"

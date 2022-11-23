@@ -85,9 +85,11 @@ if (updatePageButtonClose) {
     updateChannelModal.style.display = "none";
   });
 }
-followPageButtonClose.addEventListener("click", () => {
-  followChannelModal.style.display = "none";
-});
+if (followPageButtonClose) {
+  followPageButtonClose.addEventListener("click", () => {
+    followChannelModal.style.display = "none";
+  });
+}
 for( let i=0 ; i<updateMessagePageButtonClose.length ; i++ ) {
   updateMessagePageButtonClose[i].addEventListener("click", () => {
     updateMessageModal[i].style.display = "none";
@@ -101,9 +103,12 @@ for( let i=0 ; i<reactionPageButtonClose.length ; i++ ) {
     reactionModal[i].style.display = "none";
   });
 }
-logoutPageButtonClose.addEventListener("click", () => {
-  logoutModal.style.display = "none";
-});
+
+if (logoutPageButtonClose) {
+  logoutPageButtonClose.addEventListener("click", () => {
+    logoutModal.style.display = "none";
+  });
+}
 
 // モーダルコンテンツ以外がクリックされた時
 addEventListener("click", (e) => {

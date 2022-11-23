@@ -183,6 +183,7 @@
   letter-spacing: -0.02em;
   color: #000000;
   overflow: auto;
+  cursor: default;
 }
 
 .reaction-all {
@@ -247,6 +248,7 @@
   line-height: 24px;
   letter-spacing: -0.02em;
   color: #000000;
+  cursor: default;
 }
 
 /* キャンセルボタン */
@@ -330,6 +332,7 @@
   line-height: 24px;
   letter-spacing: -0.02em;
   color: #000000;
+  cursor: default;
 }
 
 /* キャンセルボタン */
@@ -400,6 +403,7 @@
   /* 文字の間の指定 */
   letter-spacing: -0.02em;
   color: #000000;
+  cursor: default;
 }
 
 /* キャンセルボタン */
@@ -470,6 +474,7 @@
   /* 文字の間の指定 */
   letter-spacing: -0.02em;
   color: #000000;
+  cursor: default;
 }
 
 /* キャンセルボタン */
@@ -552,6 +557,7 @@
   /* 文字の間の指定 */
   letter-spacing: -0.02em;
   color: #000000;
+  cursor: default;
 }
 
 /* キャンセルボタン */
@@ -717,6 +723,7 @@
   /* 文字の間の指定 */
   letter-spacing: -0.02em;
   color: #000000;
+  cursor: default;
 }
 
 .channel-name-input{
@@ -854,6 +861,7 @@
   letter-spacing: -0.02em;
   color: #000000;
   overflow: auto;
+  cursor: default;
 }
 
 .message-form-input{
@@ -967,6 +975,7 @@
   letter-spacing: -0.02em;
   color: #000000;
   overflow: auto;
+  cursor: default;
 }
 
 .user-name-input{
@@ -1123,6 +1132,7 @@
   letter-spacing: -0.02em;
   color: #000000;
   overflow: auto;
+  cursor: default;
 }
 
 .old-password{

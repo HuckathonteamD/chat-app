@@ -177,7 +177,6 @@ nav ul li {
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.25);
     border-radius: 0px 30px 30px 0px;
     background: white;
-    /* margin-top: 25px; */
     margin-bottom: 33px;
     display: flex;
 }
@@ -192,6 +191,11 @@ nav ul li {
     color: #000000;
     text-decoration: none;
     cursor: pointer;
+    transition: all 0.25s;
+}
+
+.channel-name:hover {
+    color:#870041;
 }
 
 .channel-abstract {
@@ -202,6 +206,7 @@ nav ul li {
     font-size: 16px;
     line-height: 16px; 
     color: #757575;
+    cursor:default;
 
 }
 

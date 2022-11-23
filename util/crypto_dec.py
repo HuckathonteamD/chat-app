@@ -4,17 +4,18 @@ import json
 
 # echo $SHELL
 # vim ~/.bash_profile
-# export HACKATHO_CHATAPP_IV=eea1f4adfa1ecc88
+# export HACKATHO_CHATAPP_IV=eelqwta1foptgdfgdfa1ekrsvrmfs8
 # source ~/.bash_profile
 
 class crypto_dec:
     def getdec():
         iv = 'eea1f4adfa1ecc88'.encode('utf-8')
-        # iv = os.getenv('HACKATHO_CHATAPP_IV').encode('utf-8')
+        # iv_old = os.getenv('HACKATHO_CHATAPP_IV').replace("rmfs","ncc8").replace("optg","4auy").replace("lqwt","").replace("uydfg","").replace("krsvn","")
+        # iv = iv_old.encode('utf-8')
 
         with open('sectxt.json', 'rb') as f, open('k.txt', 'r') as k:
             dec_text = f.read()
-            ke = k.read()
+            ke = k.read().replace("yql","0ie").replace("leh","fak").replace("hvd","").replace("kzr","").replace("iegwc","")
             dec_key = ke.encode('utf-8')
             cipher2 = AES.new(dec_key, AES.MODE_CBC, iv)
             decryption_text = cipher2.decrypt(dec_text)

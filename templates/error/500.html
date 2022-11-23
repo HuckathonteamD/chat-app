@@ -1,22 +1,21 @@
-{% extends 'error/base.html' %} {% block title %} error {% endblock %} {% block
-    body %}
-    <body class="error">
-      <div class="error-wrapper">
-        <div class="error-content">
-          <div>
-            <span class="error-num">5</span>
-            <div class="eye"></div>
-            <div class="eye"></div>
-          </div>
-          <div class="error-description error404or500">
-            <p>エラーが発生しました。</p>
-            <p>管理者にお問い合わせください。</p>
-            <button class="basic-btn error-btn">
-              <a href="{{ url_for('index') }}"> 戻る </a>
-            </button>
-          </div>
+{% extends 'error/base.html' %}
+{% block title %} error {% endblock %}
+{% block body %}
+  <body class="error">
+    <div class="error-wrapper">
+      <div class="error-content">
+        <div>
+          <span class="error-num">505</span>
+        </div>
+        <div class="error-description error404or500">
+          <p>エラーが発生しました。</p>
+          <p>管理者にお問い合わせください。</p>
+          <button class="basic-btn error-btn">
+            <a href="{{ url_for('index') }}"> 戻る </a>
+          </button>
         </div>
       </div>
-    </body>
-    {% endblock %} 
+    </div>
+  </body>
+{% endblock %} 
     

@@ -283,26 +283,20 @@ def update_name_email():
 
         pattern = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 
-        name_old = dbConnect.getUserName(uid)
-        email_old = dbConnect.getUserEmail(uid)
-        follow_channels = dbConnect.getFollowChannelAll(uid)
-
         if name == '' or email =='' or password1 == '':
             flash('変更できませんでした。空のフォームがあるようです。')
-            return render_template('my_page.html', name=name_old, email=email_old, follow_channels=follow_channels)
+            return redirect('/my_page')
         elif password1 != password2:
             flash('変更できませんでした。パスワードの値が違っています。')
-            return render_template('my_page.html', name=name_old, email=email_old, follow_channels=follow_channels)
+            return redirect('/my_page')
         elif re.match(pattern, email) is None:
             flash('変更できませんでした。正しいメールアドレスの形式ではありません。')
-            return render_template('my_page.html', name=name_old, email=email_old, follow_channels=follow_channels)
+            return redirect('/my_page')
         else:
             current_date = datetime.now(timezone(timedelta(hours=9)))
             dbConnect.updateNameEmail(name, email, current_date, uid)
-            new_name = dbConnect.getUserName(uid)
-            new_email = dbConnect.getUserEmail(uid)
             flash('更新しました')
-            return render_template('my_page.html', name=new_name, email=new_email, follow_channels=follow_channels)
+            return redirect('/my_page')
 
 
 @app.route('/update_password')
@@ -321,26 +315,21 @@ def update_password():
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
 
-        name = dbConnect.getUserName(uid)
-        email = dbConnect.getUserEmail(uid)
-        follow_channels = dbConnect.getFollowChannelAll(uid)
-
         if old_password == '' or password1 == '' or password2 == '':
             flash('変更できませんでした。空のフォームがあるようです。')
-            return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
-
+            return redirect('/my_page')
         elif old_password != password_confirmation:
             flash('変更できませんでした。現在のパスワードが間違っています。')
-            return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
+            return redirect('/my_page')
         elif password1 != password2:
             flash('変更できませんでした。新しいパスワードの値が違っています。')
-            return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
+            return redirect('/my_page')
         else:
             date = datetime.now(timezone(timedelta(hours=9)))
             password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
             dbConnect.updatePassword(password, date, uid)
             flash('パスワードを変更しました')
-            return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
+            return redirect('/my_page')
 
 
 @app.route('/reaction/<int:mrid>', methods=['POST'])
@@ -352,20 +341,13 @@ def add_message_reaction(mrid):
     mid = request.form.get('message_id')
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
-    channel = dbConnect.getChannelById(cid)
-    messages = dbConnect.getMessageAll(cid)
-    follows = dbConnect.getFollowById(cid)
-    reactions = dbConnect.getReactionAll()
-
     if dbConnect.serchReaction(mid, uid, mrid):
-        messages_reaction = dbConnect.getMessageReactionAll(cid)
-        return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
+        return redirect(url_for('detail',cid=cid))
     else:
         if mrid and request.method == 'POST':
             dbConnect.createMessageReaction(mid, uid, mrid, current_date)
 
-        messages_reaction = dbConnect.getMessageReactionAll(cid)
-        return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
+        return redirect(url_for('detail',cid=cid))
 
 
 @app.route('/delete_reaction/<int:cid>/<int:rid>')
@@ -376,12 +358,7 @@ def delete_message_reaction(cid,rid):
     if cid and rid:
         dbConnect.deleteMessageReaction(rid)
 
-    channel = dbConnect.getChannelById(cid)
-    messages = dbConnect.getMessageAll(cid)
-    follows = dbConnect.getFollowById(cid)
-    reactions = dbConnect.getReactionAll()
-    messages_reaction = dbConnect.getMessageReactionAll(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
+    return redirect(url_for('detail',cid=cid))
 
 
 @app.errorhandler(404)

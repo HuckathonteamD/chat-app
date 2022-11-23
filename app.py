@@ -113,7 +113,7 @@ def add_channel():
         return render_template('error/error.html', error_message=error)
 
 
-@app.route('/delete/<cid>')
+@app.route('/delete/<int:cid>')
 def delete_channel(cid):
     uid = session.get("uid")
     if uid is None:
@@ -130,7 +130,7 @@ def delete_channel(cid):
 
 
 # uidもmessageと一緒に返す
-@app.route('/detail/<cid>')
+@app.route('/detail/<int:cid>')
 def detail(cid):
     uid = session.get("uid")
     if uid is None:
@@ -154,7 +154,7 @@ def update_channel():
     channel_description = request.form.get('channel-description')
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
-    if channel_name != "":
+    if channel_name != "" and request.method == 'POST':
         dbConnect.updateChannel(uid, channel_name, channel_description, current_date, cid)
     channel = dbConnect.getChannelById(cid)
     messages = dbConnect.getMessageAll(cid)
@@ -173,9 +173,10 @@ def add_message():
     cid = request.form.get('channel_id')
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
-    if message:
+    if message and request.method == 'POST':
         dbConnect.createMessage(uid, cid, message, current_date)
 
+    message = ""
     channel = dbConnect.getChannelById(cid)
     messages = dbConnect.getMessageAll(cid)
     follows = dbConnect.getFollowById(cid)
@@ -191,7 +192,7 @@ def delete_message():
         return redirect('/login')
     mid = request.form.get('message_id')
     cid = request.form.get('channel_id')
-    if mid:
+    if mid and request.method == 'POST':
         dbConnect.deleteMessage(mid)
 
     channel = dbConnect.getChannelById(cid)
@@ -213,7 +214,7 @@ def update_message():
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
     message_uid = dbConnect.getUserIdByMessageId(mid)
-    if message_uid["uid"] == uid and message:
+    if message_uid["uid"] == uid and message and request.method == 'POST':
         dbConnect.updateMessage(uid, cid, message, current_date, mid)
     channel = dbConnect.getChannelById(cid)
     messages = dbConnect.getMessageAll(cid)
@@ -223,7 +224,7 @@ def update_message():
     return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
 
 
-@app.route('/follow/<cid>')
+@app.route('/follow/<int:cid>')
 def follow_channel(cid):
     uid = session.get("uid")
     if uid is None:
@@ -235,7 +236,8 @@ def follow_channel(cid):
                 flash('既にフォロー済みです')
                 return redirect ('/')
         
-        dbConnect.followChannel(uid, cid)
+        if cid:
+            dbConnect.followChannel(uid, cid)
         channel = dbConnect.getChannelById(cid)
         messages = dbConnect.getMessageAll(cid)
         follows = dbConnect.getFollowById(cid)
@@ -244,13 +246,14 @@ def follow_channel(cid):
         return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
 
 
-@app.route('/unfollow_channel/<id>')
+@app.route('/unfollow_channel/<int:id>')
 def unfollow_channel(id):
     uid = session.get("uid")
     if uid is None:
         return redirect('/login')
     else:
-        dbConnect.unfollowChannel(id)
+        if id:
+            dbConnect.unfollowChannel(id)
         name = dbConnect.getUserName(uid)
         email = dbConnect.getUserEmail(uid)
         follow_channels = dbConnect.getFollowChannelAll(uid)
@@ -272,6 +275,11 @@ def my_page():
             email = dbConnect.getUserEmail(uid)
             follow_channels = dbConnect.getFollowChannelAll(uid)
             return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
+
+
+@app.route('/update_name_email')
+def get_update_name_email():
+    return redirect('/my_page')
 
 
 @app.route('/update_name_email', methods=['POST'])
@@ -310,6 +318,11 @@ def update_name_email():
             return render_template('my_page.html', name=new_name, email=new_email, follow_channels=follow_channels)
 
 
+@app.route('/update_password')
+def get_update_password():
+    return redirect('/my_page')
+
+
 @app.route('/update_password', methods=['POST'])
 def update_password():
     uid = session.get("uid")
@@ -343,7 +356,7 @@ def update_password():
             return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
 
 
-@app.route('/reaction/<mrid>', methods=['POST'])
+@app.route('/reaction/<int:mrid>', methods=['POST'])
 def add_message_reaction(mrid):
     uid = session.get("uid")
     if uid is None:
@@ -361,19 +374,19 @@ def add_message_reaction(mrid):
         messages_reaction = dbConnect.getMessageReactionAll(cid)
         return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
     else:
-        if mrid:
+        if mrid and request.method == 'POST':
             dbConnect.createMessageReaction(mid, uid, mrid, current_date)
 
         messages_reaction = dbConnect.getMessageReactionAll(cid)
         return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
 
 
-@app.route('/delete_reaction/<cid>/<rid>')
+@app.route('/delete_reaction/<int:cid>/<int:rid>')
 def delete_message_reaction(cid,rid):
     uid = session.get("uid")
     if uid is None:
         return redirect('/login')
-    if rid:
+    if cid and rid:
         dbConnect.deleteMessageReaction(rid)
 
     channel = dbConnect.getChannelById(cid)

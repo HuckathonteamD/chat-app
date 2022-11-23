@@ -5,11 +5,11 @@ class DB:
     def getConnection():
         try:
             conn = pymysql.connect(
-            host="localhost",
+            host=crypto_dec.getdec()["DBH"],
             db=crypto_dec.getdec()["DB"],
             user=crypto_dec.getdec()["DBU"],
             password=crypto_dec.getdec()["DBP"],
-            charset="utf8",
+            charset=crypto_dec.getdec()["DBC"],
             cursorclass=pymysql.cursors.DictCursor
         )
             return conn

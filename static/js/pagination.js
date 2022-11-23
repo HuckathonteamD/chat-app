@@ -1,61 +1,3 @@
-// チャンネル一覧上でのチャンネルフォロー/アンフォロー
-// チャンネルフォロー
-// const followChannelBtn = document.getElementsByClassName("follow-channel-btn");
-// const followChannelModal = document.getElementsByClassName("follow-channel-modal");
-// const followPageButtonClose = document.getElementsByClassName("follow-page-close-btn");
-// // チャンネルアンフォロー
-// const unfollowChannelBtn_i = document.getElementsByClassName("unfollow-channel-btn-i");
-// const unfollowChannelModal_i = document.getElementsByClassName("unfollow-channel-modal-i");
-// const unfollowChannelButtonClose_i = document.getElementsByClassName("unfollow-channel-close-btn-i");
-
-// モーダルを開く
-// function modalOpen(mode) {
-//   if (mode === "unfollow-i") {
-//     unfollowChannelModal_i.style.display = "block";
-//   // } else if (mode === "follow") {
-//   //   followChannelModal.style.display = "block";
-//   // }
-//   }
-// }
-
-// if (followChannelBtn) {
-//   followChannelBtn.addEventListener("click", () => {
-//     modalOpen("follow");
-//     const followConfirmBtnLink = document.getElementsByClassName("follow-confirm-link");
-//     const followUrl = `/follow/    `;
-//     followConfirmBtnLink.setAttribute("href", followUrl);
-//   });
-// }
-// if (unfollowChannelBtn_i) {
-//   unfollowChannelBtn_i.addEventListener("click", () => {
-//     modalOpen("unfollow-i");
-//     const unfollowConfirmBtnLink_i = document.getElementsByClassName("unfollow-confirm-link-i");
-//     // const unfollowUrl_i = `/unfollow_i/    `;
-//     unfollowConfirmBtnLink_i.setAttribute("href", unfollowUrl_i);
-//   });
-// }
-
-// モーダルを閉じる
-// if (followPageButtonClose) {
-//   followPageButtonClose.addEventListener("click", () => {
-//     followChannelModal.style.display = "none";
-//   });
-// }
-// if (unfollowChannelButtonClose_i) {
-//   unfollowChannelButtonClose_i.addEventListener("click", () => {
-//     unfollowChannelModal_i.style.display = "none";
-//   });
-// }
-
-// モーダルコンテンツ以外がクリックされたとき
-// addEventListener("click", (e) => {
-//   if (e.target == followChannelModal) {
-//     followChannelModal.style.display = "none";
-//   } else if (e.target == unfollowChannelModal_i) {
-//     unfollowChannelModal_i.style.display = "none";
-//   }
-// });
-
 const pagination = () => {
     // 初期設定
     let page = 1; // 今何ページ目にいるか
@@ -112,10 +54,6 @@ const pagination = () => {
       a.setAttribute("href", url);
 
       li.classList.add("channel-list");
-      // followBtn.classList.add("channel-follow-btn");
-      // followImg.setAttribute("src",`${location.origin}/static/img/channelPic-heartLine.png`);
-      // followBtn.appendChild(followImg);
-      // li.appendChild(followBtn);
       div.classList.add("channel-item");
       a.classList.add("channel-name");
       a.innerText = item.name;
@@ -183,7 +121,6 @@ const pagination = () => {
           });
         }
       }
-
 
 
       // もしチャンネル作成者uidとuidが同じだったら、削除ボタンを追加

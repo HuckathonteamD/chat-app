@@ -76,7 +76,7 @@ nav ul li {
 /* ユーザー情報の背景の四角 */
 .user-info-sikaku{
     position: absolute;
-    width: 520px;
+    width: 1383px;
     height: 820px;
     left: 62px;
     top: 130px;
@@ -85,17 +85,7 @@ nav ul li {
     box-shadow: 5px 4px 4px rgba(255, 255, 255, 0.25), inset 5px 5px 5px rgba(0, 0, 0, 0.25);
     border-radius: 30px;
 }
-.follow-channel-sikaku{
-    position: absolute;
-    width: 840px;
-    height: 820px;
-    left: 609px;
-    top: 130px;
 
-    background: #C2C2C2;
-    box-shadow: 5px 5px 5px rgba(255, 255, 255, 0.25), inset 5px 5px 5px rgba(0, 0, 0, 0.25);
-    border-radius: 30px;
-}
 .user-info{
     position: absolute;
     width: 351px;
@@ -108,7 +98,6 @@ nav ul li {
     font-weight: 700;
     font-size: 36px;
     line-height: 36px;
-    
     color: #000000;
 }
 .user-info-japanese{

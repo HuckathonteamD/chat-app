@@ -9,18 +9,6 @@
     .modal-header{display: flex;justify-content: space-between;}
   </style>
 
-  <!-- <style>
-    h1{display: inline;}
-    .modal-header{display: flex;justify-content: space-between;}
-    .pagination-container{display: flex;flex-wrap: nowrap;margin-left: 10px;}
-    li{list-style: none;}
-    .pagination{padding: 0;}
-    .pagination-li{display: inline}
-    .colored{background-color: burlywood;}
-    .channel-name{font-size: 20px;}
-    .channel-abstract{display: inline-block;width: 200px;margin: 10px 10px 10px 10px;}
-    .delete-channel-btn{margin: 10px 10px 10px 10px;}
-  </style> -->
 {% endblock %}
 {% block body %}
 <body>
@@ -66,6 +54,8 @@
       {% include 'modal/add-channel.html' %}
       {% include 'modal/delete-channel.html' %}
       {% include 'modal/logout.html' %}
+      {% include 'modal/follow-channel-i.html' %}
+      {% include 'modal/unfollow-channel-i.html' %}
     </div>
   </div>
 </body>
@@ -74,7 +64,10 @@
   <script type="text/javascript">
     const channels = JSON.parse('{{ channels|tojson }}');
     const uid = JSON.parse('{{ uid|tojson }}');
-  </script>
+
+    // follow_channelsをjavaScriptに送る
+    const follow_channels = JSON.parse('{{ follow_channels|tojson }}');
+</script>
   <script
   src="{{url_for('static',filename='js/pagination.js')}}"
   type="text/javascript"

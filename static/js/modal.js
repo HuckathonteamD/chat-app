@@ -11,6 +11,14 @@ const logoutBtn = document.getElementById("logout-btn");
 const logoutModal = document.getElementById("logout-modal");
 const logoutPageButtonClose = document.getElementById("logout-page-close-btn");
 
+// const followChannelBtn = document.getElementsByClassName("follow-channel-btn-i");
+const followChannelModal = document.getElementById("follow-channel-modal-i");
+const followPageButtonClose = document.getElementById("follow-page-close-btn-i");
+
+const unfollowChannelModal = document.getElementById("unfollow-channel-modal-i");
+const unfollowPageButtonClose = document.getElementById("unfollow-page-close-btn-i");
+
+
 // モーダルを開く
 // <button id="add-channel-btn">新規チャンネル作成</button>ボタンがクリックされた時
 addChannelBtn.addEventListener("click", () => {
@@ -27,6 +35,10 @@ function modalOpen(mode) {
     deleteChannelModal.style.display = "block";
   } else if (mode === "logout") {
     logoutModal.style.display = "block";
+  } else if (mode === "follow_i") {
+    followChannelModal.style.display = "block";
+  } else if (mode === "unfollow_i") {
+    unfollowChannelModal.style.display = "block";
   }
 }
 
@@ -40,6 +52,15 @@ deletePageButtonClose.addEventListener("click", () => {
 logoutPageButtonClose.addEventListener("click", () => {
   modalClose("logout");
 });
+followPageButtonClose.addEventListener("click", () => {
+  modalClose("follow_i");
+});
+if (unfollowPageButtonClose) {
+  unfollowPageButtonClose.addEventListener("click", () => {
+    modalClose("unfollow_i");
+  });
+}
+
 
 function modalClose(mode) {
   if (mode === "add") {
@@ -48,6 +69,10 @@ function modalClose(mode) {
     deleteChannelModal.style.display = "none";
   } else if (mode === "logout") {
     logoutModal.style.display = "none";
+  } else if (mode === "follow_i") {
+    followChannelModal.style.display = "none";
+  } else if (mode === "unfollow_i") {
+    unfollowChannelModal.style.display = "none";
   }
 }
 

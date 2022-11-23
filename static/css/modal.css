@@ -403,7 +403,7 @@
 }
 
 /* キャンセルボタン */
-#follow-page-close-btn {
+#follow-page-close-btn-i {
   position: absolute;
   width: 150px;
   height: 40px;
@@ -425,12 +425,12 @@
   transition: all 0.25s;
 }
 
-#follow-page-close-btn:hover {
+#follow-page-close-btn-i:hover {
   background: #D4D4D4;
 }
 
 /* OKボタン */
-#follow-channel-confirmation-btn {
+#follow-channel-confirmation-btn-i {
   position: absolute;
   width: 150px;
   height: 40px;
@@ -450,7 +450,7 @@
   transition: all 0.25s;
 }
 
-#follow-channel-confirmation-btn:hover {
+#follow-channel-confirmation-btn-i:hover {
   background: #126BD5;
 }
 
@@ -524,7 +524,7 @@
   background: #126BD5;
 }
 
-/* ---フォロー解除--- */
+/* ---フォロー解除(マイページ)--- */
 .unfollow-channel-modal {
   display: none;
   position: fixed;
@@ -604,6 +604,89 @@
 }
 
 #unfollow-channel-confirmation-btn:hover {
+  background: #870041;
+}
+
+/* ---フォロー解除(ホーム画面)--- */
+.unfollow-channel-modal-i {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(240, 240, 240, 0.5);
+}
+
+.modal-header-unfollow-channel{
+  position: absolute;
+  width: 350px;
+  text-align: center;
+  height: 24px;
+  top: 100px;
+  left: 121px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* 文字の間の指定 */
+  letter-spacing: -0.02em;
+  color: #000000;
+}
+
+/* キャンセルボタン */
+#unfollow-page-close-btn-i {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 112px;
+  top: 154px;
+  background-color: white;
+  color: #000000;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+
+  letter-spacing: -0.02em;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.unfollow-channel-close-btn-i:hover {
+  background: #D4D4D4;
+}
+
+/* 解除ボタン */
+#unfollow-channel-confirmation-btn-i {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  right: 130px;
+  top: 154px;
+  background: #C1005D;
+  color: white;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* identical to box height */
+  letter-spacing: -0.02em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#unfollow-channel-confirmation-btn-i:hover {
   background: #870041;
 }
 

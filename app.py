@@ -90,7 +90,9 @@ def index():
         return redirect('/login')
     else:
         channels = dbConnect.getChannelAll()
-    return render_template('index.html', channels=channels, uid=uid)
+        follow_channels = dbConnect.getFollowChannelIdByUid(uid)
+        print(follow_channels)
+        return render_template('index.html', channels=channels, uid=uid, follow_channels=follow_channels)
 
 
 @app.route('/', methods=['POST'])
@@ -223,7 +225,8 @@ def update_message():
     return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
 
 
-@app.route('/follow/<cid>')
+# ホーム画面でチャンネルフォロー
+@app.route('/follow_channel_i/<cid>')
 def follow_channel(cid):
     uid = session.get("uid")
     if uid is None:
@@ -234,16 +237,12 @@ def follow_channel(cid):
             if follow["uid"] == uid:
                 flash('既にフォロー済みです')
                 return redirect ('/')
-        
         dbConnect.followChannel(uid, cid)
-        channel = dbConnect.getChannelById(cid)
-        messages = dbConnect.getMessageAll(cid)
-        follows = dbConnect.getFollowById(cid)
-        reactions = dbConnect.getReactionAll()
-        messages_reaction = dbConnect.getMessageReactionAll(cid)
-        return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
+        channels = dbConnect.getChannelAll()
+        follow_channels = dbConnect.getFollowChannelAll(uid)
+        return render_template('index.html', channels=channels, follow_channels=follow_channels, uid=uid)        
 
-
+# マイページでチャンネルフォロー解除
 @app.route('/unfollow_channel/<id>')
 def unfollow_channel(id):
     uid = session.get("uid")
@@ -255,6 +254,18 @@ def unfollow_channel(id):
         email = dbConnect.getUserEmail(uid)
         follow_channels = dbConnect.getFollowChannelAll(uid)
         return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
+
+# ホーム画面でチャンネルフォロー解除
+@app.route('/unfollow_channel_i/<cid>')
+def unfollow_channel_i(cid):
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    else:
+        dbConnect.unfollowChannel_i(cid, uid)
+        channels = dbConnect.getChannelAll()
+        follow_channels = dbConnect.getFollowChannelAll(uid)
+        return render_template('index.html', channels=channels, follow_channels=follow_channels, uid=uid)
 
 
 @app.route('/my_page')

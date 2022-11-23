@@ -3,11 +3,6 @@ const updateChannelBtn = document.getElementById("update-channel-btn");
 const updateChannelModal = document.getElementById("update-channel-modal");
 const updatePageButtonClose = document.getElementById("update-page-close-btn");
 
-// チャンネルフォロー
-// const followChannelBtn = document.getElementById("follow-channel-btn");
-// const followChannelModal = document.getElementById("follow-channel-modal");
-// const followPageButtonClose = document.getElementById("follow-page-close-btn");
-
 // メッセージ編集
 const updateMessageBtn = document.getElementsByClassName("update-message-btn");
 const updateMessageModal = document.getElementsByClassName("update-message-modal");
@@ -36,8 +31,6 @@ function modalOpen(mode) {
     } else {
       updateChannelModal.style.display = "block";
     }
-  } else if (mode === "follow") {
-    followChannelModal.style.display = "block";
   } else if (mode === "logout") {
     logoutModal.style.display = "block";
   }
@@ -46,14 +39,6 @@ function modalOpen(mode) {
 if (updateChannelBtn){
   updateChannelBtn.addEventListener("click", () => {
     modalOpen("update");
-  });
-}
-if (followChannelBtn) {
-  followChannelBtn.addEventListener("click", () => {
-    modalOpen("follow");
-    const followConfirmBtnLink = document.getElementById("follow-confirm-link");
-    const followUrl = `/follow/${channel.id}`;
-    followConfirmBtnLink.setAttribute("href", followUrl);
   });
 }
 if (updateMessageBtn){
@@ -85,11 +70,7 @@ if (updatePageButtonClose) {
     updateChannelModal.style.display = "none";
   });
 }
-if (followPageButtonClose) {
-  followPageButtonClose.addEventListener("click", () => {
-    followChannelModal.style.display = "none";
-  });
-}
+
 for( let i=0 ; i<updateMessagePageButtonClose.length ; i++ ) {
   updateMessagePageButtonClose[i].addEventListener("click", () => {
     updateMessageModal[i].style.display = "none";
@@ -114,8 +95,6 @@ if (logoutPageButtonClose) {
 addEventListener("click", (e) => {
   if (e.target == updateChannelModal) {
     updateChannelModal.style.display = "none";
-  } else if (e.target == followChannelModal) {
-    followChannelModal.style.display = "none";
   } else if (e.target == logoutModal) {
     logoutModal.style.display = "none";
   }

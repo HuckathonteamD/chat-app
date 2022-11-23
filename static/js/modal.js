@@ -18,9 +18,6 @@ const followPageButtonClose = document.getElementById("follow-page-close-btn-i")
 const unfollowChannelModal = document.getElementById("unfollow-channel-modal-i");
 const unfollowPageButtonClose = document.getElementById("unfollow-page-close-btn-i");
 
-console.log(followChannelModal);
-console.log(followPageButtonClose);
-
 
 // モーダルを開く
 // <button id="add-channel-btn">新規チャンネル作成</button>ボタンがクリックされた時

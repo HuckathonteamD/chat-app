@@ -1,0 +1,293 @@
+/* チャットルームのベースのCSS */
+
+
+@charset "utf-8";
+@media screen and (max-width: 768px) {
+}
+
+/* 全体のポジションの基準を0にする指定 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 背景全体の色指定 */
+body {
+  background-color: #B3B3B3;
+}
+
+/* ☆headerの指定　ここから☆ */
+
+/* メニューの背景色指定 */
+header{
+  position: fixed;
+  background-color: black;
+  width: 100%;
+  height: 100px;
+  top: 0;
+  z-index: 3;
+}
+
+/* メニューアイコンの横並び指定 */
+nav ul li {
+  position: relative;
+  display: inline-block;
+  list-style: none;
+}
+
+/* メニューのカーソルをあてたときのhover指定 */
+.home:hover {
+  background-image: url(../img/Home-Black.png);
+  height: 100px;
+  width: 165px;
+}
+
+.mypage:hover {
+  background-image: url(../img/myPage-Black.png);
+  height: 100px;
+  width: 165px;
+}
+
+.logout:hover {
+  background-image: url(../img/Logout-Black.png);
+  height: 100px;
+  width: 165px;
+}
+
+/* Channel-chatIconの位置指定 */
+.logo1{
+  position: absolute;
+  top: 27px;
+  left: 10px;
+}
+
+/* Channel-Ring.pngの位置指定 */
+.logo2{
+  position: absolute;
+  left: 85px;
+  top: 15px;
+}
+
+/* home・mypage・logout logo の位置指定 */
+.home{
+  position: absolute;
+  left: 400px;
+}
+.mypage{
+  position: absolute;
+  left: 800px;
+}
+.logout{
+  position: absolute;
+  left: 1200px;
+}
+/* ☆headerの指定　ここまで☆ */
+
+
+/* ★チャットエリア指定 ここから★*/
+
+/* 左側リストのチャンネル名一覧の位置指定 */
+.chat-box {
+  position: fixed;
+  left: 27px;
+  top: 130px;
+  width: 15%;
+  height: 15%;
+}
+
+/* 左側リストの点非表示 */
+/* .left-chatInfo ul {
+  list-style: none;
+} */
+
+/* チャンネル名の指定 */
+#chatroom-name {
+  position: absolute;
+  width: 75%;
+  height: 60px;
+  left: 0px;
+  top: 70px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  word-break: break-all;
+  /*上下方向にはみ出した要素ををスクロールさせる*/
+  overflow-y: scroll;
+  /*スクロールバー非表示（IE・Edge）*/
+  -ms-overflow-style: none;
+  /*スクロールバー非表示（Firefox）*/
+  scrollbar-width: none;
+}
+  /*スクロールバー非表示（Chrome・Safari）*/
+#chatroom-name::-webkit-scrollbar{
+  display:none;
+}
+
+/* チャンネル説明の指定 */
+#chatroom-description {
+  position: absolute;
+  width: 75%;
+  height: 50px;
+  left: 0px;
+  top: 140px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+  word-break: break-all;
+  /*上下方向にはみ出した要素ををスクロールさせる*/
+  overflow-y: scroll;
+  /*スクロールバー非表示（IE・Edge）*/
+  -ms-overflow-style: none;
+  /*スクロールバー非表示（Firefox）*/
+  scrollbar-width: none;
+}
+/*スクロールバー非表示（Chrome・Safari）*/
+#chatroom-description::-webkit-scrollbar{
+  display:none;
+  }
+
+/* チャンネル編集ボタンの指定 */
+#update-channel-btn {
+  margin: 0 auto;
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  background: transparent;
+}
+#update-channel-btn img {
+  position: absolute;
+  top: 200px;
+  left: 62%;
+  display: block;
+}
+#update-channel-btn:hover img:nth-of-type(2){
+  opacity: 0;
+}
+/* チャンネル内にいるメンバー表示指定 */
+.Member {
+  position: fixed;
+  width: 110px;
+  height: 24px;
+  left: 29px;
+  top: 403px;
+}
+
+.Member h2{
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+}
+
+.Member ul{
+  list-style: none;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.Member li {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.Member span {
+  margin-left: 10px;
+}
+
+
+
+/* チャット画面右側の薄いグレーの四角の指定 */
+.right-chatArea {
+  position: fixed;
+  width: 85%;
+  height: 100vh;
+  left: 15%;
+  top: 100px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4), inset 5px 5px 15px #FFFFFF;
+  border-radius: 80px 0px 0px 0px;
+}
+
+/* チャット画面右側の薄いグレー内のRingロゴ指定 */
+.background-logo {
+  opacity: 0.35;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%,-50%);
+}
+
+/* テキスト入力エリア　下部バック地グレーの四角 */
+.textInput {
+  position: fixed;
+  display: flex;
+  width: 85%;
+  height: 120px;
+  left: 15%;
+  bottom: 0px;
+  background: #B3B3B3;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6), inset 5px 5px 10px rgba(255, 255, 255, 0.4);
+  border-radius: 80px 80px 0px 0px;
+}
+
+/* テキスト入力エリア　白いBoxの指定 */
+#message {
+  position: absolute;
+  width: 80%;
+  height: 75%;
+  top: 12.5%;
+  left: 10%;
+  right: 10%;
+  padding: 10px;
+  display: flex;
+  align-items: flex-end;
+  border: none;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-size: 16px;
+}
+
+/* 送信ボタン指定 */
+#add-message-btn {
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  top: 15%;
+  left: 91%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+#add-message-btn img {
+position: absolute;
+display: block;
+}
+#add-message-btn:hover img:nth-of-type(2){
+opacity: 0;
+}
+
+/* メッセージエリアの指定（吹き出が入る範囲） */
+.message-area {
+  position: relative;
+  width: 75%;
+  height: 100%;
+  margin-bottom: 250px;
+  left: 20%;
+  top: 120px;
+}
+
+
+/* ★チャットエリア指定 ここまで★ */

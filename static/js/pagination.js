@@ -65,6 +65,7 @@ const pagination = () => {
 
       var follow_judge = 0;
 
+      // フォローしているチャンネルがない場合、フォローボタンを表示
       if (follow_channels[0] == null) {
         const followChannelBtn = document.createElement("button");
           followChannelBtn.classList.add("follow-channel-btn-i")
@@ -88,7 +89,7 @@ const pagination = () => {
             follow_judge += 0;
           }
         }
-        
+        // フォローしているチャンネルには、フォロー解除ボタンを表示
         if (follow_judge === 1) {
           const unfollowChannelBtn = document.createElement("button");
           unfollowChannelBtn.classList.add("unfollow-channel-btn-i")
@@ -105,6 +106,7 @@ const pagination = () => {
             confirmationButtonLink.setAttribute("href", url);
           });
         } else {
+          // フォローしていないチャンネルには、フォローボタンを表示
           const followChannelBtn = document.createElement("button");
           followChannelBtn.classList.add("follow-channel-btn-i")
           followImg.setAttribute("src",`${location.origin}/static/img/channelPic-heartLine.png`);

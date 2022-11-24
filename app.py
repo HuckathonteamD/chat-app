@@ -135,13 +135,17 @@ def detail(cid):
     uid = session.get("uid")
     if uid is None:
         return redirect('/login')
+    print(cid)
     cid = cid
     channel = dbConnect.getChannelById(cid)
     messages = dbConnect.getMessageAll(cid)
     follows = dbConnect.getFollowById(cid)
     reactions = dbConnect.getReactionAll()
     messages_reaction = dbConnect.getMessageReactionAll(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
+    dbConnect.insertChannelMember(uid, cid)
+    channel_members = dbConnect.getChannelMemberAll(cid)
+    print(channel_members)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction, channel_members=channel_members)
 
 
 @app.route('/update_channel', methods=['POST'])

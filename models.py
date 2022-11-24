@@ -205,6 +205,48 @@ class dbConnect:
             cur.close()
 
 
+    def insertChannelMember(uid, cid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "INSERT INTO channel_users(uid, cid) VALUES (%s, %s);"
+            cur.execute(sql, (uid, cid))
+            conn.commit()
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def getChannelMemberAll(cid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT u.user_name FROM users as u INNER JOIN channel_users as c ON u.uid=c.uid WHERE c.cid=%s;"
+            cur.execute(sql, (cid))
+            channel_members = cur.fetchall()
+            return channel_members
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+    def deleteChannelMember(uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "DELETE FROM channel_users WHERE uid=%s;"
+            cur.execute(sql, (uid))
+            conn.commit()
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
     def getFollowById(cid):
         try:
             conn = DB.getConnection()

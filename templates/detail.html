@@ -48,6 +48,14 @@
       {% if channel.abstract is not none %}
         <h3 id="chatroom-description">{{ channel.abstract }}</h3>
       {% endif %}
+      <!-- チャンネルメンバー表示 -->
+      {% for user in channel_members %}
+      <div>
+        <p class="channel-members">
+          {{user.user_name}}
+        </p>  
+      </div>
+      {% endfor %}
       <!-- チャンネル詳細編集ボタン表示 -->
       <div class="chatroom-btn">
         {% if uid == channel.uid %}

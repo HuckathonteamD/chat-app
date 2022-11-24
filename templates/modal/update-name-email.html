@@ -1,0 +1,30 @@
+<div id="update-name-email-modal" class="modal">
+  <div class="modal-content" id="modal-content-update-name-email">
+    <div class="modal-back2">
+      <div class="img"><img src="../../static/img/modal-editWhite.png"></div>
+      <div class="modal-header-update-name-email">ユーザー情報編集</div>
+      <form class="modal-body" action="/update_name_email" method="POST">
+        <input
+          type="text"
+          placeholder="ユーザー名"
+          class="user-name-input"
+          name="name"
+        />
+        <input
+          type="email"
+          placeholder="メールアドレス"
+          class="email-input"
+          name="email"
+        />
+        <input
+          type="password"
+          placeholder="確認用パスワード"
+          class="password-input"
+          name="password"
+        /><br>
+        <button type="button" id="update-name-email-close-btn">キャンセル</button>
+        <button id="update-name-email-OK-btn">OK</button>
+      </form>
+    </div>
+  </div>
+</div>

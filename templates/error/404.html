@@ -1,0 +1,19 @@
+{% extends 'error/base.html' %}
+{% block title %} error {% endblock %}
+{% block body %}
+  <body class="error">
+    <div class="error-wrapper">
+      <div class="error-content">
+        <div>
+          <span class="error-num">404</span>
+        </div>
+        <div class="error-description error404or500">
+          <p>ページが見つかりません</p>
+          <button class="basic-btn error-btn">
+            <a href="{{ url_for('index') }}"> 戻る </a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+{% endblock %} 

@@ -1,0 +1,1240 @@
+/* ここは全部同じ値 */
+.modal-content {
+  position: relative;
+  margin: 20% auto;
+  width: 600px;
+  height: 240px;
+  background-color: whitesmoke;
+  border-radius: 20px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+  overflow: auto;
+}
+
+.modal-back {
+  height: 60px;
+  background: linear-gradient(90.5deg, rgba(255, 15, 0, 0.6) -2.81%, rgba(255, 0, 199, 0.294) 110.57%);
+  backdrop-filter: blur(15px);
+  border-radius: 20px 20px 0px 0px;
+}
+
+.modal-back2 {
+  height: 60px;
+  background: linear-gradient(90.55deg, rgba(0, 26, 255, 0.504) -8.83%, rgba(0, 194, 255, 0.6) 112.46%);
+  backdrop-filter: blur(15px);
+  border-radius: 20px 20px 0px 0px;
+}
+
+.img {
+  position: absolute;
+  left: 270px;
+  top: 0;
+}
+
+/* ---新規チャンネルを追加---*/
+#modal-content-add-update-channel {
+  position: relative;
+  margin: 20% auto;
+  width: 600px;
+  height: 320px;
+  background-color: whitesmoke;
+  border-radius: 20px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+  overflow: auto;
+}
+
+.modal-header-add-channel{
+  position: absolute;
+  width: 350px;
+  text-align: center;
+  height: 24px;
+  top: 85px;
+  left: 120px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: #000000;
+  overflow: auto;
+  cursor: default;
+}
+
+.add-channel-name-input{
+  position: absolute;
+  top: 130px;
+  left: 75px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 450px;
+  height: 32px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000000;
+  transition: all 1s;
+  background: none;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal; 
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000;  
+}
+
+.channel-description-input {
+  position: absolute;
+  top: 188px;
+  left: 75px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 450px;
+  height: 32px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000000;
+  transition: all 1s;
+  background: none;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal; 
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000; 
+} 
+
+/* キャンセルボタン */
+#add-page-close-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 112px;
+  top: 254px;
+  background-color: white;
+  color: #000000;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+
+  letter-spacing: -0.02em;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#add-page-close-btn:hover {
+  background: #D4D4D4;
+}
+
+/* OKボタン */
+#add-channel-confirmation-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  right: 130px;
+  top: 254px;
+  background: #278AFF;
+  color: white;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* identical to box height */
+  letter-spacing: -0.02em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#add-channel-confirmation-btn:hover {
+  background: #126BD5;
+}
+
+/* ---リアクション--- */
+.reaction-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(240, 240, 240, 0.5);
+}
+
+.modal-header-reaction{
+  position: absolute;
+  width: 350px;
+  text-align: center;
+  height: 24px;
+  top: 85px;
+  left: 120px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: #000000;
+  overflow: auto;
+  cursor: default;
+}
+
+.reaction-all {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  top: 130px;
+  left: 95px;
+}
+
+/* キャンセルボタン */
+.reaction-page-close-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 220px;
+  top: 180px;
+  background-color: white;
+  color: #000000;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+
+  letter-spacing: -0.02em;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.reaction-page-close-btn:hover {
+  background: #D4D4D4;
+}
+
+/* ---チャンネル削除 ---*/
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(240, 240, 240, 0.5);
+}
+
+.modal-header-delete-channel{
+  position: absolute;
+  width: 350px;
+  text-align: center;
+  height: 24px;
+  top: 100px;
+  left: 125px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: #000000;
+  cursor: default;
+}
+
+/* キャンセルボタン */
+#delete-page-close-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 112px;
+  top: 154px;
+  background-color: white;
+  color: #000000;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* identical to box height */
+  letter-spacing: -0.02em;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#delete-page-close-btn:hover {
+  background: #D4D4D4;
+}
+
+/* 削除ボタン */
+#delete-channel-confirmation-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  right: 130px;
+  top: 154px;
+  background: #C1005D;
+  color: white;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* identical to box height */
+
+  letter-spacing: -0.02em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#delete-channel-confirmation-btn:hover {
+  background: #870041;
+}
+
+/* ---メッセージ削除 ---*/
+.delete-message-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(240, 240, 240, 0.5);
+}
+
+.modal-header-delete-message{
+  position: absolute;
+  width: 350px;
+  text-align: center;
+  height: 24px;
+  top: 100px;
+  left: 122px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: #000000;
+  cursor: default;
+}
+
+/* キャンセルボタン */
+.delete-message-page-close-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 112px;
+  top: 154px;
+  background-color: white;
+  color: #000000;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+
+  letter-spacing: -0.02em;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.delete-message-page-close-btn:hover {
+  background: #D4D4D4;
+}
+
+/* 削除ボタン */
+#delete-message-confirmation-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  right: 130px;
+  top: 154px;
+  background: #C1005D;
+  color: white;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#delete-message-confirmation-btn:hover {
+  background: #870041;
+}
+
+/* ---チャンネルフォロー---*/
+.modal-header-follow-channel{
+  position: absolute;
+  width: 350px;
+  text-align: center;
+  height: 24px;
+  top: 97px;
+  left: 121px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* 文字の間の指定 */
+  letter-spacing: -0.02em;
+  color: #000000;
+  cursor: default;
+}
+
+/* キャンセルボタン */
+#follow-page-close-btn-i {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 112px;
+  top: 154px;
+  background-color: white;
+  color: #000000;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+
+  letter-spacing: -0.02em;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#follow-page-close-btn-i:hover {
+  background: #D4D4D4;
+}
+
+/* OKボタン */
+#follow-channel-confirmation-btn-i {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  right: 130px;
+  top: 154px;
+  background: #278AFF;
+  color: white;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#follow-channel-confirmation-btn-i:hover {
+  background: #126BD5;
+}
+
+/* ---ログアウト---*/
+.modal-header-logout{
+  position: absolute;
+  width: 350px;
+  text-align: center;
+  height: 24px;
+  top: 97px;
+  left: 121px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* 文字の間の指定 */
+  letter-spacing: -0.02em;
+  color: #000000;
+  cursor: default;
+}
+
+/* キャンセルボタン */
+#logout-page-close-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 112px;
+  top: 154px;
+  background-color: white;
+  color: #000000;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+
+  letter-spacing: -0.02em;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#logout-page-close-btn:hover {
+  background: #D4D4D4;
+}
+
+/* OKボタン */
+#logout-confirmation-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  right: 130px;
+  top: 154px;
+  background: #278AFF;
+  color: white;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#logout-confirmation-btn:hover {
+  background: #126BD5;
+}
+
+/* ---フォロー解除(マイページ)--- */
+.unfollow-channel-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(240, 240, 240, 0.5);
+}
+
+.modal-header-unfollow-channel{
+  position: absolute;
+  width: 350px;
+  text-align: center;
+  height: 24px;
+  top: 100px;
+  left: 121px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* 文字の間の指定 */
+  letter-spacing: -0.02em;
+  color: #000000;
+  cursor: default;
+}
+
+/* キャンセルボタン */
+.unfollow-channel-close-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 112px;
+  top: 154px;
+  background-color: white;
+  color: #000000;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+
+  letter-spacing: -0.02em;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.unfollow-channel-close-btn:hover {
+  background: #D4D4D4;
+}
+
+/* 解除ボタン */
+#unfollow-channel-confirmation-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  right: 130px;
+  top: 154px;
+  background: #C1005D;
+  color: white;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* identical to box height */
+  letter-spacing: -0.02em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#unfollow-channel-confirmation-btn:hover {
+  background: #870041;
+}
+
+/* ---フォロー解除(ホーム画面)--- */
+.unfollow-channel-modal-i {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(240, 240, 240, 0.5);
+}
+
+.modal-header-unfollow-channel{
+  position: absolute;
+  width: 350px;
+  text-align: center;
+  height: 24px;
+  top: 100px;
+  left: 121px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* 文字の間の指定 */
+  letter-spacing: -0.02em;
+  color: #000000;
+}
+
+/* キャンセルボタン */
+#unfollow-page-close-btn-i {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 112px;
+  top: 154px;
+  background-color: white;
+  color: #000000;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+
+  letter-spacing: -0.02em;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.unfollow-channel-close-btn-i:hover {
+  background: #D4D4D4;
+}
+
+/* 解除ボタン */
+#unfollow-channel-confirmation-btn-i {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  right: 130px;
+  top: 154px;
+  background: #C1005D;
+  color: white;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* identical to box height */
+  letter-spacing: -0.02em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#unfollow-channel-confirmation-btn-i:hover {
+  background: #870041;
+}
+
+/* ---チャンネル編集---*/
+.modal-header-update-channel{
+  position: absolute;
+  width: 350px;
+  text-align: center;
+  height: 24px;
+  top: 85px;
+  left: 120px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* 文字の間の指定 */
+  letter-spacing: -0.02em;
+  color: #000000;
+  cursor: default;
+}
+
+.channel-name-input{
+  position: absolute;
+  top: 130px;
+  left: 75px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 450px;
+  height: 32px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000000;
+  transition: all 1s;
+  background: none;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal; 
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000;  
+}
+
+.channel-description-input {
+  position: absolute;
+  top: 188px;
+  left: 75px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 450px;
+  height: 32px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000000;
+  transition: all 1s;
+  background: none;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal; 
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000; 
+} 
+
+/* キャンセルボタン */
+#update-page-close-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 112px;
+  top: 254px;
+  background-color: white;
+  color: #000000;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+
+  letter-spacing: -0.02em;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#update-page-close-btn:hover {
+  background: #D4D4D4;
+}
+
+/* OKボタン */
+#update-page-ok-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  right: 130px;
+  top: 254px;
+  background: #278AFF;
+  color: white;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* identical to box height */
+  letter-spacing: -0.02em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#update-page-ok-btn:hover {
+  background: #126BD5;
+}
+
+
+/* ---メッセージ編集---*/
+.update-message-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(240, 240, 240, 0.5);
+}
+
+#modal-content-update-message {
+  position: relative;
+  margin: 20% auto;
+  width: 600px;
+  height: 320px;
+  background-color: whitesmoke;
+  border-radius: 20px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+  overflow: auto;
+}
+
+.modal-header-update-message{
+  position: absolute;
+  width: 350px;
+  text-align: center;
+  height: 24px;
+  top: 85px;
+  left: 120px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: #000000;
+  overflow: auto;
+  cursor: default;
+}
+
+.message-form-input{
+  position: absolute;
+  top: 130px;
+  left: 50px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 500px;
+  height: 95px;
+  outline: none;
+  border-bottom: 1px solid #000000;
+  transition: all 1s;
+  background: white;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal; 
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000;  
+}
+
+/* キャンセルボタン */
+.update-message-page-close-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 112px;
+  top: 254px;
+  background-color: white;
+  color: #000000;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+
+  letter-spacing: -0.02em;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.update-message-page-close-btn:hover {
+  background: #D4D4D4;
+}
+
+/* OKボタン */
+.update-message-page-OK-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  right: 130px;
+  top: 254px;
+  background: #278AFF;
+  color: white;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.update-message-page-OK-btn:hover {
+  background: #126BD5;
+}
+
+/* ---ユーザー情報編集---*/
+#update-name-email-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(240, 240, 240, 0.5);
+}
+
+#modal-content-update-name-email {
+  position: relative;
+  margin: 20% auto;
+  width: 600px;
+  height: 390px;
+  background-color: whitesmoke;
+  border-radius: 20px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+  overflow: auto;
+}
+
+.modal-header-update-name-email{
+  position: absolute;
+  width: 350px;
+  text-align: center;
+  height: 24px;
+  top: 85px;
+  left: 120px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: #000000;
+  overflow: auto;
+  cursor: default;
+}
+
+.user-name-input{
+  position: absolute;
+  top: 132px;
+  left: 75px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 450px;
+  height: 32px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000000;
+  transition: all 1s;
+  background: none;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal; 
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000;  
+}
+
+.email-input {
+  position: absolute;
+  top: 190px;
+  left: 75px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 450px;
+  height: 32px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000000;
+  transition: all 1s;
+  background: none;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal; 
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000; 
+} 
+
+.password-input {
+  position: absolute;
+  top: 248px;
+  left: 75px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 450px;
+  height: 32px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000000;
+  transition: all 1s;
+  background: none;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal; 
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000; 
+} 
+
+/* キャンセルボタン */
+#update-name-email-close-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 112px;
+  top: 314px;
+  background-color: white;
+  color: #000000;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+
+  letter-spacing: -0.02em;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#update-name-email-close-btn:hover {
+  background: #D4D4D4;
+}
+
+/* OKボタン */
+#update-name-email-OK-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  right: 130px;
+  top: 314px;
+  background: #278AFF;
+  color: white;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#update-name-email-OK-btn:hover {
+  background: #126BD5;
+}
+
+/* ---パスワード編集---*/
+#update-password-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(240, 240, 240, 0.5);
+}
+
+#modal-content-update-password {
+  position: relative;
+  margin: 20% auto;
+  width: 600px;
+  height: 390px;
+  background-color: whitesmoke;
+  border-radius: 20px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+  overflow: auto;
+}
+
+.modal-header-update-password{
+  position: absolute;
+  width: 350px;
+  text-align: center;
+  height: 24px;
+  top: 85px;
+  left: 120px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: #000000;
+  overflow: auto;
+  cursor: default;
+}
+
+.old-password{
+  position: absolute;
+  top: 132px;
+  left: 75px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 450px;
+  height: 32px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000000;
+  transition: all 1s;
+  background: none;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal; 
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000;  
+}
+
+.new-password-input {
+  position: absolute;
+  top: 190px;
+  left: 75px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 450px;
+  height: 32px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000000;
+  transition: all 1s;
+  background: none;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal; 
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000; 
+} 
+
+.password2-input {
+  position: absolute;
+  top: 248px;
+  left: 75px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 450px;
+  height: 32px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000000;
+  transition: all 1s;
+  background: none;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal; 
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000; 
+} 
+
+/* キャンセルボタン */
+#update-password-close-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 112px;
+  top: 314px;
+  background-color: white;
+  color: #000000;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+
+  letter-spacing: -0.02em;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#update-password-close-btn:hover {
+  background: #D4D4D4;
+}
+
+/* OKボタン */
+#update-password-OK-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  right: 130px;
+  top: 314px;
+  background: #278AFF;
+  color: white;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#update-password-OK-btn:hover {
+  background: #126BD5;
+}

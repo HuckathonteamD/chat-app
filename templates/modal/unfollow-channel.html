@@ -1,0 +1,18 @@
+<!-- マイページでのチャンネルフォロー解除 -->
+
+<div class="unfollow-channel-modal">
+  <div class="modal-content">
+    <div class="modal-back">
+      <div class="img"><img src="../../static/img/modal-heartminusWhite.png"></div>
+      <div class="modal-header-unfollow-channel">
+        <h5>フォローを解除しますか？</h5>
+      </div>
+      <div class="modal-body">
+        <button class="unfollow-channel-close-btn">キャンセル</button>
+        <a href="/unfollow_channel/{{follow_channel.id}}" id="unfollow-channel-confirm-link">
+          <button id="unfollow-channel-confirmation-btn">解除</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

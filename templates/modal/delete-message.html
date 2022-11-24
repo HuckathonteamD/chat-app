@@ -1,0 +1,16 @@
+<div class="delete-message-modal">
+  <div class="modal-content">
+    <div class="modal-back">
+      <div class="img"><img src="../../static/img/modal-trashWhite.png"></div>
+      <div class="modal-header-delete-message">メッセージを削除しますか？</div>
+      <div class="modal-body">
+        <form action="/delete_message" method="POST">
+          <input type="hidden" name="channel_id" value="{{ channel.id }}" />
+          <input type="hidden" name="message_id" value="{{ message.id }}" /><br>
+          <button type="button" class="delete-message-page-close-btn">キャンセル</button>
+          <button id="delete-message-confirmation-btn">削除</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

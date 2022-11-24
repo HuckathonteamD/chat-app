@@ -1,0 +1,19 @@
+<div class="update-message-modal" >
+  <div class="modal-content" id="modal-content-update-message">
+    <div class="modal-back2">
+      <div class="img"><img src="../../static/img/modal-editWhite.png"></div>
+      <div class="modal-header-update-message">メッセージ編集</div>
+      <form class="modal-body" action="/update_message" method="POST">
+        <textarea
+          type="text"
+          class="message-form-input"
+          name="update-message"
+        ></textarea>
+        <input type="hidden" name="cid" value="{{ channel.id }}" />
+        <input id="update-messageid-confirm" type="hidden" name="mid" value="{{ message.id }}" /><br>
+        <button type="button" class="update-message-page-close-btn">キャンセル</button>
+        <button class="update-message-page-OK-btn">OK</button>
+      </form>
+    </div>
+  </div>
+</div>

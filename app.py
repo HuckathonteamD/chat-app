@@ -389,8 +389,8 @@ if __name__ == '__main__':
     # import ssl
     # ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     # ssl_context.load_cert_chain(
-    # crypto_dec.getdec["SSLFULL"], crypto_dec.getdec["SSLPRI"]
+    # crypto_dec.getdec()["SSLFULL"], crypto_dec.getdec()["SSLPRI"]
     # )
-    # app.run(debug=False,host='0.0.0.0',port=443 ,threaded=true ,ssl_context=ssl_context)
+    # app.run(debug=False,host='0.0.0.0',port=443 ,threaded='True' ,ssl_context=ssl_context)
 
     app.run(debug=True)

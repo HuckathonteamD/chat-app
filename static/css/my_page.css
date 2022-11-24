@@ -177,7 +177,7 @@ nav ul li {
     scrollbar-width: none;
 }
 
-.db-user-name::-webkit-scrollbar {
+#db-user-name::-webkit-scrollbar {
     display:none;
 }
 
@@ -231,7 +231,7 @@ nav ul li {
     scrollbar-width: none;
 }
 
-.db-email::-webkit-scrollbar {
+#db-email::-webkit-scrollbar {
     display:none;
 }
 

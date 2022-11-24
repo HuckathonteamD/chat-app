@@ -183,6 +183,8 @@ nav ul li {
 
 .channel-name {
     /* position: absolute; */
+    width: 270px;
+    height: 25px;
     font-family: 'BIZ UDPGothic';
     font-style: normal;
     font-weight: 700;
@@ -192,6 +194,13 @@ nav ul li {
     text-decoration: none;
     cursor: pointer;
     transition: all 0.25s;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.channel-name::-webkit-scrollbar {
+    display:none;
 }
 
 .channel-name:hover {
@@ -200,6 +209,8 @@ nav ul li {
 
 .channel-abstract {
     /* position: absolute; */
+    width: 270px;
+    height: 30px;
     font-family: 'BIZ UDPGothic';
     font-style: normal;
     font-weight: 400;
@@ -207,9 +218,9 @@ nav ul li {
     line-height: 16px; 
     color: #757575;
     cursor:default;
-    width: 70%;
-    word-break: break-all;
 
+.channel-abstract::-webkit-scrollbar {
+    display:none;
 }
 
 .channel-item{
@@ -219,6 +230,7 @@ nav ul li {
     left: 135px;
     top: 24px;
 }
+
 .delete-channel-btn{
     position: absolute;
     right: 25px;
@@ -276,8 +288,8 @@ nav ul li {
     color: #C1005D;
 }
 
-#channel-inline {
+/* #channel-inline {
 
-}
+} */
 /* .channel-name .channel-abstract .delete-channel-btn {
 } */

@@ -1,0 +1,22 @@
+{% extends 'registration/base.html' %}
+{% block title %}
+  <title>google-login</title>
+{% endblock %}
+{% block body %}
+<body background="../../static/img/back.jpg">
+  <div id="google-login-box">
+    <h1 class="h1">Google Login</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <div class="login">Already have an account?<a class="switch-register-mode" href="{{ url_for('login') }}">Login!</a></div>
+    <div class="sign-up">Don't have an account?<a class="switch-register-mode" href="{{ url_for('signup') }}">SIGN UP!</a></div>
+  </div>
+</body>
+{% endblock %}

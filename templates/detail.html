@@ -29,7 +29,7 @@
         <li class="logo2"><img src="{{url_for('static', filename='img/Channel-Ring.png')}}" alt="ring"></li> <!-- ロゴ -->
         <li class="home"><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='img/Home-White.png')}}" alt="home"></a></li> <!-- チャンネル一覧へ遷移 -->
         <li class="mypage"><a href="{{ url_for('my_page') }}"><img src="{{url_for('static', filename='img/myPage-White.png')}}" alt="mypage"></a></li> <!-- Mypageへ -->
-        <li class="logout"><a href="{{ url_for('logout') }}"><img src="{{url_for('static', filename='img/Logout-White.png')}}" alt="logout"></a></li> <!-- ログアウト -->
+        <li class="logout" id="logout-btn"><img src="{{url_for('static', filename='img/Logout-White.png')}}" alt="logout"></li> <!-- ログアウト -->
     </ul>
     </nav>
   </header>
@@ -69,14 +69,14 @@
             <img src="{{url_for('static', filename='img/channelEditB-hover.png')}}">
             <img src="{{url_for('static', filename='img/channelEditB.png')}}">
           </div>
-          {% include 'modal/update-channel.html' %}
         {% endif %}
         <!-- フォローボタンの表示 -->
         <!-- <ul class="follow-box"></ul>-->
         <!-- {% include 'modal/follow-channel.html' %}-->
-        <!--{% include 'modal/logout.html' %}-->
       </div>
     </div>
+    {% include 'modal/update-channel.html' %}
+    {% include 'modal/logout.html' %}
       <!-- メッセージ表示 -->
     <div class="message-area">
       <!--<div id="message-area">-->

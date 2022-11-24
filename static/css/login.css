@@ -178,3 +178,8 @@ input[type="password"]{
     right: 300px;
     cursor: pointer;
 }
+
+.flashes{
+    font-family: 'BIZ UDPGothic';
+    font-style: normal;
+}

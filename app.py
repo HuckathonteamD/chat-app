@@ -371,6 +371,11 @@ def show_error500(error):
     return render_template('error/500.html')
 
 
+@app.route('/google_login')
+def google_login():
+    return render_template('registration/google-login.html')
+
+
 # @app.before_request
 # def before_request():
 #     if not request.is_secure:

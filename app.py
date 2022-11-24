@@ -142,6 +142,7 @@ def detail(cid):
     follows = dbConnect.getFollowById(cid)
     reactions = dbConnect.getReactionAll()
     messages_reaction = dbConnect.getMessageReactionAll(cid)
+    dbConnect.deleteChannelMember(uid)
     dbConnect.insertChannelMember(uid, cid)
     channel_members = dbConnect.getChannelMemberAll(cid)
     print(channel_members)

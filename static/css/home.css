@@ -207,6 +207,8 @@ nav ul li {
     line-height: 16px; 
     color: #757575;
     cursor:default;
+    width: 70%;
+    word-break: break-all;
 
 }
 

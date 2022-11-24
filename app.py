@@ -142,11 +142,8 @@ def detail(cid):
     follows = dbConnect.getFollowById(cid)
     reactions = dbConnect.getReactionAll()
     messages_reaction = dbConnect.getMessageReactionAll(cid)
-    dbConnect.deleteChannelMember(uid)
-    dbConnect.insertChannelMember(uid, cid)
-    channel_members = dbConnect.getChannelMemberAll(cid)
-    print(channel_members)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction, channel_members=channel_members)
+    followers = dbConnect.getFollowerByCid(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
 
 
 @app.route('/update_channel', methods=['POST'])

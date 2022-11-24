@@ -50,9 +50,9 @@
       {% endif %}
       <!-- チャンネルメンバー表示 -->
         <div class="Member">
-          <h2>Members</h2>
+          <h2>Follower</h2>
             <ul class="member-scroll">
-              {% for user in channel_members %}
+              {% for user in followers %}
                 <ul>
                   <li>
                     <img src="{{url_for('static', filename='img/userIcon.png')}}">
@@ -61,7 +61,7 @@
                 </ul>  
               {% endfor %}
             </ul>
-          </div>
+        </div>
       <!-- チャンネル詳細編集ボタン表示 -->
       <div class="chatroom-btn">
         {% if uid == channel.uid %}

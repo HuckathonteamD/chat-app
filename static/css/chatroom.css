@@ -47,6 +47,7 @@ nav ul li {
   background-image: url(../img/myPage-Black.png);
   height: 100px;
   width: 165px;
+  transition: all 0.25s;
 }
 
 .logout:hover {

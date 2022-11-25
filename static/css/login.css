@@ -20,11 +20,8 @@ box-sizing: border-box;
     position: absolute;
     width: 590px;
     height: 590px;
-    right: 108px;
-    /* left: 790.86px; */
-    /* 187から90へ */
-    top: 90px;
-    
+    left: 938px;
+    top: 200px;
     background: rgba(255, 255, 255, 0.65);
     border-radius: 230px 230px 230px 180px;
     transform: rotate(83.21deg);
@@ -35,10 +32,8 @@ box-sizing: border-box;
     position: absolute;
     width: 620px;
     height: 620px;
-    right: 91px;
-    /* left: 780.69px; */
-    /* 170.69から73.69へ */
-    top: 73.69px;
+    left: 921px;
+    top: 183px;
         
     background: rgba(255, 255, 255, 0.3);
     border-radius: 250px 250px 250px 200px;
@@ -52,7 +47,7 @@ box-sizing: border-box;
     height: 496px;
     left: 215px;
     /* 213から180へ */
-    top: 180px;
+    top: 288px;
 }
 
 
@@ -61,11 +56,8 @@ box-sizing: border-box;
     position: absolute;
     box-sizing: border-box;
     width: 357px;
-    /* width: 357px;
-    height: 412px; */
-    right: 230px;
-    /* 270.69から173.69へ */
-    top: 173.69px;
+    left: 1050px;
+    top: 283px;
 }
 
 .h1{
@@ -185,4 +177,9 @@ input[type="password"]{
     top: 371px;
     right: 300px;
     cursor: pointer;
+}
+
+.flashes{
+    font-family: 'BIZ UDPGothic';
+    font-style: normal;
 }

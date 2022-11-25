@@ -135,13 +135,15 @@ def detail(cid):
     uid = session.get("uid")
     if uid is None:
         return redirect('/login')
+    print(cid)
     cid = cid
     channel = dbConnect.getChannelById(cid)
     messages = dbConnect.getMessageAll(cid)
     follows = dbConnect.getFollowById(cid)
     reactions = dbConnect.getReactionAll()
     messages_reaction = dbConnect.getMessageReactionAll(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
+    followers = dbConnect.getFollowerByCid(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
 
 
 @app.route('/update_channel', methods=['POST'])
@@ -371,6 +373,11 @@ def show_error500(error):
     return render_template('error/500.html')
 
 
+@app.route('/google_login')
+def google_login():
+    return render_template('registration/google-login.html')
+
+
 # @app.before_request
 # def before_request():
 #     if not request.is_secure:
@@ -384,8 +391,8 @@ if __name__ == '__main__':
     # import ssl
     # ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     # ssl_context.load_cert_chain(
-    # crypto_dec.getdec["SSLFULL"], crypto_dec.getdec["SSLPRI"]
+    # crypto_dec.getdec()["SSLFULL"], crypto_dec.getdec()["SSLPRI"]
     # )
-    # app.run(debug=False,host='0.0.0.0',port=443 ,threaded=true ,ssl_context=ssl_context)
+    # app.run(debug=False,host='0.0.0.0',port=443 ,threaded='True' ,ssl_context=ssl_context)
 
     app.run(debug=True)

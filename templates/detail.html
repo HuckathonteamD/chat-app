@@ -29,7 +29,7 @@
         <li class="logo2"><img src="{{url_for('static', filename='img/Channel-Ring.png')}}" alt="ring"></li> <!-- ロゴ -->
         <li class="home"><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='img/Home-White.png')}}" alt="home"></a></li> <!-- チャンネル一覧へ遷移 -->
         <li class="mypage"><a href="{{ url_for('my_page') }}"><img src="{{url_for('static', filename='img/myPage-White.png')}}" alt="mypage"></a></li> <!-- Mypageへ -->
-        <li class="logout"><a href="{{ url_for('logout') }}"><img src="{{url_for('static', filename='img/Logout-White.png')}}" alt="logout"></a></li> <!-- ログアウト -->
+        <li class="logout" id="logout-btn"><img src="{{url_for('static', filename='img/Logout-White.png')}}" alt="logout"></li> <!-- ログアウト -->
     </ul>
     </nav>
   </header>
@@ -40,27 +40,43 @@
     </div>
   </div>
 
-  <div class="chat-box">
-    <img src="{{url_for('static', filename='img/chatBlack.png')}}" alt="chatIconBlack">
-    <!-- もしuidとチャンネル作成者が同じならタイトル、説明を編集可能にする -->
-    <h1 id="chatroom-name">{{ channel.name }}</h1>
-    {% if channel.abstract is not none %}
-      <h3 id="chatroom-description">{{ channel.abstract }}</h3>
-    {% endif %}
-    <!-- チャンネル詳細編集ボタン表示 -->
-    <div class="chatroom-btn">
-      {% if uid == channel.uid %}
-        <div id="update-channel-btn">
-          <img src="{{url_for('static', filename='img/channelEditB-hover.png')}}">
-          <img src="{{url_for('static', filename='img/channelEditB.png')}}">
-        </div>
-        {% include 'modal/update-channel.html' %}
+  <!--<div class="main-container">-->
+    <div class="chat-box">
+      <img src="{{url_for('static', filename='img/chatBlack.png')}}" alt="chatIconBlack">
+      <!-- もしuidとチャンネル作成者が同じならタイトル、説明を編集可能にする -->
+      <h1 id="chatroom-name">{{ channel.name }}</h1>
+      {% if channel.abstract is not none %}
+        <h3 id="chatroom-description">{{ channel.abstract }}</h3>
       {% endif %}
-      <!-- フォローボタンの表示 -->
-      <!-- <ul class="follow-box"></ul>-->
-      <!-- {% include 'modal/follow-channel.html' %}-->
-      <!--{% include 'modal/logout.html' %}-->
+      <!-- チャンネルメンバー表示 -->
+        <div class="Member">
+          <h2>Follower</h2>
+            <ul class="member-scroll">
+              {% for user in followers %}
+                <ul>
+                  <li>
+                    <img src="{{url_for('static', filename='img/userIcon.png')}}">
+                    <p>{{user.user_name}}</p>
+                  </li>
+                </ul>  
+              {% endfor %}
+            </ul>
+        </div>
+      <!-- チャンネル詳細編集ボタン表示 -->
+      <div class="chatroom-btn">
+        {% if uid == channel.uid %}
+          <div id="update-channel-btn">
+            <img src="{{url_for('static', filename='img/channelEditB-hover.png')}}">
+            <img src="{{url_for('static', filename='img/channelEditB.png')}}">
+          </div>
+        {% endif %}
+        <!-- フォローボタンの表示 -->
+        <!-- <ul class="follow-box"></ul>-->
+        <!-- {% include 'modal/follow-channel.html' %}-->
+      </div>
     </div>
+    {% include 'modal/update-channel.html' %}
+    {% include 'modal/logout.html' %}
   </div>
   <!-- メッセージ表示エリア -->
   <div class="message-area">

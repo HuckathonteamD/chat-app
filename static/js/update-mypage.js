@@ -7,6 +7,10 @@ const updateNameEmailButtonClose = document.getElementById("update-name-email-cl
 const updatePasswordBtn = document.getElementById("update-password-btn");
 const updatePasswordModal = document.getElementById("update-password-modal");
 const updatePasswordButtonClose = document.getElementById("update-password-close-btn");
+//icon　編集
+const updateIconBtn = document.getElementById("update-icon-btn");
+const updateIconModal = document.getElementById("update-icon-modal");
+const updateIconButtonClose = document.getElementById("update-icon-close-btn");
 //チャンネルフォロー解除
 const unfollowChannelBtn = document.getElementsByClassName("unfollow-channel-btn");
 const unfollowChannelModal = document.getElementsByClassName("unfollow-channel-modal");
@@ -22,6 +26,8 @@ function modalOpen(mode) {
     updateNameEmailModal.style.display = "block";
   } else if (mode === "update-password") {
     updatePasswordModal.style.display = "block";
+  }  else if (mode === "update-icon") {
+    updateIconModal.style.display = "block";
   }  else if (mode === "logout") {
     logoutModal.style.display = "block";
   } 
@@ -35,6 +41,11 @@ if (updateNameEmailBtn){
 if (updatePasswordBtn) {
   updatePasswordBtn.addEventListener("click", () => {
     modalOpen("update-password");
+  });
+}
+if (updateIconBtn) {
+  updateIconBtn.addEventListener("click", () => {
+    modalOpen("update-icon");
   });
 }
 if (unfollowChannelBtn) {
@@ -55,6 +66,8 @@ function modalClose(mode) {
     updateNameEmailModal.style.display = "none";
   } else if (mode === "update-password") {
     updatePasswordModal.style.display = "none";
+  } else if (mode === "update-icon") {
+    updateIconModal.style.display = "none";
   } else if (mode === "logout") {
     logoutModal.style.display = "none";
   }
@@ -67,7 +80,12 @@ if (updateNameEmailButtonClose) {
 }
 updatePasswordButtonClose.addEventListener("click", () => {
   modalClose("update-password");
+});
+if (updateIconButtonClose) {
+  updateIconButtonClose.addEventListener("click", () => {
+    modalClose("update-icon");
   });
+}
 for (let step = 0; step < unfollowChannelButtonClose.length; step++) {
   unfollowChannelButtonClose[step].addEventListener("click", () => {
   unfollowChannelModal[step].style.display = "none";
@@ -83,6 +101,8 @@ addEventListener("click", (e) => {
     updateNameEmailModal.style.display = "none";
   } else if (e.target == updatePasswordModal) {
     updatePasswordModal.style.display = "none";
+  } else if (e.target == updateIconModal) {
+    updateIconModal.style.display = "none";
   } else if (e.target == logoutModal) {
     logoutModal.style.display = "none";
   }

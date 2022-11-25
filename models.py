@@ -2,12 +2,12 @@ import pymysql
 from util.DB import DB
 
 class dbConnect:
-    def createUser(user,date):
+    def createUser(user, uiid, date):
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "INSERT INTO users (uid, user_name, email, password, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s);"
-            cur.execute(sql, (user.uid, user.name, user.email, user.password, date, date))
+            sql = "INSERT INTO users (uid, user_name, email, password, uiid, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s);"
+            cur.execute(sql, (user.uid, user.name, user.email, user.password, uiid, date, date))
             conn.commit()
         except Exception as e:
             print(e + 'が発生しています')
@@ -224,7 +224,7 @@ class dbConnect:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT u.user_name FROM users as u INNER JOIN user_follow_channel as f ON u.uid=f.uid WHERE f.cid=%s;"
+            sql = "SELECT u.user_name, user_icon_path FROM user_follow_channel as f INNER JOIN users as u ON u.uid=f.uid INNER JOIN user_icon as i ON u.uiid=i.id WHERE f.cid=%s;"
             cur.execute(sql, (cid))
             follower = cur.fetchall()
             return follower
@@ -248,6 +248,7 @@ class dbConnect:
         finally:
             cur.close()
     
+
     def getFollowChannelIdByUid(uid):
         try:
             conn = DB.getConnection()
@@ -275,6 +276,7 @@ class dbConnect:
             return None
         finally:
             cur.close()
+
 
     def unfollowChannel_i(cid, uid):
         try:
@@ -333,7 +335,7 @@ class dbConnect:
             return None
         finally:
             cur.close()
-    
+
 
     def getPassword(uid):
         try:
@@ -348,6 +350,36 @@ class dbConnect:
             return None
         finally:
             cur.close
+
+
+    def getUserIcon(uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT i.user_icon_path FROM users as u INNER JOIN user_icon as i ON u.uiid=i.id WHERE uid=%s"
+            cur.execute(sql, (uid))
+            icon = cur.fetchone()
+            return icon
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close
+
+
+    def getIconAll():
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT * FROM user_icon;"
+            cur.execute(sql)
+            user_icons = cur.fetchall()
+            return user_icons
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
 
 
     def updateNameEmail(new_name, new_email, date, uid):
@@ -370,6 +402,20 @@ class dbConnect:
             cur = conn.cursor()
             sql = "UPDATE users SET password=%s, updated_at=%s WHERE uid=%s;"
             cur.execute(sql, (password, date, uid))
+            conn.commit()
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
+
+    def updateIcon(icon_id, date, uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "UPDATE users SET uiid=%s, updated_at=%s WHERE uid=%s;"
+            cur.execute(sql, (icon_id, date, uid))
             conn.commit()
         except Exception as e:
             print(e + 'が発生しています')

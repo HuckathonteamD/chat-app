@@ -6,6 +6,7 @@ from datetime import datetime, timedelta, timezone
 import hashlib
 import uuid
 import re
+import random
 
 
 app = Flask(__name__)
@@ -40,11 +41,12 @@ def userSignup():
         DBuser = dbConnect.getUser(email)
         DBusername = dbConnect.getUserName(name)
         current_date = datetime.now(timezone(timedelta(hours=9)))
+        uiid = random.randrange(2,11)
 
         if DBuser != None or DBusername != None:
             flash('既に登録されているようです')
         else:
-            dbConnect.createUser(user,current_date)
+            dbConnect.createUser(user, uiid, current_date)
             UserId = str(uid)
             session['uid'] = UserId
             return redirect('/')
@@ -135,15 +137,14 @@ def detail(cid):
     uid = session.get("uid")
     if uid is None:
         return redirect('/login')
-    print(cid)
     cid = cid
     channel = dbConnect.getChannelById(cid)
     messages = dbConnect.getMessageAll(cid)
-    follows = dbConnect.getFollowById(cid)
+    # follows = dbConnect.getFollowById(cid) 
     reactions = dbConnect.getReactionAll()
     messages_reaction = dbConnect.getMessageReactionAll(cid)
     followers = dbConnect.getFollowerByCid(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
 
 
 @app.route('/update_channel', methods=['POST'])
@@ -262,8 +263,10 @@ def my_page():
             return redirect ('/login')
         else:
             email = dbConnect.getUserEmail(uid)
+            icon = dbConnect.getUserIcon(uid)
+            icon_all = dbConnect.getIconAll()
             follow_channels = dbConnect.getFollowChannelAll(uid)
-            return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
+            return render_template('my_page.html', name=name, email=email, icon=icon, icon_all=icon_all, follow_channels=follow_channels)
 
 
 @app.route('/update_name_email')
@@ -327,23 +330,45 @@ def update_password():
             flash('変更できませんでした。新しいパスワードの値が違っています。')
             return redirect('/my_page')
         else:
-            date = datetime.now(timezone(timedelta(hours=9)))
+            current_date = datetime.now(timezone(timedelta(hours=9)))
             password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
-            dbConnect.updatePassword(password, date, uid)
+            dbConnect.updatePassword(password, current_date, uid)
             flash('パスワードを変更しました')
             return redirect('/my_page')
 
 
-@app.route('/reaction/<int:mrid>', methods=['POST'])
-def add_message_reaction(mrid):
+@app.route('/update_icon')
+def get_update_icon():
+    return redirect('/my_page')
+
+
+@app.route('/update_icon', methods=['POST'])
+def update_icon():
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    else:
+        icon_id = request.form.get('icon_id')
+        current_date = datetime.now(timezone(timedelta(hours=9)))
+        if icon_id and request.method == 'POST':
+            dbConnect.updateIcon(icon_id, current_date, uid)
+            flash('アイコンを変更しました')
+        return redirect('/my_page')
+
+
+@app.route('/reaction', methods=['POST'])
+def add_message_reaction():
     uid = session.get("uid")
     if uid is None:
         return redirect('/login')
     cid = request.form.get('channel_id')
     mid = request.form.get('message_id')
+    mrid = request.form.get('reaction_id')
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
     if dbConnect.serchReaction(mid, uid, mrid):
+        return redirect(url_for('detail',cid=cid))
+    elif int(mrid)<1 or 13<int(mrid):
         return redirect(url_for('detail',cid=cid))
     else:
         if mrid and request.method == 'POST':

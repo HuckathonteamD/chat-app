@@ -55,7 +55,11 @@
               {% for user in followers %}
                 <ul>
                   <li>
-                    <img src="{{url_for('static', filename='img/userIcon.png')}}">
+                    {% if user.user_icon_path %}
+                      <img src="{{url_for('static', filename=user.user_icon_path)}}">
+                    {% else %}
+                      <img src="{{url_for('static', filename='img/user-icon/userIcon.png')}}">
+                    {% endif %}
                     <p>{{user.user_name}}</p>
                   </li>
                 </ul>  
@@ -70,9 +74,6 @@
             <img src="{{url_for('static', filename='img/channelEditB.png')}}">
           </div>
         {% endif %}
-        <!-- フォローボタンの表示 -->
-        <!-- <ul class="follow-box"></ul>-->
-        <!-- {% include 'modal/follow-channel.html' %}-->
       </div>
     </div>
     {% include 'modal/update-channel.html' %}

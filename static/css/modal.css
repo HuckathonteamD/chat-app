@@ -1238,3 +1238,73 @@
 #update-password-OK-btn:hover {
   background: #126BD5;
 }
+
+/* ---アイコン編集---*/
+#update-icon-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(240, 240, 240, 0.5);
+}
+
+.modal-header-icon{
+  position: absolute;
+  width: 350px;
+  text-align: center;
+  height: 24px;
+  top: 85px;
+  left: 120px;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: #000000;
+  overflow: auto;
+  cursor: default;
+}
+
+/* キャンセルボタン */
+#update-icon-close-btn {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 112px;
+  top: 200px;
+  background-color: white;
+  color: #000000;
+
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+
+  letter-spacing: -0.02em;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#update-icon-close-btn:hover {
+  background: #D4D4D4;
+}
+
+.icon-all {
+  display: flex;
+  word-break: break-all;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* .icon-all::-webkit-scrollbar {
+  display:none;
+} */

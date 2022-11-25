@@ -219,6 +219,21 @@ class dbConnect:
         finally:
             cur.close()
 
+
+    def getFollowerByCid(cid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT u.user_name FROM users as u INNER JOIN user_follow_channel as f ON u.uid=f.uid WHERE f.cid=%s;"
+            cur.execute(sql, (cid))
+            follower = cur.fetchall()
+            return follower
+        except Exception as e:
+            print(e + 'が発生しています')
+            return None
+        finally:
+            cur.close()
+
     
     def followChannel(uid, cid):
         try:

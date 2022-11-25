@@ -169,6 +169,16 @@ nav ul li {
   opacity: 0;
 }
 /* チャンネル内にいるメンバー表示指定 */
+.member-scroll{
+  position: absolute;
+  box-sizing: border-box;
+  width: 220px;
+  height: 440px;
+  left: 0px;
+  top: 30px;
+  overflow-y: scroll;
+}
+
 .Member {
   position: fixed;
   width: 110px;
@@ -194,12 +204,25 @@ nav ul li {
   line-height: 20px;
 }
 
-.Member li {
+.Member li{
   margin-top: 15px;
   margin-bottom: 15px;
+  display: flex;
+  align-items:center;
 }
 
-.Member span {
+.Member img{
+  width: 45px;
+  height: 45px;
+  left: 29px;
+}
+
+.Member p{
+  display:inline-block;
+  padding: 19px;
+}
+
+.Member span{
   margin-left: 10px;
 }
 

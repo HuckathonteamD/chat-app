@@ -1,0 +1,129 @@
+body {
+    background-color: #dbdbdb;
+    position: relative;
+}
+
+h1{
+    position: absolute;
+    font-family: 'RocknRoll One', sans-serif;
+    top: 120px;
+    left: 50%;
+    font-size: 100px;
+}
+  
+  
+  /* 三点アニメーション */
+  
+.three-dot-spinner{
+    position: absolute;
+    top: 360px;
+    left: 58%;
+}
+  
+.bounce1{
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: black;
+    border-radius: 50%;
+    animation: sk-bouncedelay 1.4s infinite;
+    animation-delay: -0.32s;
+}
+
+.bounce2{
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: black;
+    border-radius: 50%;
+    animation: sk-bouncedelay 1.4s infinite;
+    animation-delay: -0.16s;
+}
+  
+.bounce3{
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: black;
+    border-radius: 50%;
+    animation: sk-bouncedelay 1.4s infinite;
+}
+  
+@keyframes sk-bouncedelay {
+    0%{
+      transform: scale(0);
+    }
+  
+    40%{
+      transform: scale(1);
+    }
+  
+    80%{
+      transform: scale(0);
+    }
+  
+    100% {
+      opacity: 0;
+    }
+}
+
+.login-sign-up{
+    text-align: left;
+}
+
+.login {
+    position: absolute;
+    font-family: 'RocknRoll One', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #000000;
+    cursor: default;
+    text-align: left;
+    top: 525px;
+    left: 55%;
+    font-size: 30px;
+}
+
+.login-url{
+    text-decoration: none;
+    color: chocolate;
+    font-family: 'RocknRoll One', sans-serif;
+    font-style: normal;
+    transition: all 0.2s;
+    font-weight: bold;
+}
+
+.login-url:hover {
+    color: #C1005D;
+}
+
+.sign-up {
+    position: absolute;
+    font-family: 'RocknRoll One', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    text-align: left;
+    color: #000000;
+    cursor: default;
+    top: 405px;
+    left: 55%;
+    top: 620px;
+    font-size: 30px;
+  }
+
+.sign-up-url{
+    text-decoration: none; 
+    color: chocolate;
+    font-family: 'RocknRoll One', sans-serif;
+    font-style: normal;
+    transition: all 0.2s;
+    top: 50px;
+    font-weight: bold;
+}
+.sign-up-url:hover {
+    color: #278BFF;
+}

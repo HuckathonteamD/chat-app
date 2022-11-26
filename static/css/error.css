@@ -1,0 +1,125 @@
+body{
+    background-color: #E5E5E5;;
+}
+.error {
+    /* position: relative; */
+    font-family: 'BIZ UDPGothic';
+    text-align: center;
+    font-weight: 700;
+    line-height: 20px;
+    color: #000000;
+}
+
+.error-content{
+    text-align:center;  
+}
+.error img{
+    position: relative;
+    width: auto;
+    left: 0px;
+    top: 120px;
+    margin: 0 auto;
+
+}
+
+.error404 {
+    position: absolute;
+    left: 30%;
+    top: 350px;
+    font-size: 25px;
+}
+
+.error500 {
+    position: absolute;
+    left: 40%;
+    top: 350px;
+    font-size: 25px;
+}
+
+/* エラー画面の文面「sorryからエラー内容表示」の指定 */
+.error-description-error{
+    position: absolute;
+    top: 430px;
+    font-size: 25px;
+    text-align: center;
+    left: calc(50% - 175px);
+}
+
+/* エラー画面のタイトル画像の指定 */
+.error-title img {
+  position: absolute;
+  top: 277px;
+  left: calc(50% - 252.5px);
+}
+
+.error-description-detail{
+    /* position: relative; */
+    position: absolute;
+    left: 35%;
+    top: 500px;
+    height: 180px;
+    font-size: 20px;
+}
+
+/* エラー画面のボタン指定 */
+.basic-btn{
+    position: fixed;
+    width: 150px;
+    height: 40px;
+    /* left: 681px; */
+    top: 780px; 
+    left: calc(50% - 75px);
+    background: #C1005D;
+    border-radius: 5px;
+    border: none;
+    transition: all 0.25s
+}
+.basic-btn:hover{
+    background-color: #870041;
+}
+
+.basic-btn-500{
+    position: fixed;
+    width: 150px;
+    height: 40px;
+    /* left: 681px; */
+    top: 800px; 
+    left: 780px;
+    
+    background: #278AFF;
+    border-radius: 5px;
+    border: none;
+    transition: all 0.25s;
+}
+.basic-btn-500:hover{
+    background: #126BD5;
+}
+
+
+.basic-btn a{
+    font-family: 'BIZ UDPGothic';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 24px;
+    /* ボックスの高さと同一 */
+    text-decoration: none;
+
+    letter-spacing: -0.02em;
+    
+    color: #FFFFFF;
+}
+
+.basic-btn-500 a{
+    font-family: 'BIZ UDPGothic';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 24px;
+    /* ボックスの高さと同一 */
+    text-decoration: none;
+
+    letter-spacing: -0.02em;
+    
+    color: #FFFFFF;
+}

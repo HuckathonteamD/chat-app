@@ -96,11 +96,6 @@ nav ul li {
   height: 15%;
 }
 
-/* 左側リストの点非表示 */
-/* .left-chatInfo ul {
-  list-style: none;
-} */
-
 /* チャンネル名の指定 */
 #chatroom-name {
   position: absolute;
@@ -120,10 +115,12 @@ nav ul li {
   -ms-overflow-style: none;
   /*スクロールバー非表示（Firefox）*/
   scrollbar-width: none;
+  cursor: default;
 }
   /*スクロールバー非表示（Chrome・Safari）*/
 #chatroom-name::-webkit-scrollbar{
   display:none;
+  cursor: default;
 }
 
 /* チャンネル説明の指定 */
@@ -145,6 +142,7 @@ nav ul li {
   -ms-overflow-style: none;
   /*スクロールバー非表示（Firefox）*/
   scrollbar-width: none;
+  cursor: default;
 }
 /*スクロールバー非表示（Chrome・Safari）*/
 #chatroom-description::-webkit-scrollbar{
@@ -153,6 +151,11 @@ nav ul li {
 
 /* チャンネル編集ボタンの指定 */
 #update-channel-btn {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  left: 21%;
+  top: 135px;
   margin: 0 auto;
   display: block;
   overflow: hidden;
@@ -161,14 +164,35 @@ nav ul li {
 }
 #update-channel-btn img {
   position: absolute;
-  top: 200px;
-  left: 62%;
+  top: 0px;
+  left: 0px;
   display: block;
+  transition: all 0.25s;
 }
 #update-channel-btn:hover img:nth-of-type(2){
   opacity: 0;
 }
 /* チャンネル内にいるメンバー表示指定 */
+.member-scroll{
+  position: absolute;
+  box-sizing: border-box;
+  width: 220px;
+  height: 440px;
+  left: 0px;
+  top: 30px;
+  /*上下方向にはみ出した要素ををスクロールさせる*/
+  overflow-y: scroll;
+  /*スクロールバー非表示（IE・Edge）*/
+  -ms-overflow-style: none;
+  /*スクロールバー非表示（Firefox）*/
+  scrollbar-width: none;
+}
+/*スクロールバー非表示（Chrome・Safari）*/
+.member-scroll::-webkit-scrollbar{
+  display:none;
+}
+
+/* メンバーリストの指定 */
 .Member {
   position: fixed;
   width: 110px;
@@ -183,6 +207,7 @@ nav ul li {
   font-weight: 700;
   font-size: 24px;
   line-height: 24px;
+  cursor: default;
 }
 
 .Member ul{
@@ -192,14 +217,28 @@ nav ul li {
   font-weight: 700;
   font-size: 20px;
   line-height: 20px;
+  cursor: default;
 }
 
-.Member li {
+.Member li{
   margin-top: 15px;
   margin-bottom: 15px;
+  display: flex;
+  align-items:center;
 }
 
-.Member span {
+.Member img{
+  width: 45px;
+  height: 45px;
+  left: 29px;
+}
+
+.Member p{
+  display:inline-block;
+  padding: 19px;
+}
+
+.Member span{
   margin-left: 10px;
 }
 
@@ -254,6 +293,7 @@ nav ul li {
   font-family: 'BIZ UDPGothic';
   font-style: normal;
   font-size: 16px;
+  line-height: 1.2;
 }
 
 /* 送信ボタン指定 */
@@ -274,6 +314,7 @@ nav ul li {
 #add-message-btn img {
 position: absolute;
 display: block;
+transition: all 0.25s;
 }
 #add-message-btn:hover img:nth-of-type(2){
 opacity: 0;

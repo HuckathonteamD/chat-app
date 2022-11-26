@@ -20,11 +20,8 @@ box-sizing: border-box;
     position: absolute;
     width: 590px;
     height: 590px;
-    right: 108px;
-    /* left: 790.86px; */
-    /* 187から90へ */
-    top: 90px;
-    
+    left: calc(66% - 295px);
+    top: calc(50% - 295px);
     background: rgba(255, 255, 255, 0.65);
     border-radius: 230px 230px 230px 180px;
     transform: rotate(83.21deg);
@@ -35,13 +32,11 @@ box-sizing: border-box;
     position: absolute;
     width: 620px;
     height: 620px;
-    right: 91px;
-    /* left: 780.69px; */
-    /* 170.69から73.69へ */
-    top: 73.69px;
-        
+    left: calc(66% - 310px);
+    top: calc(50% - 310px);
     background: rgba(255, 255, 255, 0.3);
     border-radius: 250px 250px 250px 200px;
+
 }
 
 .login-logo{
@@ -50,22 +45,25 @@ box-sizing: border-box;
     margin: 0px, 143px, 0px, 0px;
     width: 425px;
     height: 496px;
-    left: 215px;
     /* 213から180へ */
-    top: 180px;
+    left: calc(33% - 212.5px);
+    top: calc(50% - 248px);
 }
 
 
 #login-box{
-    z-index: 10;
     position: absolute;
+    z-index: 10;
     box-sizing: border-box;
+    text-align: center;
     width: 357px;
-    /* width: 357px;
-    height: 412px; */
-    right: 230px;
-    /* 270.69から173.69へ */
-    top: 173.69px;
+    height: 425px;
+    width: 357px;
+    /* left: 57%;
+    top: 29%; */
+    left: calc(66% - 178.5px);
+    top: calc(50% - 212.5px);
+    border: none;
 }
 
 .h1{
@@ -100,7 +98,6 @@ input[type="password"]{
     font-weight: 400;
     font-size: 18px;
     line-height: 18px;
-    color: #000000;
 }
 
 .login-button{
@@ -155,9 +152,14 @@ input[type="password"]{
     margin: 20px 0px 0px 0px;
 }
 
+/* google-ボタン指定 */
 .google-login{ 
+    position: absolute;
     width: 355px;
     height: 40px;
+    left: 0px;
+    top: -3px;
+    margin: 0px;
     background: #FFFFFF;
     border-radius: 5px;
     font-family: 'BIZ UDPGothic';
@@ -169,20 +171,36 @@ input[type="password"]{
     border: none;
     border-radius:5px;
     text-align: center;
-
     color: #595959;
-    margin: 70px 0px 0px 0px;
     transition: all 0.25s;
-}
-
-.google-login:hover{
+  }
+  .google-login:hover{
     background-color: #d4d4d4;
     color: white;
+  }
+  .g-button {
+    position: relative;
+    width: 355px;
+    height: 40px;
+    margin: 70px 0px 0px 0px;
+}
+.g-button img {
+  position: absolute;
+  top: 2px;
+  left: 38px;
 }
 
-.g{
+
+/* パスワードが間違っています！
+空のフォームがあるようですの表示 */
+.flashes{
     position: absolute;
-    top: 371px;
-    right: 300px;
-    cursor: pointer;
+    font-family: 'BIZ UDPGothic';
+    font-style: normal;
+    color: red;
+    list-style:none;
+    padding: 0;
+    margin: 0;
 }
+
+

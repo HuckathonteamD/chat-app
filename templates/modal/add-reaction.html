@@ -1,12 +1,13 @@
 <div class="reaction-modal">
   <div class="modal-content">
     <div class="modal-back2">
-      <div class="img"><img src="../../static/img/modal-heartPlusWhite.png"></div>
+      <div class="img"><img src="../../static/img/modal-reactionWhite.png"></div>
       <div class="modal-header-reaction">リアクション</div>
       <div class="reaction-all">
       {% for reaction in reactions %}
-        <form name="form{{ message.id }}{{ reaction.id }}" action="/reaction/{{ reaction.id }}" method="POST">
+        <form name="form{{ message.id }}{{ reaction.id }}" action="/reaction" method="POST">
             <input type="hidden" name="channel_id" value="{{ channel.id }}" />
+            <input type="hidden" name="reaction_id" value="{{ reaction.id }}" />
             <input class="reaction-messageid-confirm" type="hidden" name="message_id" value="{{ message.id }}" />
             <a href="javascript:form{{ message.id }}{{ reaction.id }}.submit()">
                 <img class="reaction-img" src="{{ url_for('static',filename=reaction.icon_path) }}" />

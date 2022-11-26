@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
 <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/my_page.css')}}" />
-
   <title>my_page</title>
   <style>
     .modal-header{display: flex;justify-content: space-between;}
@@ -36,6 +35,10 @@
       <img src="{{url_for('static', filename='img/edit-hover.png')}}" />
       <img src="{{url_for('static', filename='img/edit.png')}}" />
     </div>
+    <div id="update-icon-btn">
+      <img src="{{url_for('static', filename='img/changeIconB.png-hover.png')}}" />
+      <img src="{{url_for('static', filename='img/changeIconB.png')}}" />
+    </div>
   
     <!-- flashの表示 -->
     {% with messages = get_flashed_messages() %}
@@ -49,13 +52,20 @@
     {% endwith %}
 
   <div>
-    <h1 class="user-info">MY Page</h1>
+    <h1 class="user-info">My Page</h1>
     <h3 class="user-info-japanese">ユーザー情報</h3>
     <div class="mypage-icon"><img src="../static/img/myPage-icon.png"></div>
     <!-- <div class="user-icon"><img src="{{url_for('static', filename='img/userIcon.png')}}"></div> -->
     <!-- ユーザー情報 -->
-    <p class="user-img"></p>
-        <P class="user-name">User Name</P>
+    <div class="user-icon">
+      <p class="user-img"></p>
+      {% if icon %}
+        <img src="{{url_for('static', filename=icon.user_icon_path)}}" />
+      {% else %}
+        <img src="{{url_for('static', filename='img/user-icon/userIcon.png')}}" />
+      {% endif %}
+    </div>
+      <P class="user-name-mypage">User Name</P>
         <div class="user-name-box"></div>
         <p id="db-user-name">{{name.user_name}}</p>
 
@@ -98,6 +108,7 @@
   </div>
   {% include 'modal/update-name-email.html' %}
   {% include 'modal/update-password.html' %}
+  {% include 'modal/update-icon.html' %}
   {% include 'modal/logout.html' %}
 </body>
 {% endblock %}

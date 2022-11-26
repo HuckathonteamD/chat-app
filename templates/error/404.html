@@ -1,18 +1,29 @@
 {% extends 'error/base.html' %}
-{% block title %} error {% endblock %}
+{% block title %}
+  error
+{% endblock %}
+
 {% block body %}
   <body class="error">
     <div class="error-wrapper">
       <div class="error-content">
         <div>
-          <span class="error-num">404</span>
+          <img src="{{url_for('static', filename='img/404.png')}}">
         </div>
-        <div class="error-description error404or500">
-          <p>ページが見つかりません</p>
-          <button class="basic-btn error-btn">
-            <a href="{{ url_for('index') }}"> 戻る </a>
-          </button>
+        <div class="error-description error404">
+          <p>SORRY...</p>
+          <p>We could not find the page you are looking for...</p>
         </div>
+        <div class="error-description-detail">
+          <p>指定されたページは削除されたか、名前が変更されたか</p>
+          <p>一時的に利用出来ない可能性があります。</p><br>
+          <p>下記をご確認ください。</p>
+          <p>・ページアドレス（URL）を正しく入力しているか</p> 
+          <p>・更新ボタンをクリックして、再度読み込みを行ってみる</p>
+        </div>
+        <button class="basic-btn error-btn">
+          <a href="{{ url_for('index') }}"> 戻る </a>
+        </button>
       </div>
     </div>
   </body>

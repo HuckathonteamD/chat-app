@@ -1,0 +1,21 @@
+<div id="update-icon-modal">
+  <div class="modal-content"  id="modal-content-icon">
+    <div class="modal-back2">
+      <div class="img"><img src="../../static/img/modal-UserWhite.png"></div>
+      <div class="modal-header-icon">アイコン画像を選択</div>
+      <div class="icon-all">
+      {% for icon in icon_all %}
+        {% if icon.id != 1 %}
+        <form name="form{{ icon.id }}mypage" action="/update_icon" method="POST">
+            <input type="hidden" name="icon_id" value="{{ icon.id }}" />
+            <a href="javascript:form{{ icon.id }}mypage.submit()">
+                <img class="icon-img" src="{{ url_for('static',filename=icon.user_icon_path) }}" />
+            </a>
+        </form>
+        {% endif %}
+      {% endfor %}
+      </div>
+      <button id="update-icon-close-btn">キャンセル</button>
+    </div>
+  </div>
+</div>

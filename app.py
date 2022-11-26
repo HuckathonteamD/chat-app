@@ -6,6 +6,7 @@ from datetime import datetime, timedelta, timezone
 import hashlib
 import uuid
 import re
+import random
 
 
 app = Flask(__name__)
@@ -33,6 +34,8 @@ def userSignup():
         flash('二つのパスワードの値が違っています')
     elif re.match(pattern, email) is None:
         flash('正しいメールアドレスの形式ではありません')
+    elif len(name)>100 or len(email)>255 or len(password1)>255:
+        flash('入力値の文字数制限を超えています')
     else:
         uid = uuid.uuid4()
         password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
@@ -40,11 +43,12 @@ def userSignup():
         DBuser = dbConnect.getUser(email)
         DBusername = dbConnect.getUserName(name)
         current_date = datetime.now(timezone(timedelta(hours=9)))
+        uiid = random.randrange(2,11)
 
         if DBuser != None or DBusername != None:
             flash('既に登録されているようです')
         else:
-            dbConnect.createUser(user,current_date)
+            dbConnect.createUser(user, uiid, current_date)
             UserId = str(uid)
             session['uid'] = UserId
             return redirect('/')
@@ -100,12 +104,15 @@ def add_channel():
     if uid is None:
         return redirect('/login')
     channel_name = request.form.get('channel-title')
+    channel_description = request.form.get('channel-description')
     channel = dbConnect.getChannelByName(channel_name)
     if channel_name == "":
         error = 'チャンネル名が空白です'
         return render_template('error/error.html', error_message=error)
+    if len(channel_name)>100 or len(channel_description)>255:
+        error = '入力値の文字数制限を超えています'
+        return render_template('error/error.html', error_message=error)
     elif channel == None and channel_name:
-        channel_description = request.form.get('channel-description')
         current_date = datetime.now(timezone(timedelta(hours=9)))
         dbConnect.addChannel(uid, channel_name, channel_description, current_date)
         return redirect('/')
@@ -122,8 +129,8 @@ def delete_channel(cid):
     else:
         channel = dbConnect.getChannelById(cid)
         if channel["uid"] != uid:
-            flash('チャンネルは作成者のみ削除可能です')
-            return redirect ('/')
+            error = 'チャンネルは作成者のみ削除可能です'
+            return render_template('error/error.html', error_message=error)
         else:
             dbConnect.deleteChannel(cid)
             return redirect ('/')
@@ -135,13 +142,13 @@ def detail(cid):
     uid = session.get("uid")
     if uid is None:
         return redirect('/login')
-    cid = cid
     channel = dbConnect.getChannelById(cid)
     messages = dbConnect.getMessageAll(cid)
-    follows = dbConnect.getFollowById(cid)
+    # follows = dbConnect.getFollowById(cid) 
     reactions = dbConnect.getReactionAll()
     messages_reaction = dbConnect.getMessageReactionAll(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, follows=follows, reactions=reactions, messages_reaction=messages_reaction)
+    followers = dbConnect.getFollowerByCid(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
 
 
 @app.route('/update_channel', methods=['POST'])
@@ -154,7 +161,13 @@ def update_channel():
     channel_description = request.form.get('channel-description')
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
-    if channel_name != "" and request.method == 'POST':
+    if channel_name == "":
+        flash('空のフォームがあるようです')
+        return redirect(url_for('detail',cid=cid))
+    elif len(channel_name)>100 or len(channel_description)>255:
+        flash('入力値の文字数制限を超えています')
+        return redirect(url_for('detail',cid=cid))
+    elif channel_name != "" and request.method == 'POST':
         dbConnect.updateChannel(uid, channel_name, channel_description, current_date, cid)
 
     return redirect(url_for('detail',cid=cid))
@@ -169,6 +182,9 @@ def add_message():
     cid = request.form.get('channel_id')
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
+    if len(message)>30000:
+        flash('入力値の文字数制限を超えています')
+        return redirect(url_for('detail',cid=cid))
     if message and request.method == 'POST':
         dbConnect.createMessage(uid, cid, message, current_date)
 
@@ -185,7 +201,12 @@ def delete_message():
     if mid and request.method == 'POST':
         dbConnect.deleteMessage(mid)
 
-    return redirect(url_for('detail',cid=cid))
+    channel = dbConnect.getChannelById(cid)
+    messages = dbConnect.getMessageAll(cid)
+    reactions = dbConnect.getReactionAll()
+    messages_reaction = dbConnect.getMessageReactionAll(cid)
+    followers = dbConnect.getFollowerByCid(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
 
 
 @app.route('/update_message', methods=['POST'])
@@ -198,11 +219,19 @@ def update_message():
     message = request.form.get('update-message')
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
+    if len(message)>30000:
+        flash('入力値の文字数制限を超えています')
+        return redirect(url_for('detail',cid=cid))
     message_uid = dbConnect.getUserIdByMessageId(mid)
     if message_uid["uid"] == uid and message and request.method == 'POST':
         dbConnect.updateMessage(uid, cid, message, current_date, mid)
 
-    return redirect(url_for('detail',cid=cid))
+    channel = dbConnect.getChannelById(cid)
+    messages = dbConnect.getMessageAll(cid)
+    reactions = dbConnect.getReactionAll()
+    messages_reaction = dbConnect.getMessageReactionAll(cid)
+    followers = dbConnect.getFollowerByCid(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
 
 
 # ホーム画面でチャンネルフォロー
@@ -215,8 +244,8 @@ def follow_channel(cid):
         follows = dbConnect.getFollowById(cid)
         for follow in follows:
             if follow["uid"] == uid:
-                flash('既にフォロー済みです')
-                return redirect ('/')
+                error = '既にフォロー済みです'
+                return render_template('error/error.html', error_message=error)
         if cid:
             dbConnect.followChannel(uid, cid)
 
@@ -260,8 +289,10 @@ def my_page():
             return redirect ('/login')
         else:
             email = dbConnect.getUserEmail(uid)
+            icon = dbConnect.getUserIcon(uid)
+            icon_all = dbConnect.getIconAll()
             follow_channels = dbConnect.getFollowChannelAll(uid)
-            return render_template('my_page.html', name=name, email=email, follow_channels=follow_channels)
+            return render_template('my_page.html', name=name, email=email, icon=icon, icon_all=icon_all, follow_channels=follow_channels)
 
 
 @app.route('/update_name_email')
@@ -291,6 +322,9 @@ def update_name_email():
             return redirect('/my_page')
         elif re.match(pattern, email) is None:
             flash('変更できませんでした。正しいメールアドレスの形式ではありません。')
+            return redirect('/my_page')
+        elif len(name)>100 or len(email)>255 or len(password1)>255:
+            flash('入力値の文字数制限を超えています')
             return redirect('/my_page')
         else:
             current_date = datetime.now(timezone(timedelta(hours=9)))
@@ -324,30 +358,63 @@ def update_password():
         elif password1 != password2:
             flash('変更できませんでした。新しいパスワードの値が違っています。')
             return redirect('/my_page')
+        elif len(password1)>255:
+            flash('入力値の文字数制限を超えています')
+            return redirect('/my_page')
         else:
-            date = datetime.now(timezone(timedelta(hours=9)))
+            current_date = datetime.now(timezone(timedelta(hours=9)))
             password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
-            dbConnect.updatePassword(password, date, uid)
+            dbConnect.updatePassword(password, current_date, uid)
             flash('パスワードを変更しました')
             return redirect('/my_page')
 
 
-@app.route('/reaction/<int:mrid>', methods=['POST'])
-def add_message_reaction(mrid):
+@app.route('/update_icon')
+def get_update_icon():
+    return redirect('/my_page')
+
+
+@app.route('/update_icon', methods=['POST'])
+def update_icon():
+    uid = session.get("uid")
+    if uid is None:
+        return redirect('/login')
+    else:
+        icon_id = request.form.get('icon_id')
+        if int(icon_id)<2 or 11<int(icon_id):
+            flash('アイコンを変更できませんでした')
+            return redirect('/my_page')
+        current_date = datetime.now(timezone(timedelta(hours=9)))
+        if icon_id and request.method == 'POST':
+            dbConnect.updateIcon(icon_id, current_date, uid)
+            flash('アイコンを変更しました')
+        return redirect('/my_page')
+
+
+@app.route('/reaction', methods=['POST'])
+def add_message_reaction():
     uid = session.get("uid")
     if uid is None:
         return redirect('/login')
     cid = request.form.get('channel_id')
     mid = request.form.get('message_id')
+    mrid = request.form.get('reaction_id')
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
     if dbConnect.serchReaction(mid, uid, mrid):
+        return redirect(url_for('detail',cid=cid))
+    elif int(mrid)<1 or 13<int(mrid):
         return redirect(url_for('detail',cid=cid))
     else:
         if mrid and request.method == 'POST':
             dbConnect.createMessageReaction(mid, uid, mrid, current_date)
 
-        return redirect(url_for('detail',cid=cid))
+        channel = dbConnect.getChannelById(cid)
+        messages = dbConnect.getMessageAll(cid)
+        reactions = dbConnect.getReactionAll()
+        messages_reaction = dbConnect.getMessageReactionAll(cid)
+        followers = dbConnect.getFollowerByCid(cid)
+        return render_template('detail.html', messages=messages, channel=channel, uid=uid, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
 
 
 @app.route('/delete_reaction/<int:cid>/<int:rid>')
@@ -358,7 +425,12 @@ def delete_message_reaction(cid,rid):
     if cid and rid:
         dbConnect.deleteMessageReaction(rid)
 
-    return redirect(url_for('detail',cid=cid))
+    channel = dbConnect.getChannelById(cid)
+    messages = dbConnect.getMessageAll(cid)
+    reactions = dbConnect.getReactionAll()
+    messages_reaction = dbConnect.getMessageReactionAll(cid)
+    followers = dbConnect.getFollowerByCid(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
 
 
 @app.errorhandler(404)
@@ -389,8 +461,8 @@ if __name__ == '__main__':
     # import ssl
     # ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     # ssl_context.load_cert_chain(
-    # crypto_dec.getdec["SSLFULL"], crypto_dec.getdec["SSLPRI"]
+    # crypto_dec.getdec()["SSLFULL"], crypto_dec.getdec()["SSLPRI"]
     # )
-    # app.run(debug=False,host='0.0.0.0',port=443 ,threaded=true ,ssl_context=ssl_context)
+    # app.run(debug=False,host='0.0.0.0',port=443 ,threaded='True' ,ssl_context=ssl_context)
 
     app.run(debug=True)

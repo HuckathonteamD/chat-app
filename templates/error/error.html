@@ -1,16 +1,23 @@
 {% extends 'error/base.html' %}
-{% block title %} error {% endblock %}
+{% block title %}
+  error
+{% endblock %}
 {% block body %}
   <body class="error">
     <div class="error-wrapper">
       <div class="error-content">
-        <div class="error-title"><span>SORRY</span></div>
-        <div class="error-description">
-          <p>{{ error_message }}</p>
-          <button class="basic-btn error-btn">
-            <a href="{{ url_for('index') }}"> 戻る </a>
-          </button>
+        <div class="error-title">
+          <img src="{{url_for('static', filename='img/ERROR.png')}}">
         </div>
+          <div class="error-description-error">
+            <p>SORRY...</p>
+            <p>下記のエラーが発生しています</p>
+            <br>
+            <p>{{ error_message }}</p>
+            <button class="basic-btn">
+              <a href="{{ url_for('index') }}"> 戻る </a>
+            </button>
+          </div>
       </div>
     </div>
   </body>

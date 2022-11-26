@@ -313,6 +313,13 @@ opacity: 0;
   top: auto;
 }
 
+.flashes {
+  position: relative;
+  z-index: 10;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  color: red;
+}
 
 
 /* テキスト入力エリア */

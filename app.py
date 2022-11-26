@@ -124,8 +124,8 @@ def delete_channel(cid):
     else:
         channel = dbConnect.getChannelById(cid)
         if channel["uid"] != uid:
-            flash('チャンネルは作成者のみ削除可能です')
-            return redirect ('/')
+            error = 'チャンネルは作成者のみ削除可能です'
+            return render_template('error/error.html', error_message=error)
         else:
             dbConnect.deleteChannel(cid)
             return redirect ('/')
@@ -137,7 +137,6 @@ def detail(cid):
     uid = session.get("uid")
     if uid is None:
         return redirect('/login')
-    cid = cid
     channel = dbConnect.getChannelById(cid)
     messages = dbConnect.getMessageAll(cid)
     # follows = dbConnect.getFollowById(cid) 
@@ -188,7 +187,12 @@ def delete_message():
     if mid and request.method == 'POST':
         dbConnect.deleteMessage(mid)
 
-    return redirect(url_for('detail',cid=cid))
+    channel = dbConnect.getChannelById(cid)
+    messages = dbConnect.getMessageAll(cid)
+    reactions = dbConnect.getReactionAll()
+    messages_reaction = dbConnect.getMessageReactionAll(cid)
+    followers = dbConnect.getFollowerByCid(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
 
 
 @app.route('/update_message', methods=['POST'])
@@ -205,7 +209,12 @@ def update_message():
     if message_uid["uid"] == uid and message and request.method == 'POST':
         dbConnect.updateMessage(uid, cid, message, current_date, mid)
 
-    return redirect(url_for('detail',cid=cid))
+    channel = dbConnect.getChannelById(cid)
+    messages = dbConnect.getMessageAll(cid)
+    reactions = dbConnect.getReactionAll()
+    messages_reaction = dbConnect.getMessageReactionAll(cid)
+    followers = dbConnect.getFollowerByCid(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
 
 
 # ホーム画面でチャンネルフォロー
@@ -218,8 +227,8 @@ def follow_channel(cid):
         follows = dbConnect.getFollowById(cid)
         for follow in follows:
             if follow["uid"] == uid:
-                flash('既にフォロー済みです')
-                return redirect ('/')
+                error = '既にフォロー済みです'
+                return render_template('error/error.html', error_message=error)
         if cid:
             dbConnect.followChannel(uid, cid)
 
@@ -349,6 +358,9 @@ def update_icon():
         return redirect('/login')
     else:
         icon_id = request.form.get('icon_id')
+        if int(icon_id)<2 or 11<int(icon_id):
+            flash('アイコンを変更できませんでした')
+            return redirect('/my_page')
         current_date = datetime.now(timezone(timedelta(hours=9)))
         if icon_id and request.method == 'POST':
             dbConnect.updateIcon(icon_id, current_date, uid)
@@ -374,7 +386,12 @@ def add_message_reaction():
         if mrid and request.method == 'POST':
             dbConnect.createMessageReaction(mid, uid, mrid, current_date)
 
-        return redirect(url_for('detail',cid=cid))
+        channel = dbConnect.getChannelById(cid)
+        messages = dbConnect.getMessageAll(cid)
+        reactions = dbConnect.getReactionAll()
+        messages_reaction = dbConnect.getMessageReactionAll(cid)
+        followers = dbConnect.getFollowerByCid(cid)
+        return render_template('detail.html', messages=messages, channel=channel, uid=uid, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
 
 
 @app.route('/delete_reaction/<int:cid>/<int:rid>')
@@ -385,7 +402,12 @@ def delete_message_reaction(cid,rid):
     if cid and rid:
         dbConnect.deleteMessageReaction(rid)
 
-    return redirect(url_for('detail',cid=cid))
+    channel = dbConnect.getChannelById(cid)
+    messages = dbConnect.getMessageAll(cid)
+    reactions = dbConnect.getReactionAll()
+    messages_reaction = dbConnect.getMessageReactionAll(cid)
+    followers = dbConnect.getFollowerByCid(cid)
+    return render_template('detail.html', messages=messages, channel=channel, uid=uid, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
 
 
 @app.errorhandler(404)

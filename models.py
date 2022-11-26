@@ -123,7 +123,8 @@ class dbConnect:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT id, u.uid, user_name, message, m.created_at, m.updated_at FROM messages AS m INNER JOIN users AS u ON m.uid = u.uid WHERE cid = %s ORDER BY id;"
+            sql = "SELECT m.id, u.uid, user_name, user_icon_path, message, m.created_at, m.updated_at FROM messages AS m \
+                INNER JOIN users AS u ON m.uid = u.uid INNER JOIN user_icon AS i ON u.uiid = i.id WHERE cid = %s ORDER BY m.id;"
             cur.execute(sql, (cid))
             messages = cur.fetchall()
             return messages
@@ -224,7 +225,8 @@ class dbConnect:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT u.user_name, user_icon_path FROM user_follow_channel as f INNER JOIN users as u ON u.uid=f.uid INNER JOIN user_icon as i ON u.uiid=i.id WHERE f.cid=%s;"
+            sql = "SELECT u.user_name, user_icon_path FROM user_follow_channel as f INNER JOIN users as u ON u.uid=f.uid \
+                INNER JOIN user_icon as i ON u.uiid=i.id WHERE f.cid=%s;"
             cur.execute(sql, (cid))
             follower = cur.fetchall()
             return follower
@@ -457,7 +459,8 @@ class dbConnect:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT r.id, r.mid, m.cid, r.uid, s.reaction_name, s.icon_path FROM message_reaction AS r INNER JOIN messages AS m ON r.mid = m.id INNER JOIN master_reaction AS s ON r.mrid = s.id WHERE m.cid = %s ORDER BY id;"
+            sql = "SELECT r.id, r.mid, m.cid, r.uid, s.reaction_name, s.icon_path FROM message_reaction AS r \
+                INNER JOIN messages AS m ON r.mid = m.id INNER JOIN master_reaction AS s ON r.mrid = s.id WHERE m.cid = %s ORDER BY id;"
             cur.execute(sql, (cid))
             messages_reaction = cur.fetchall()
             return messages_reaction

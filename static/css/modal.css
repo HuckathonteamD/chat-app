@@ -853,14 +853,10 @@
 
 .icon-all {
   position: absolute;
-  word-break: break-all;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
   width: 452px;
   height: 149px;
   top: 144px;
   left: 74px;
-  /* column-count: 5; */
   column-gap: 38px;
   size: 60px;
   overflow: auto;
@@ -1328,8 +1324,3 @@
 #update-password-OK-btn:hover {
   background: #126BD5;
 }
-
-
-/* .icon-all::-webkit-scrollbar {
-  display:none;
-} */

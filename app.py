@@ -34,6 +34,8 @@ def userSignup():
         flash('二つのパスワードの値が違っています')
     elif re.match(pattern, email) is None:
         flash('正しいメールアドレスの形式ではありません')
+    elif len(name)>100 or len(email)>255 or len(password1)>255:
+        flash('入力値の文字数制限を超えています')
     else:
         uid = uuid.uuid4()
         password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
@@ -102,12 +104,15 @@ def add_channel():
     if uid is None:
         return redirect('/login')
     channel_name = request.form.get('channel-title')
+    channel_description = request.form.get('channel-description')
     channel = dbConnect.getChannelByName(channel_name)
     if channel_name == "":
         error = 'チャンネル名が空白です'
         return render_template('error/error.html', error_message=error)
+    if len(channel_name)>100 or len(channel_description)>255:
+        error = '入力値の文字数制限を超えています'
+        return render_template('error/error.html', error_message=error)
     elif channel == None and channel_name:
-        channel_description = request.form.get('channel-description')
         current_date = datetime.now(timezone(timedelta(hours=9)))
         dbConnect.addChannel(uid, channel_name, channel_description, current_date)
         return redirect('/')
@@ -156,7 +161,13 @@ def update_channel():
     channel_description = request.form.get('channel-description')
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
-    if channel_name != "" and request.method == 'POST':
+    if channel_name == "":
+        flash('空のフォームがあるようです')
+        return redirect(url_for('detail',cid=cid))
+    elif len(channel_name)>100 or len(channel_description)>255:
+        flash('入力値の文字数制限を超えています')
+        return redirect(url_for('detail',cid=cid))
+    elif channel_name != "" and request.method == 'POST':
         dbConnect.updateChannel(uid, channel_name, channel_description, current_date, cid)
 
     return redirect(url_for('detail',cid=cid))
@@ -171,6 +182,9 @@ def add_message():
     cid = request.form.get('channel_id')
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
+    if len(message)>30000:
+        flash('入力値の文字数制限を超えています')
+        return redirect(url_for('detail',cid=cid))
     if message and request.method == 'POST':
         dbConnect.createMessage(uid, cid, message, current_date)
 
@@ -205,6 +219,9 @@ def update_message():
     message = request.form.get('update-message')
     current_date = datetime.now(timezone(timedelta(hours=9)))
 
+    if len(message)>30000:
+        flash('入力値の文字数制限を超えています')
+        return redirect(url_for('detail',cid=cid))
     message_uid = dbConnect.getUserIdByMessageId(mid)
     if message_uid["uid"] == uid and message and request.method == 'POST':
         dbConnect.updateMessage(uid, cid, message, current_date, mid)
@@ -306,6 +323,9 @@ def update_name_email():
         elif re.match(pattern, email) is None:
             flash('変更できませんでした。正しいメールアドレスの形式ではありません。')
             return redirect('/my_page')
+        elif len(name)>100 or len(email)>255 or len(password1)>255:
+            flash('入力値の文字数制限を超えています')
+            return redirect('/my_page')
         else:
             current_date = datetime.now(timezone(timedelta(hours=9)))
             dbConnect.updateNameEmail(name, email, current_date, uid)
@@ -337,6 +357,9 @@ def update_password():
             return redirect('/my_page')
         elif password1 != password2:
             flash('変更できませんでした。新しいパスワードの値が違っています。')
+            return redirect('/my_page')
+        elif len(password1)>255:
+            flash('入力値の文字数制限を超えています')
             return redirect('/my_page')
         else:
             current_date = datetime.now(timezone(timedelta(hours=9)))

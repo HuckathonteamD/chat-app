@@ -40,6 +40,18 @@
 
   <!--<div class="main-container">-->
     <div class="chat-box">
+      <!-- flashの表示 -->
+      <div>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flashes">
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+      </div>
       <img src="{{url_for('static', filename='img/chatBlack.png')}}" alt="chatIconBlack">
       <!-- もしuidとチャンネル作成者が同じならタイトル、説明を編集可能にする -->
       <h1 id="chatroom-name">{{ channel.name }}</h1>

@@ -478,3 +478,9 @@ nav ul li {
 .follow-channel-abstract::-webkit-scrollbar {
     display:none;
 }
+
+.flashes{
+    font-family: 'BIZ UDPGothic';
+    font-style: normal;
+    color: red;
+}

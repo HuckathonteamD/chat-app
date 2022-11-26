@@ -47,7 +47,6 @@ nav ul li {
   background-image: url(../img/myPage-Black.png);
   height: 100px;
   width: 165px;
-  transition: all 0.25s;
 }
 
 .logout:hover {
@@ -116,10 +115,12 @@ nav ul li {
   -ms-overflow-style: none;
   /*スクロールバー非表示（Firefox）*/
   scrollbar-width: none;
+  cursor: default;
 }
   /*スクロールバー非表示（Chrome・Safari）*/
 #chatroom-name::-webkit-scrollbar{
   display:none;
+  cursor: default;
 }
 
 /* チャンネル説明の指定 */
@@ -141,6 +142,7 @@ nav ul li {
   -ms-overflow-style: none;
   /*スクロールバー非表示（Firefox）*/
   scrollbar-width: none;
+  cursor: default;
 }
 /*スクロールバー非表示（Chrome・Safari）*/
 #chatroom-description::-webkit-scrollbar{
@@ -165,6 +167,7 @@ nav ul li {
   top: 0px;
   left: 0px;
   display: block;
+  transition: all 0.25s;
 }
 #update-channel-btn:hover img:nth-of-type(2){
   opacity: 0;
@@ -204,6 +207,7 @@ nav ul li {
   font-weight: 700;
   font-size: 24px;
   line-height: 24px;
+  cursor: default;
 }
 
 .Member ul{
@@ -213,6 +217,7 @@ nav ul li {
   font-weight: 700;
   font-size: 20px;
   line-height: 20px;
+  cursor: default;
 }
 
 .Member li{
@@ -288,6 +293,7 @@ nav ul li {
   font-family: 'BIZ UDPGothic';
   font-style: normal;
   font-size: 16px;
+  line-height: 1.2;
 }
 
 /* 送信ボタン指定 */
@@ -308,6 +314,7 @@ nav ul li {
 #add-message-btn img {
 position: absolute;
 display: block;
+transition: all 0.25s;
 }
 #add-message-btn:hover img:nth-of-type(2){
 opacity: 0;

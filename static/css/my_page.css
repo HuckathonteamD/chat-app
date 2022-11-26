@@ -398,10 +398,19 @@ nav ul li {
     left: 800px;
     top: 270px;
     border: none;
-    overflow-y: scroll;
 
     padding-left: 100px;
     padding-bottom: 100px;
+      /*上下方向にはみ出した要素ををスクロールさせる*/
+    overflow-y: scroll;
+    /*スクロールバー非表示（IE・Edge）*/
+    -ms-overflow-style: none;
+    /*スクロールバー非表示（Firefox）*/
+    scrollbar-width: none;
+}
+/*スクロールバー非表示（Chrome・Safari）*/
+.channel-scroll::-webkit-scrollbar{
+    display:none;
 }
 
 .follow-channel-box{

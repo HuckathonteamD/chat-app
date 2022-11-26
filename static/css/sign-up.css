@@ -18,10 +18,10 @@ box-sizing: border-box;
 .marusikaku{
     /* 上の四角 */
     position: absolute;
-    width: 590px;
-    height: 590px;
-    left: 938px;
-    top: 200px;
+    width: 650px;
+    height: 650px;
+    left: calc(66% - 325px);
+    top: calc(50% - 325px);
     
     background: rgba(255, 255, 255, 0.65);
     border-radius: 230px 230px 230px 180px;
@@ -31,11 +31,10 @@ box-sizing: border-box;
 .sikaku{
      /* 後ろの四角 */
     position: absolute;
-    width: 620px;
-    height: 620px;
-    left: 921px;
-    top: 183px;
-        
+    width: 680px;
+    height: 680px;
+    left: calc(66% - 340px);
+    top: calc(50% - 340px);
     background: rgba(255, 255, 255, 0.3);
     border-radius: 250px 250px 250px 200px;
 }
@@ -46,18 +45,21 @@ box-sizing: border-box;
     margin: 0px, 143px, 0px, 0px;
     width: 425px;
     height: 496px;
-    left: 215px;
-    top: 288px;
+    left: calc(33% - 212.5px);
+    top: calc(50% - 248px);
 }
 
 
 #login-box{
-    z-index: 10;
     position: absolute;
+    z-index: 10;
     box-sizing: border-box;
     width: 357px;
+    height: 525px;
     left: 1050px;
     top: 240px;
+    left: calc(66% - 178.5px);
+    top: calc(50% - 262.5px);
 }
 
 h1{
@@ -162,9 +164,13 @@ input[type="password"]{
     margin: 20px 0px 0px 0px;
 }
 
+/* google-ボタン指定 */
 .google-login{ 
+    position: relative;
     width: 355px;
     height: 40px;
+    top: 65px;
+    margin: 0px;
     background: #FFFFFF;
     border-radius: 5px;
     font-family: 'BIZ UDPGothic';
@@ -176,26 +182,26 @@ input[type="password"]{
     border: none;
     border-radius:5px;
     text-align: center;
-
     color: #595959;
-    /* 70から60へ */
-    margin: 60px 0px 0px 0px;
     transition: all 0.25s;
 }
 .google-login:hover{
     background-color: #d4d4d4;
     color: white;
 }
-
-.g{
-    position: absolute;
-    /* 371から451へ */
-    top: 451px;
-    right: 300px;
-    cursor: pointer;
+.g-button img {
+  position: relative;
+  top: 30px;
+  left: 38px;
 }
 
+
+/* 空のフォームがあるようです表示 */
 .flashes{
-    font-family: 'BIZ UDPGothic';
-    font-style: normal;
+  font-family: 'BIZ UDPGothic';
+  font-style: normal;
+  color: red;
+  list-style:none;
+  padding: 0;
+  margin: 0;
 }

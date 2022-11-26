@@ -73,6 +73,10 @@ nav ul li {
     box-sizing: border-box;
 }
 
+.mypage {
+    position: relative;
+}
+
 /* ユーザー情報の背景の四角 */
 .user-info-sikaku{
     position: absolute;
@@ -151,12 +155,12 @@ nav ul li {
     opacity: 0;
 }
 
-.user-name{
+.user-name-mypage{
     position: absolute;
     width: 111px;
     height: 18px;
     left: 221px;
-    top: 418px;
+    top: 426px;
     
     font-family: 'BIZ UDPGothic';
     font-style: normal;

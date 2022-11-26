@@ -10,6 +10,7 @@
   font-family: 'BIZ UDPGothic';
   font-style: normal;
   font-weight: 700;
+  cursor: default;
 }
 
 /* 自分のメッセージ-投稿時間と編集時間-横並び指定 */
@@ -19,12 +20,14 @@
   height: 50px;
   margin-top: 30px;
   margin-bottom: -10px;
+  margin-right: 5%;
   text-align:right;
   color:black;
   font-size: 16px;
   font-family: 'BIZ UDPGothic';
   font-style: normal;
   font-weight: 400;
+  cursor: default;
 } 
 /* 自分のメッセージ-投稿時間 */
 .message-updatetime-right{
@@ -49,6 +52,7 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 18px;
+  cursor: default;
 }
 /* 他人のメッセージ-投稿時間と編集時間-横並び指定 */
 .other-message-updatetime {
@@ -58,22 +62,26 @@
   height: 50px;
   margin-top: 30px;
   margin-bottom: -10px;
+  margin-left: 5%;
   text-align:right;
   color:black;
   font-size: 16px;
   font-family: 'BIZ UDPGothic';
   font-style: normal;
   font-weight: 400;
+  cursor: default;
 } 
 /* 他人のメッセージ-投稿時間 */
 .message-updatetime-left {
   position: relative;
   width: 110px;
+  cursor: default;
 }
 /* 他人のメッセージ-編集時間 */
 .message-updatetime-left-edit {
   position: relative;
   width: 200px;
+  cursor: default;
 }
 
 
@@ -88,6 +96,7 @@
   position:relative;
   margin: 0;
   width: 500px;
+  left: 5%;
   background: linear-gradient(99.05deg, #DEF7FF 1.44%, #EAD9FF 102.74%);
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
   padding:20px;
@@ -102,6 +111,7 @@
   border-radius:15px;
   -webkit-border-radius:15px;
   -moz-border-radius:15px;
+  cursor: default;
 }
 /* 吹き出し三角部分の指定 */
 .box-left:after {
@@ -126,7 +136,7 @@
 .box-right{
   position:relative;
   width:500px;
-  left: 100%;    /*右寄せの設定１*/
+  left: 95%;    /*右寄せの設定１*/
   transform: translateX(-100%);    /*右寄せの設定２*/
   margin: 0;
   background: linear-gradient(91.89deg, #FFEBEB -1.59%, #FFD8FB 106.35%);
@@ -143,6 +153,8 @@
   border-radius:15px;
   -webkit-border-radius:15px;
   -moz-border-radius:15px;
+  cursor: default;
+  /* border: #00FFA3 solid; */
 }
 /* 吹き出し三角部分の指定 */
 .box-right:after{
@@ -223,6 +235,7 @@ position: absolute;
 top: 0px;
 left: 0px;
 display: block;
+transition: all 0.25s;
 }
 .reaction-btn:hover img:nth-of-type(2){
 opacity: 0;
@@ -247,6 +260,7 @@ opacity: 0;
   top: 0px;
   left: 0px;
   display: block;
+  transition: all 0.25s;
 }
 .update-message-btn:hover img:nth-of-type(2){
 opacity: 0;
@@ -271,15 +285,32 @@ opacity: 0;
   top: 0px;
   left: 0px;
   display: block;
+  transition: all 0.25s;
 }
 .delete-message-btn:hover img:nth-of-type(2){
 opacity: 0;
 }
 
 
-/* テキスト入力エリア */
-.typing-box textarea {
-    width:400px;
+/* ユーザーアイコン指定 */
+/* 自分のアイコン指定 */
+.my-icon img{
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  top: 150px;
+  left: 100%;    /*右寄せの設定１*/
+  transform: translateX(-100%);    /*右寄せの設定２*/
+  top: auto;
+}
+
+/* 他人のアイコン指定 */
+.other-icon img{
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  top: 150px;
+  top: auto;
 }
 
 .flashes {
@@ -290,14 +321,8 @@ opacity: 0;
   color: red;
 }
 
-/* ↓恐らく不要 */
-/* メッセージ編集ボタンの指定 */
-/* .update-message-btn{
-  font-size:3px;
-} */
 
-/* メッセージ削除の指定 */
-/* .delete-message-btn{
-    font-size:3px;
-    margin-left: 5px;
+/* テキスト入力エリア */
+/* .typing-box textarea {
+    width:400px;
 } */

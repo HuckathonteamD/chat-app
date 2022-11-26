@@ -1,19 +1,23 @@
 {% extends 'error/base.html' %}
-{% block title %} error {% endblock %}
+{% block title %}
+ <title>error</title>
+ <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/error.css')}}" />
+{% endblock %}
 {% block body %}
   <body class="error">
     <div class="error-wrapper">
       <div class="error-content">
         <div>
-          <span class="error-num">500</span>
+          <img src="{{url_for('static', filename='img/500.png')}}">
         </div>
-        <div class="error-description error404or500">
+        <div class="error-description error500">
           <p>エラーが発生しました。</p>
           <p>管理者にお問い合わせください。</p>
-          <button class="basic-btn error-btn">
+        </div>
+          <button class="basic-btn-500 error-btn">
             <a href="{{ url_for('index') }}"> 戻る </a>
           </button>
-        </div>
+        
       </div>
     </div>
   </body>

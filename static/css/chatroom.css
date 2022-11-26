@@ -47,6 +47,7 @@ nav ul li {
   background-image: url(../img/myPage-Black.png);
   height: 100px;
   width: 165px;
+  transition: all 0.25s;
 }
 
 .logout:hover {
@@ -95,11 +96,6 @@ nav ul li {
   width: 15%;
   height: 15%;
 }
-
-/* 左側リストの点非表示 */
-/* .left-chatInfo ul {
-  list-style: none;
-} */
 
 /* チャンネル名の指定 */
 #chatroom-name {
@@ -153,6 +149,11 @@ nav ul li {
 
 /* チャンネル編集ボタンの指定 */
 #update-channel-btn {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  left: 21%;
+  top: 135px;
   margin: 0 auto;
   display: block;
   overflow: hidden;
@@ -161,8 +162,8 @@ nav ul li {
 }
 #update-channel-btn img {
   position: absolute;
-  top: 200px;
-  left: 62%;
+  top: 0px;
+  left: 0px;
   display: block;
 }
 #update-channel-btn:hover img:nth-of-type(2){
@@ -176,9 +177,19 @@ nav ul li {
   height: 440px;
   left: 0px;
   top: 30px;
+  /*上下方向にはみ出した要素ををスクロールさせる*/
   overflow-y: scroll;
+  /*スクロールバー非表示（IE・Edge）*/
+  -ms-overflow-style: none;
+  /*スクロールバー非表示（Firefox）*/
+  scrollbar-width: none;
+}
+/*スクロールバー非表示（Chrome・Safari）*/
+.member-scroll::-webkit-scrollbar{
+  display:none;
 }
 
+/* メンバーリストの指定 */
 .Member {
   position: fixed;
   width: 110px;

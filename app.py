@@ -201,12 +201,7 @@ def delete_message():
     if mid and request.method == 'POST':
         dbConnect.deleteMessage(mid)
 
-    channel = dbConnect.getChannelById(cid)
-    messages = dbConnect.getMessageAll(cid)
-    reactions = dbConnect.getReactionAll()
-    messages_reaction = dbConnect.getMessageReactionAll(cid)
-    followers = dbConnect.getFollowerByCid(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
+    return redirect(url_for('detail',cid=cid))
 
 
 @app.route('/update_message', methods=['POST'])
@@ -226,12 +221,7 @@ def update_message():
     if message_uid["uid"] == uid and message and request.method == 'POST':
         dbConnect.updateMessage(uid, cid, message, current_date, mid)
 
-    channel = dbConnect.getChannelById(cid)
-    messages = dbConnect.getMessageAll(cid)
-    reactions = dbConnect.getReactionAll()
-    messages_reaction = dbConnect.getMessageReactionAll(cid)
-    followers = dbConnect.getFollowerByCid(cid)
-    return render_template('detail.html', messages=messages, channel=channel, uid=uid, reactions=reactions, messages_reaction=messages_reaction, followers=followers)
+    return redirect(url_for('detail',cid=cid))
 
 
 # ホーム画面でチャンネルフォロー

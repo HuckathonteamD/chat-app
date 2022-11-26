@@ -73,6 +73,10 @@ nav ul li {
     box-sizing: border-box;
 }
 
+.mypage {
+    position: relative;
+}
+
 /* ユーザー情報の背景の四角 */
 .user-info-sikaku{
     position: absolute;
@@ -91,7 +95,7 @@ nav ul li {
     position: absolute;
     width: 247px;
     height: 37px;
-    left: 295px;
+    left: 350px;
     top: 175px;
     
     font-family: 'BIZ UDPGothic';
@@ -106,7 +110,7 @@ nav ul li {
     position: absolute;
     width: 119px;
     height: 20px;
-    left: 295px;
+    left: 350px;
     top: 213px;
 
     font-family: 'BIZ UDPGothic';
@@ -123,16 +127,40 @@ nav ul li {
     position: absolute;
     width: 90px;
     height: 90px;
-    left: 225px;
+    left: 280px;
     top: 175px;
 }
 
-.user-name{
+.user-icon {
+    position: absolute;
+    left: 350px;
+    top: 280px;
+}
+
+#update-icon-btn{
+    margin: 0 auto;
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+}
+#update-icon-btn img{
+    position: absolute;
+    top: 360px;
+    left: 435px;
+    display: block;
+    transition: all 0.25s;
+    z-index: 1;
+}
+#update-icon-btn:hover img:nth-of-type(2){
+    opacity: 0;
+}
+
+.user-name-mypage{
     position: absolute;
     width: 111px;
     height: 18px;
     left: 221px;
-    top: 270px;
+    top: 426px;
     
     font-family: 'BIZ UDPGothic';
     font-style: normal;
@@ -149,7 +177,7 @@ nav ul li {
     width: 400px;
     height: 60px;
     left: 221px;
-    top: 305px;
+    top: 453px;
     
     background: #FFFFFF;
     border-radius: 5px;
@@ -161,7 +189,7 @@ nav ul li {
     width: 340px;
     height: 18px;
     left: 253px;
-    top: 325px;
+    top: 473px;
     
     font-family: 'BIZ UDPGothic';
     font-style: normal;
@@ -186,7 +214,7 @@ nav ul li {
     width: 131px;
     height: 18px;
     left: 221px;
-    top: 384px;
+    top: 532px;
     
     font-family: 'BIZ UDPGothic';
     font-style: normal;
@@ -203,7 +231,7 @@ nav ul li {
     width: 400px;
     height: 60px;
     left: 221px;
-    top: 411px;
+    top: 559px;
     
     background: #FFFFFF;
     border-radius: 5px;
@@ -215,7 +243,7 @@ nav ul li {
     width: 340px;
     height: 18px;
     left: 253px;
-    top: 432px;
+    top: 580px;
     
     font-family: 'BIZ UDPGothic';
     font-style: normal;
@@ -243,10 +271,8 @@ nav ul li {
 }
 #update-name-email-btn img{
     position: absolute;
-        /* width: 180px;
-        height: 40px; */
     left: 470px;
-    top: 500px;
+    top: 648px;
     display: block;
     transition: all 0.25s;
 }
@@ -259,7 +285,7 @@ nav ul li {
     width: 98px;
     height: 18px;
     left: 221px;
-    top: 579px;
+    top: 727px;
 
     font-family: 'BIZ UDPGothic';
     font-style: normal;
@@ -275,7 +301,7 @@ nav ul li {
     width: 400px;
     height: 60px;
     left: 221px;
-    top: 608px;
+    top: 756px;
     
     background: #FFFFFF;
     border-radius: 5px;
@@ -286,7 +312,7 @@ nav ul li {
     width: 153px;
     height: 18px;
     left: 253px;
-    top: 629px;
+    top: 777px;
     
     font-family: 'BIZ UDPGothic';
     font-style: normal;
@@ -308,7 +334,7 @@ nav ul li {
     /* width: 180px;
     height: 40px; */
     left: 470px;
-    top: 697px;
+    top: 845px;
     display: block;
     transition: all 0.25s;
 }
@@ -455,4 +481,10 @@ nav ul li {
 
 .follow-channel-abstract::-webkit-scrollbar {
     display:none;
+}
+
+.flashes{
+    font-family: 'BIZ UDPGothic';
+    font-style: normal;
+    color: red;
 }

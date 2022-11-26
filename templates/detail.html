@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}
-
-<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/chatroom.css')}}" />
-
   <title>chatroom</title>
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/chatroom.css')}}" />
   <style>
     h1{line-height: 1.2em;margin: 0px 10px 0px 10px;}
     h3{margin: 0px 10px 0px 10px;}
@@ -94,7 +92,7 @@
               <p class="message-updatetime-right">{{ message.created_at.strftime("%Y-%m-%d %H:%M") }}</p>
               <p class="message-updatetime-right-edit">編集:{{ message.updated_at.strftime("%Y-%m-%d %H:%M") }}</p>
             </div>
-              {% endif %}
+            {% endif %}
             <div class="box box-right">
               <p>{{ message.message.replace("\r\n","<br>").replace("\n","<br>") | safe }}</p> <!-- UIにメッセージ内容表示 -->
               <!-- リアクション表示 -->
@@ -117,6 +115,14 @@
                 <img src="{{url_for('static', filename='img/trashB-hover.png')}}" alt="messageDelete">
                 <img src="{{url_for('static', filename='img/trashB.png')}}" alt="messageDelete">
               </button>
+            </div>
+            <!-- ユーザアイコン表示 -->
+            <div class="my-icon">
+              {% if message.user_icon_path %}
+                <img src="{{url_for('static', filename=message.user_icon_path)}}">
+              {% else %}
+                <img src="{{url_for('static', filename='img/user-icon/userIcon.png')}}">
+              {% endif %}
             </div>
             {% include 'modal/delete-message.html' %}
             {% include 'modal/update-message.html' %}
@@ -162,6 +168,14 @@
               </button>
               {% include 'modal/add-reaction.html' %}
             </div>
+            <!-- ユーザアイコン表示 -->
+            <div class="other-icon">
+              {% if message.user_icon_path %}
+                <img src="{{url_for('static', filename=message.user_icon_path)}}">
+              {% else %}
+                <img src="{{url_for('static', filename='img/user-icon/userIcon.png')}}">
+              {% endif %}
+            </div>
           </div>
         {% endif %}
       {% endfor %}
@@ -190,7 +204,7 @@
     const uid = JSON.parse('{{ uid|tojson }}');
   </script>
   <script
-    src="{{url_for('static',filename='js/update-channel.js')}}"
+    src="{{url_for('static',filename='js/detail-modal.js')}}"
     type="text/javascript"
   ></script>
   <script

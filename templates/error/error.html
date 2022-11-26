@@ -11,10 +11,13 @@
           <img src="{{url_for('static', filename='img/ERROR.png')}}">
         </div>
           <div class="error-description-error">
-          <p>{{ error_message }}</p>
-          <button class="basic-btn error-btn">
-            <a href="{{ url_for('index') }}"> 戻る </a>
-          </button>
+            <p>SORRY...</p>
+            <p>下記のエラーが発生しています</p>
+            <br>
+            <p>{{ error_message }}</p>
+            <button class="basic-btn error-btn">
+              <a href="{{ url_for('index') }}"> 戻る </a>
+            </button>
           </div>
       </div>
     </div>

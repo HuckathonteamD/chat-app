@@ -869,6 +869,9 @@
   height:60px;
 }
 
+.icon-img:hover {
+  background-image: url(../img/Home-Black.png);
+}
 
 /* キャンセルボタン */
 #update-icon-close-btn {

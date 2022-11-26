@@ -53,8 +53,9 @@ body{
 }
 
 .error-description-detail{
-    position: relative;
-    left: 590px;
+    /* position: relative; */
+    position: absolute;
+    left: 35%;
     top: 500px;
     height: 180px;
     font-size: 20px;
